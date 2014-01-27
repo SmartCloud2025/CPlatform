@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.tisson.dbmgr.mapper.FansBlackListMapper" >
+  <resultMap id="BaseResultMap" type="cn.tisson.dbmgr.model.FansBlackList" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="FansWebChatID" property="fanswebchatid" jdbcType="VARCHAR" />
+    <result column="ServiceWebChatID" property="servicewebchatid" jdbcType="VARCHAR" />
+    <result column="CreateDate" property="createdate" jdbcType="TIMESTAMP" />
+    <result column="Desription" property="desription" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="cn.tisson.dbmgr.model.FansBlackList" extends="BaseResultMap" >
+    <result column="FrozenTimeStamp" property="frozentimestamp" jdbcType="BINARY" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, FansWebChatID, ServiceWebChatID, CreateDate, Desription
+  </sql>
+  <sql id="Blob_Column_List" >
+    FrozenTimeStamp
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from FansBlackList
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from FansBlackList
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.tisson.dbmgr.model.FansBlackList" >
+    insert into FansBlackList (ID, FansWebChatID, ServiceWebChatID, 
+      CreateDate, Desription, FrozenTimeStamp
+      )
+    values (#{id,jdbcType=INTEGER}, #{fanswebchatid,jdbcType=VARCHAR}, #{servicewebchatid,jdbcType=VARCHAR}, 
+      #{createdate,jdbcType=TIMESTAMP}, #{desription,jdbcType=VARCHAR}, #{frozentimestamp,jdbcType=BINARY}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.tisson.dbmgr.model.FansBlackList" >
+    insert into FansBlackList
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="fanswebchatid != null" >
+        FansWebChatID,
+      </if>
+      <if test="servicewebchatid != null" >
+        ServiceWebChatID,
+      </if>
+      <if test="createdate != null" >
+        CreateDate,
+      </if>
+      <if test="desription != null" >
+        Desription,
+      </if>
+      <if test="frozentimestamp != null" >
+        FrozenTimeStamp,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="fanswebchatid != null" >
+        #{fanswebchatid,jdbcType=VARCHAR},
+      </if>
+      <if test="servicewebchatid != null" >
+        #{servicewebchatid,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null" >
+        #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="desription != null" >
+        #{desription,jdbcType=VARCHAR},
+      </if>
+      <if test="frozentimestamp != null" >
+        #{frozentimestamp,jdbcType=BINARY},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.tisson.dbmgr.model.FansBlackList" >
+    update FansBlackList
+    <set >
+      <if test="fanswebchatid != null" >
+        FansWebChatID = #{fanswebchatid,jdbcType=VARCHAR},
+      </if>
+      <if test="servicewebchatid != null" >
+        ServiceWebChatID = #{servicewebchatid,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null" >
+        CreateDate = #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="desription != null" >
+        Desription = #{desription,jdbcType=VARCHAR},
+      </if>
+      <if test="frozentimestamp != null" >
+        FrozenTimeStamp = #{frozentimestamp,jdbcType=BINARY},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="cn.tisson.dbmgr.model.FansBlackList" >
+    update FansBlackList
+    set FansWebChatID = #{fanswebchatid,jdbcType=VARCHAR},
+      ServiceWebChatID = #{servicewebchatid,jdbcType=VARCHAR},
+      CreateDate = #{createdate,jdbcType=TIMESTAMP},
+      Desription = #{desription,jdbcType=VARCHAR},
+      FrozenTimeStamp = #{frozentimestamp,jdbcType=BINARY}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.tisson.dbmgr.model.FansBlackList" >
+    update FansBlackList
+    set FansWebChatID = #{fanswebchatid,jdbcType=VARCHAR},
+      ServiceWebChatID = #{servicewebchatid,jdbcType=VARCHAR},
+      CreateDate = #{createdate,jdbcType=TIMESTAMP},
+      Desription = #{desription,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

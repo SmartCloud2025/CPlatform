@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.tisson.dbmgr.mapper.FansGroupMapper" >
+  <resultMap id="BaseResultMap" type="cn.tisson.dbmgr.model.FansGroup" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="ServiceWebChatID" property="servicewebchatid" jdbcType="VARCHAR" />
+    <result column="Priority" property="priority" jdbcType="INTEGER" />
+    <result column="GroupName" property="groupname" jdbcType="VARCHAR" />
+    <result column="GroupType" property="grouptype" jdbcType="VARCHAR" />
+    <result column="CreateDate" property="createdate" jdbcType="TIMESTAMP" />
+    <result column="Status" property="status" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, ServiceWebChatID, Priority,GroupName, GroupType, CreateDate, Status
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from FansGroup
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+    <select id="selectByNameAndPriority" resultMap="BaseResultMap" parameterType="cn.tisson.dbmgr.model.FansGroup" >
+        select
+        <include refid="Base_Column_List" />
+        from FansGroup
+        where GroupName = #{groupname,jdbcType=VARCHAR} and Priority = #{priority,jdbcType=INTEGER}
+    </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from FansGroup
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.tisson.dbmgr.model.FansGroup" >
+    insert into FansGroup (ID, ServiceWebChatID,Priority, GroupName,
+      GroupType, CreateDate, Status
+      )
+    values (#{id,jdbcType=INTEGER},#{priority,jdbcType=INTEGER}, #{servicewebchatid,jdbcType=VARCHAR}, #{groupname,jdbcType=VARCHAR},
+      #{grouptype,jdbcType=VARCHAR}, #{createdate,jdbcType=TIMESTAMP}, #{status,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.tisson.dbmgr.model.FansGroup" >
+    insert into FansGroup
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="servicewebchatid != null" >
+        ServiceWebChatID,
+      </if>      <if test="priority != null" >
+        Priority,
+      </if>
+      <if test="groupname != null" >
+        GroupName,
+      </if>
+      <if test="grouptype != null" >
+        GroupType,
+      </if>
+      <if test="createdate != null" >
+        CreateDate,
+      </if>
+      <if test="status != null" >
+        Status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="servicewebchatid != null" >
+        #{servicewebchatid,jdbcType=VARCHAR},
+      </if>      <if test="priority != null" >
+        #{priority,jdbcType=INTEGER},
+      </if>
+      <if test="groupname != null" >
+        #{groupname,jdbcType=VARCHAR},
+      </if>
+      <if test="grouptype != null" >
+        #{grouptype,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null" >
+        #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.tisson.dbmgr.model.FansGroup" >
+    update FansGroup
+    <set >
+      <if test="servicewebchatid != null" >
+        ServiceWebChatID = #{servicewebchatid,jdbcType=VARCHAR},
+      </if>      <if test="priority != null" >
+        Priority = #{priority,jdbcType=INTEGER},
+      </if>
+      <if test="groupname != null" >
+        GroupName = #{groupname,jdbcType=VARCHAR},
+      </if>
+      <if test="grouptype != null" >
+        GroupType = #{grouptype,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null" >
+        CreateDate = #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        Status = #{status,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.tisson.dbmgr.model.FansGroup" >
+    update FansGroup
+    set ServiceWebChatID = #{servicewebchatid,jdbcType=VARCHAR},Priority = #{priority,jdbcType=INTEGER},
+      GroupName = #{groupname,jdbcType=VARCHAR},
+      GroupType = #{grouptype,jdbcType=VARCHAR},
+      CreateDate = #{createdate,jdbcType=TIMESTAMP},
+      Status = #{status,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

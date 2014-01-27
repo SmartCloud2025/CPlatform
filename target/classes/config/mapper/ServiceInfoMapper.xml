@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.tisson.dbmgr.mapper.ServiceInfoMapper">
+    <resultMap id="BaseResultMap" type="cn.tisson.dbmgr.model.ServiceInfo">
+        <id column="ID" property="id" jdbcType="INTEGER"/>
+        <result column="WebChatID" property="webchatid" jdbcType="VARCHAR"/>
+        <result column="ServiceType" property="servicetype" jdbcType="VARCHAR"/>
+        <result column="URL" property="url" jdbcType="VARCHAR"/>
+        <result column="Token" property="token" jdbcType="VARCHAR"/>
+        <result column="BoundDate" property="bounddate" jdbcType="TIMESTAMP"/>
+        <result column="Status" property="status" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    ID, WebChatID, ServiceType, URL, Token, BoundDate, Status
+  </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from ServiceInfo
+        where ID = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ServiceInfo
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="cn.tisson.dbmgr.model.ServiceInfo">
+    insert into ServiceInfo (ID, WebChatID, ServiceType, 
+      URL, Token, BoundDate, 
+      Status)
+    values (#{id,jdbcType=INTEGER}, #{webchatid,jdbcType=VARCHAR}, #{servicetype,jdbcType=VARCHAR}, 
+      #{url,jdbcType=VARCHAR}, #{token,jdbcType=VARCHAR}, #{bounddate,jdbcType=TIMESTAMP}, 
+      #{status,jdbcType=VARCHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="cn.tisson.dbmgr.model.ServiceInfo">
+        insert into ServiceInfo
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                ID,
+            </if>
+            <if test="webchatid != null">
+                WebChatID,
+            </if>
+            <if test="servicetype != null">
+                ServiceType,
+            </if>
+            <if test="url != null">
+                URL,
+            </if>
+            <if test="token != null">
+                Token,
+            </if>
+            <if test="bounddate != null">
+                BoundDate,
+            </if>
+            <if test="status != null">
+                Status,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="webchatid != null">
+                #{webchatid,jdbcType=VARCHAR},
+            </if>
+            <if test="servicetype != null">
+                #{servicetype,jdbcType=VARCHAR},
+            </if>
+            <if test="url != null">
+                #{url,jdbcType=VARCHAR},
+            </if>
+            <if test="token != null">
+                #{token,jdbcType=VARCHAR},
+            </if>
+            <if test="bounddate != null">
+                #{bounddate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="cn.tisson.dbmgr.model.ServiceInfo">
+        update ServiceInfo
+        <set>
+            <if test="webchatid != null">
+                WebChatID = #{webchatid,jdbcType=VARCHAR},
+            </if>
+            <if test="servicetype != null">
+                ServiceType = #{servicetype,jdbcType=VARCHAR},
+            </if>
+            <if test="url != null">
+                URL = #{url,jdbcType=VARCHAR},
+            </if>
+            <if test="token != null">
+                Token = #{token,jdbcType=VARCHAR},
+            </if>
+            <if test="bounddate != null">
+                BoundDate = #{bounddate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="status != null">
+                Status = #{status,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where ID = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="cn.tisson.dbmgr.model.ServiceInfo">
+    update ServiceInfo
+    set WebChatID = #{webchatid,jdbcType=VARCHAR},
+      ServiceType = #{servicetype,jdbcType=VARCHAR},
+      URL = #{url,jdbcType=VARCHAR},
+      Token = #{token,jdbcType=VARCHAR},
+      BoundDate = #{bounddate,jdbcType=TIMESTAMP},
+      Status = #{status,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+
+    <resultMap id="FansInfoResultMap" type="cn.tisson.dbmgr.model.FansInfo">
+        <id column="FIID" property="id" jdbcType="INTEGER"/>
+        <result column="FIWebChatID" property="webchatid" jdbcType="VARCHAR"/>
+        <result column="FIServiceWebChatID" property="servicewebchatid" jdbcType="VARCHAR"/>
+        <result column="FIFansGroupID" property="fansgroupid" jdbcType="INTEGER"/>
+        <result column="FIFanName" property="fanname" jdbcType="VARCHAR"/>
+        <result column="FIAddress" property="address" jdbcType="VARCHAR"/>
+        <result column="FISex" property="sex" jdbcType="VARCHAR"/>
+        <result column="FIFocusTime" property="focustime" jdbcType="TIMESTAMP"/>
+        <result column="FIFocusType" property="focustype" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <resultMap id="ServiceInfoResultMap" type="cn.tisson.dbmgr.model.ServiceInfo" extends="BaseResultMap">
+        <collection property="fansGroups" javaType="list" ofType="cn.tisson.dbmgr.model.FansGroup">
+            <id column="FID" property="id" jdbcType="INTEGER"/>
+            <result column="FPriority" property="priority" jdbcType="INTEGER"/>
+            <result column="FServiceWebChatID" property="servicewebchatid" jdbcType="VARCHAR"/>
+            <result column="FGroupName" property="groupname" jdbcType="VARCHAR"/>
+            <result column="FGroupType" property="grouptype" jdbcType="VARCHAR"/>
+            <result column="FCreateDate" property="createdate" jdbcType="TIMESTAMP"/>
+            <result column="FStatus" property="status" jdbcType="VARCHAR"/>
+            <collection property="fansInfoList" resultMap="FansInfoResultMap"/>
+        </collection>
+
+    </resultMap>
+
+
+    <select id="getAll" resultMap="ServiceInfoResultMap">
+        <![CDATA[
+
+          SELECT
+               s.ID
+              ,s.WebChatID
+              ,s.ServiceType
+              ,s.URL
+              ,s.Token
+              ,s.BoundDate
+              ,s.Status
+
+              ,f.ID FID
+              ,f.ServiceWebChatID FServiceWebChatID
+              ,f.Priority FPriority
+              ,f.GroupName FGroupName
+              ,f.GroupType FGroupType
+              ,f.CreateDate FCreateDate
+              ,f.Status  FStatus
+
+              ,fi.ID  FIID
+              ,fi.WebChatID FIWebChatID
+              ,fi.FansGroupID FIFansGroupID
+              ,fi.FanName FIFanName
+              ,fi.Address FIAddress
+              ,fi.Sex FISex
+              ,fi.FocusTime FIFocusTime
+              ,fi.FocusType FIFocusType
+
+        FROM
+            ServiceInfo s
+        left join
+            FansGroup f
+        on
+            s.WebChatID=f.ServiceWebChatID
+        left join
+            FansInfo fi
+        on
+            f.ID = fi.FansGroupID
+
+        ]]>
+
+    </select>
+</mapper>
