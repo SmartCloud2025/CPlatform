@@ -157,7 +157,7 @@ public class ReqFromWebChatService {
 
         logger.info("请求body转换的实体:" + JSON.toJSONString(reqMessage));
         BaseRespMsg respMsg = handler.handle(reqMessage);
-        logger.info("处理请求后响应的实体为:" + JSON.toJSONString(reqMessage));
+        logger.info("处理请求后响应的实体为:" + JSON.toJSONString(respMsg));
 
         /**
          * 如果忽略用户的请求信息则返回null
@@ -166,7 +166,8 @@ public class ReqFromWebChatService {
             return "";
         }
         String resp = encoder.encode(respMsg);
-        logger.info("处理请求后响应的内容为:" + resp);
+
+        logger.info("处理请求后响应的XML为:" + (resp));
 
         return resp;
     }
