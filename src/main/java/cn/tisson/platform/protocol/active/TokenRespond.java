@@ -1,5 +1,7 @@
 package cn.tisson.platform.protocol.active;
 
+import java.util.Date;
+
 /**
  * User: Jasic
  * Date: 13-12-4
@@ -9,7 +11,19 @@ public class TokenRespond extends BaseRespond {
     private String access_token;
     private String expires_in;
 
+
+    private Date date;
+
+
     public TokenRespond() {
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public String getAccess_token() {

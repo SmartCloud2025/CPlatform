@@ -3,11 +3,12 @@
 <mapper namespace="cn.tisson.dbmgr.mapper.TextMapper" >
   <resultMap id="BaseResultMap" type="cn.tisson.dbmgr.model.Text" >
     <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="ServiceWebChatID" property="servicewebchatid" jdbcType="VARCHAR" />
     <result column="Content" property="content" jdbcType="VARCHAR" />
     <result column="Description" property="description" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    ID, Content, Description
+    ID, ServiceWebChatID, Content, Description
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -20,16 +21,19 @@
     where ID = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="cn.tisson.dbmgr.model.Text" >
-    insert into Text (ID, Content, Description
-      )
-    values (#{id,jdbcType=INTEGER}, #{content,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}
-      )
+    insert into Text (ID, ServiceWebChatID, Content, 
+      Description)
+    values (#{id,jdbcType=INTEGER}, #{servicewebchatid,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
+      #{description,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="cn.tisson.dbmgr.model.Text" >
     insert into Text
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         ID,
+      </if>
+      <if test="servicewebchatid != null" >
+        ServiceWebChatID,
       </if>
       <if test="content != null" >
         Content,
@@ -42,6 +46,9 @@
       <if test="id != null" >
         #{id,jdbcType=INTEGER},
       </if>
+      <if test="servicewebchatid != null" >
+        #{servicewebchatid,jdbcType=VARCHAR},
+      </if>
       <if test="content != null" >
         #{content,jdbcType=VARCHAR},
       </if>
@@ -53,6 +60,9 @@
   <update id="updateByPrimaryKeySelective" parameterType="cn.tisson.dbmgr.model.Text" >
     update Text
     <set >
+      <if test="servicewebchatid != null" >
+        ServiceWebChatID = #{servicewebchatid,jdbcType=VARCHAR},
+      </if>
       <if test="content != null" >
         Content = #{content,jdbcType=VARCHAR},
       </if>
@@ -64,11 +74,11 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="cn.tisson.dbmgr.model.Text" >
     update Text
-    set Content = #{content,jdbcType=VARCHAR},
+    set ServiceWebChatID = #{servicewebchatid,jdbcType=VARCHAR},
+      Content = #{content,jdbcType=VARCHAR},
       Description = #{description,jdbcType=VARCHAR}
     where ID = #{id,jdbcType=INTEGER}
   </update>
-
     <select id="getAll" resultMap="BaseResultMap">
       <![CDATA[
         select  * from Text

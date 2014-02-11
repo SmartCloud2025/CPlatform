@@ -1,115 +1,139 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="cn.tisson.dbmgr.mapper.ServiceInfoMapper">
-    <resultMap id="BaseResultMap" type="cn.tisson.dbmgr.model.ServiceInfo">
-        <id column="ID" property="id" jdbcType="INTEGER"/>
-        <result column="WebChatID" property="webchatid" jdbcType="VARCHAR"/>
-        <result column="ServiceType" property="servicetype" jdbcType="VARCHAR"/>
-        <result column="URL" property="url" jdbcType="VARCHAR"/>
-        <result column="Token" property="token" jdbcType="VARCHAR"/>
-        <result column="BoundDate" property="bounddate" jdbcType="TIMESTAMP"/>
-        <result column="Status" property="status" jdbcType="VARCHAR"/>
-    </resultMap>
-    <sql id="Base_Column_List">
-    ID, WebChatID, ServiceType, URL, Token, BoundDate, Status
+<mapper namespace="cn.tisson.dbmgr.mapper.ServiceInfoMapper" >
+  <resultMap id="BaseResultMap" type="cn.tisson.dbmgr.model.ServiceInfo" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="WebChatID" property="webchatid" jdbcType="VARCHAR" />
+    <result column="ServiceType" property="servicetype" jdbcType="VARCHAR" />
+    <result column="URL" property="url" jdbcType="VARCHAR" />
+    <result column="Token" property="token" jdbcType="VARCHAR" />
+    <result column="AppID" property="appid" jdbcType="VARCHAR" />
+    <result column="AppSecret" property="appsecret" jdbcType="VARCHAR" />
+    <result column="BoundDate" property="bounddate" jdbcType="TIMESTAMP" />
+    <result column="Status" property="status" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, WebChatID, ServiceType, URL, Token, AppID, AppSecret, BoundDate, Status
   </sql>
-    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
-        select
-        <include refid="Base_Column_List"/>
-        from ServiceInfo
-        where ID = #{id,jdbcType=INTEGER}
-    </select>
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from ServiceInfo
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from ServiceInfo
     where ID = #{id,jdbcType=INTEGER}
   </delete>
-    <insert id="insert" parameterType="cn.tisson.dbmgr.model.ServiceInfo">
+  <insert id="insert" parameterType="cn.tisson.dbmgr.model.ServiceInfo" >
     insert into ServiceInfo (ID, WebChatID, ServiceType, 
-      URL, Token, BoundDate, 
-      Status)
+      URL, Token, AppID, 
+      AppSecret, BoundDate, Status
+      )
     values (#{id,jdbcType=INTEGER}, #{webchatid,jdbcType=VARCHAR}, #{servicetype,jdbcType=VARCHAR}, 
-      #{url,jdbcType=VARCHAR}, #{token,jdbcType=VARCHAR}, #{bounddate,jdbcType=TIMESTAMP}, 
-      #{status,jdbcType=VARCHAR})
+      #{url,jdbcType=VARCHAR}, #{token,jdbcType=VARCHAR}, #{appid,jdbcType=VARCHAR}, 
+      #{appsecret,jdbcType=VARCHAR}, #{bounddate,jdbcType=TIMESTAMP}, #{status,jdbcType=VARCHAR}
+      )
   </insert>
-    <insert id="insertSelective" parameterType="cn.tisson.dbmgr.model.ServiceInfo">
-        insert into ServiceInfo
-        <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="id != null">
-                ID,
-            </if>
-            <if test="webchatid != null">
-                WebChatID,
-            </if>
-            <if test="servicetype != null">
-                ServiceType,
-            </if>
-            <if test="url != null">
-                URL,
-            </if>
-            <if test="token != null">
-                Token,
-            </if>
-            <if test="bounddate != null">
-                BoundDate,
-            </if>
-            <if test="status != null">
-                Status,
-            </if>
-        </trim>
-        <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="id != null">
-                #{id,jdbcType=INTEGER},
-            </if>
-            <if test="webchatid != null">
-                #{webchatid,jdbcType=VARCHAR},
-            </if>
-            <if test="servicetype != null">
-                #{servicetype,jdbcType=VARCHAR},
-            </if>
-            <if test="url != null">
-                #{url,jdbcType=VARCHAR},
-            </if>
-            <if test="token != null">
-                #{token,jdbcType=VARCHAR},
-            </if>
-            <if test="bounddate != null">
-                #{bounddate,jdbcType=TIMESTAMP},
-            </if>
-            <if test="status != null">
-                #{status,jdbcType=VARCHAR},
-            </if>
-        </trim>
-    </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="cn.tisson.dbmgr.model.ServiceInfo">
-        update ServiceInfo
-        <set>
-            <if test="webchatid != null">
-                WebChatID = #{webchatid,jdbcType=VARCHAR},
-            </if>
-            <if test="servicetype != null">
-                ServiceType = #{servicetype,jdbcType=VARCHAR},
-            </if>
-            <if test="url != null">
-                URL = #{url,jdbcType=VARCHAR},
-            </if>
-            <if test="token != null">
-                Token = #{token,jdbcType=VARCHAR},
-            </if>
-            <if test="bounddate != null">
-                BoundDate = #{bounddate,jdbcType=TIMESTAMP},
-            </if>
-            <if test="status != null">
-                Status = #{status,jdbcType=VARCHAR},
-            </if>
-        </set>
-        where ID = #{id,jdbcType=INTEGER}
-    </update>
-    <update id="updateByPrimaryKey" parameterType="cn.tisson.dbmgr.model.ServiceInfo">
+  <insert id="insertSelective" parameterType="cn.tisson.dbmgr.model.ServiceInfo" >
+    insert into ServiceInfo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="webchatid != null" >
+        WebChatID,
+      </if>
+      <if test="servicetype != null" >
+        ServiceType,
+      </if>
+      <if test="url != null" >
+        URL,
+      </if>
+      <if test="token != null" >
+        Token,
+      </if>
+      <if test="appid != null" >
+        AppID,
+      </if>
+      <if test="appsecret != null" >
+        AppSecret,
+      </if>
+      <if test="bounddate != null" >
+        BoundDate,
+      </if>
+      <if test="status != null" >
+        Status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="webchatid != null" >
+        #{webchatid,jdbcType=VARCHAR},
+      </if>
+      <if test="servicetype != null" >
+        #{servicetype,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="token != null" >
+        #{token,jdbcType=VARCHAR},
+      </if>
+      <if test="appid != null" >
+        #{appid,jdbcType=VARCHAR},
+      </if>
+      <if test="appsecret != null" >
+        #{appsecret,jdbcType=VARCHAR},
+      </if>
+      <if test="bounddate != null" >
+        #{bounddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.tisson.dbmgr.model.ServiceInfo" >
+    update ServiceInfo
+    <set >
+      <if test="webchatid != null" >
+        WebChatID = #{webchatid,jdbcType=VARCHAR},
+      </if>
+      <if test="servicetype != null" >
+        ServiceType = #{servicetype,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        URL = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="token != null" >
+        Token = #{token,jdbcType=VARCHAR},
+      </if>
+      <if test="appid != null" >
+        AppID = #{appid,jdbcType=VARCHAR},
+      </if>
+      <if test="appsecret != null" >
+        AppSecret = #{appsecret,jdbcType=VARCHAR},
+      </if>
+      <if test="bounddate != null" >
+        BoundDate = #{bounddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        Status = #{status,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.tisson.dbmgr.model.ServiceInfo" >
     update ServiceInfo
     set WebChatID = #{webchatid,jdbcType=VARCHAR},
       ServiceType = #{servicetype,jdbcType=VARCHAR},
       URL = #{url,jdbcType=VARCHAR},
       Token = #{token,jdbcType=VARCHAR},
+      AppID = #{appid,jdbcType=VARCHAR},
+      AppSecret = #{appsecret,jdbcType=VARCHAR},
       BoundDate = #{bounddate,jdbcType=TIMESTAMP},
       Status = #{status,jdbcType=VARCHAR}
     where ID = #{id,jdbcType=INTEGER}
@@ -153,6 +177,8 @@
               ,s.Token
               ,s.BoundDate
               ,s.Status
+              ,s.AppID
+              ,s.AppSecret
 
               ,f.ID FID
               ,f.ServiceWebChatID FServiceWebChatID

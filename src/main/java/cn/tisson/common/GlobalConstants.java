@@ -47,4 +47,13 @@ public class GlobalConstants {
     public static final Integer FANS_GROUP_DEFAULT_PRIORITY = 0;
     public static final String FANS_GROUP_DEFAULT_STATUS = "A001";
     public static final Date FANS_GROUP_DEFAULT_CREATE_DATE = new Date();
+
+
+
+    public static final String CMD_CONFIG_CTYPE_CT01 = "CT01";
+    public static final String CMD_CONFIG_CTYPE_CT02 = "CT02";
+
+
+
+
 }

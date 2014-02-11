@@ -3,6 +3,7 @@ package cn.tisson.dbmgr.model;
 public class Text {
     private Integer id;
 
+    private String servicewebchatid;
     private String content;
 
     private String description;
@@ -29,5 +30,13 @@ public class Text {
 
     public void setDescription(String description) {
         this.description = description == null ? null : description.trim();
+    }
+
+    public String getServicewebchatid() {
+        return servicewebchatid;
+    }
+
+    public void setServicewebchatid(String servicewebchatid) {
+        this.servicewebchatid = servicewebchatid;
     }
 }

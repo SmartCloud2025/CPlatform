@@ -1,9 +1,14 @@
 package cn.tisson.platform.process;
 
 
+import cn.tisson.common.GlobalCaches;
+import cn.tisson.dbmgr.model.ServiceInfo;
 import cn.tisson.platform.protocol.req.BaseReqMsg;
 import cn.tisson.platform.protocol.req.event.EventReqMsg;
 import cn.tisson.platform.protocol.resp.BaseRespMsg;
+import com.alibaba.fastjson.JSON;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 import java.util.Timer;
@@ -19,15 +24,20 @@ import java.util.TimerTask;
  */
 public abstract class AProcessor<E extends BaseReqMsg> {
 
+    private final static Logger logger = LoggerFactory.getLogger(AProcessor.class);
+
     protected abstract BaseRespMsg doProcess(E msg);
 
     protected abstract List<Object> getExcludeDuplicate();
+
+    protected ThreadLocal<ServiceInfo> SERVICE_INFO_MAP;
 
     private Timer timer;
 
     public AProcessor() {
 
         timer = new Timer("微信消息排重");
+        SERVICE_INFO_MAP = new ThreadLocal<ServiceInfo>();
     }
 
     /**
@@ -56,7 +66,13 @@ public abstract class AProcessor<E extends BaseReqMsg> {
         /**
          * 第二步
          */
-        boolean step2 = true;
+        boolean step2 = false;
+
+        ServiceInfo serviceInfo = GlobalCaches.DB_CACHE_SERVICE_INFO.get(msg.getToUserName());
+        if (serviceInfo != null) {
+            SERVICE_INFO_MAP.set(serviceInfo);
+            step2 = true;
+        }
 
         return step1 && step2;
     }
@@ -78,7 +94,7 @@ public abstract class AProcessor<E extends BaseReqMsg> {
         List<Object> keys = getExcludeDuplicate();
         if (key != null) {
             TimerTask task = new RemoveTask(keys, key);
-            timer.schedule(task, 60 * 1000);
+            timer.schedule(task, 5 * 1000);
         }
 
     }
@@ -92,6 +108,8 @@ public abstract class AProcessor<E extends BaseReqMsg> {
         BaseRespMsg respMsg = null;
         if (beforeProcess(msg)) {
             respMsg = doProcess(msg);
+        } else {
+            logger.warn("此信息被过滤:" + JSON.toJSONString(msg));
         }
 
         afterProcess(msg);

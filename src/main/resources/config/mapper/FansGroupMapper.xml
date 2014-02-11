@@ -19,11 +19,11 @@
     from FansGroup
     where ID = #{id,jdbcType=INTEGER}
   </select>
-    <select id="selectByNameAndPriority" resultMap="BaseResultMap" parameterType="cn.tisson.dbmgr.model.FansGroup" >
+    <select id="selectByWebchatNamePriority" resultMap="BaseResultMap" parameterType="cn.tisson.dbmgr.model.FansGroup" >
         select
         <include refid="Base_Column_List" />
         from FansGroup
-        where GroupName = #{groupname,jdbcType=VARCHAR} and Priority = #{priority,jdbcType=INTEGER}
+        where ServiceWebChatID = #{servicewebchatid,jdbcType=VARCHAR} and GroupName = #{groupname,jdbcType=VARCHAR} and Priority = #{priority,jdbcType=INTEGER}
     </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from FansGroup

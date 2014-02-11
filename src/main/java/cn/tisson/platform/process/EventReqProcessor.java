@@ -173,59 +173,7 @@ public class EventReqProcessor extends AProcessor<EventReqMsg> {
             String type = subcEventPushMsg.getType().toLowerCase().trim();
             Integer msgId = subcEventPushMsg.getMsgid();
 
-            /**
-             * 图文
-             */
-            if (type.equals(MessageUtil.RESP_MESSAGE_TYPE_NEWS.toLowerCase().trim())) {
-
-                NewsRespMsg newsRespMsg = new NewsRespMsg();
-                newsRespMsg.setFromUserName(msg.getToUserName());
-                newsRespMsg.setToUserName(msg.getFromUserName());
-                newsRespMsg.setCreateTime(System.currentTimeMillis() / 1000);
-
-
-                NewsMsg newsMsg = GlobalCaches.DB_CACHE_NEWS_MSG.get(msgId);
-                List<cn.tisson.dbmgr.model.Article> articles = newsMsg.getArticles();
-
-                List<Article> arts = new ArrayList<Article>();
-                for (cn.tisson.dbmgr.model.Article article : articles) {
-                    Article a = new Article();
-                    a.setUrl(article.getUrl());
-                    a.setDescription(article.getDescription());
-                    a.setPicUrl(article.getPicurl());
-                    a.setTitle(article.getTitle());
-                    arts.add(a);
-                }
-
-                newsRespMsg.setArticles(arts);
-                newsRespMsg.setArticleCount(arts.size());
-
-                resp = newsRespMsg;
-            }
-
-            /**
-             * 文字（在数据库配置默认的规则）
-             */
-            else if (type.equals(MessageUtil.RESP_MESSAGE_TYPE_TEXT.toLowerCase().trim())) {
-
-                TextRespMsg respMsg = new TextRespMsg();
-                respMsg.setFromUserName(msg.getToUserName());
-                respMsg.setToUserName(msg.getFromUserName());
-                respMsg.setCreateTime(System.currentTimeMillis() / 1000);
-
-                Text text = GlobalCaches.DB_CACHE_TEXT_MSG.get(msgId);
-
-                respMsg.setContent(text.getContent());
-                resp = respMsg;
-            }
-
-            /**
-             * 设置默认的
-             */
-            else {
-
-                return null;
-            }
+           resp = LogicHelper.getConfigResp(msg.getFromUserName(),msg.getToUserName(),type,msgId);
         }
         if (resp == null) {
             TextRespMsg respMsg = new TextRespMsg();

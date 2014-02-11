@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.tisson.dbmgr.mapper.ActiveMusicMapper" >
+  <resultMap id="BaseResultMap" type="cn.tisson.dbmgr.model.ActiveMusic" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="ServiceWebChatID" property="servicewebchatid" jdbcType="VARCHAR" />
+    <result column="Title" property="title" jdbcType="VARCHAR" />
+    <result column="Musicurl" property="musicurl" jdbcType="VARCHAR" />
+    <result column="Hqmusicurl" property="hqmusicurl" jdbcType="VARCHAR" />
+    <result column="Thumb_media_id" property="thumbMediaId" jdbcType="VARCHAR" />
+    <result column="Description" property="description" jdbcType="VARCHAR" />
+    <result column="CreateDate" property="createdate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, ServiceWebChatID, Title, Musicurl, Hqmusicurl, Thumb_media_id, Description, CreateDate
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from ActiveMusic
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from ActiveMusic
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.tisson.dbmgr.model.ActiveMusic" >
+    insert into ActiveMusic (ID, ServiceWebChatID, Title, 
+      Musicurl, Hqmusicurl, Thumb_media_id, 
+      Description, CreateDate)
+    values (#{id,jdbcType=INTEGER}, #{servicewebchatid,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
+      #{musicurl,jdbcType=VARCHAR}, #{hqmusicurl,jdbcType=VARCHAR}, #{thumbMediaId,jdbcType=VARCHAR}, 
+      #{description,jdbcType=VARCHAR}, #{createdate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.tisson.dbmgr.model.ActiveMusic" >
+    insert into ActiveMusic
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="servicewebchatid != null" >
+        ServiceWebChatID,
+      </if>
+      <if test="title != null" >
+        Title,
+      </if>
+      <if test="musicurl != null" >
+        Musicurl,
+      </if>
+      <if test="hqmusicurl != null" >
+        Hqmusicurl,
+      </if>
+      <if test="thumbMediaId != null" >
+        Thumb_media_id,
+      </if>
+      <if test="description != null" >
+        Description,
+      </if>
+      <if test="createdate != null" >
+        CreateDate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="servicewebchatid != null" >
+        #{servicewebchatid,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="musicurl != null" >
+        #{musicurl,jdbcType=VARCHAR},
+      </if>
+      <if test="hqmusicurl != null" >
+        #{hqmusicurl,jdbcType=VARCHAR},
+      </if>
+      <if test="thumbMediaId != null" >
+        #{thumbMediaId,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null" >
+        #{createdate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.tisson.dbmgr.model.ActiveMusic" >
+    update ActiveMusic
+    <set >
+      <if test="servicewebchatid != null" >
+        ServiceWebChatID = #{servicewebchatid,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        Title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="musicurl != null" >
+        Musicurl = #{musicurl,jdbcType=VARCHAR},
+      </if>
+      <if test="hqmusicurl != null" >
+        Hqmusicurl = #{hqmusicurl,jdbcType=VARCHAR},
+      </if>
+      <if test="thumbMediaId != null" >
+        Thumb_media_id = #{thumbMediaId,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        Description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null" >
+        CreateDate = #{createdate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.tisson.dbmgr.model.ActiveMusic" >
+    update ActiveMusic
+    set ServiceWebChatID = #{servicewebchatid,jdbcType=VARCHAR},
+      Title = #{title,jdbcType=VARCHAR},
+      Musicurl = #{musicurl,jdbcType=VARCHAR},
+      Hqmusicurl = #{hqmusicurl,jdbcType=VARCHAR},
+      Thumb_media_id = #{thumbMediaId,jdbcType=VARCHAR},
+      Description = #{description,jdbcType=VARCHAR},
+      CreateDate = #{createdate,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

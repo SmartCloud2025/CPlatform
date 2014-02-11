@@ -25,6 +25,10 @@ public class ServiceInfo {
 
     private String token;
 
+    private String appid;
+
+    private String appsecret;
+
     private Date bounddate;
 
     private String status;
@@ -67,6 +71,22 @@ public class ServiceInfo {
 
     public void setToken(String token) {
         this.token = token == null ? null : token.trim();
+    }
+
+    public String getAppid() {
+        return appid;
+    }
+
+    public void setAppid(String appid) {
+        this.appid = appid == null ? null : appid.trim();
+    }
+
+    public String getAppsecret() {
+        return appsecret;
+    }
+
+    public void setAppsecret(String appsecret) {
+        this.appsecret = appsecret == null ? null : appsecret.trim();
     }
 
     public Date getBounddate() {

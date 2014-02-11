@@ -9,9 +9,11 @@ public class CmdConfig {
 
     private String cmd;
 
-    private String cmdcontend;
-
     private String type;
+
+    private Integer msgid;
+
+    private String ctype;
 
     private String status;
 
@@ -47,20 +49,28 @@ public class CmdConfig {
         this.cmd = cmd == null ? null : cmd.trim();
     }
 
-    public String getCmdcontend() {
-        return cmdcontend;
-    }
-
-    public void setCmdcontend(String cmdcontend) {
-        this.cmdcontend = cmdcontend == null ? null : cmdcontend.trim();
-    }
-
     public String getType() {
         return type;
     }
 
     public void setType(String type) {
         this.type = type == null ? null : type.trim();
+    }
+
+    public Integer getMsgid() {
+        return msgid;
+    }
+
+    public void setMsgid(Integer msgid) {
+        this.msgid = msgid;
+    }
+
+    public String getCtype() {
+        return ctype;
+    }
+
+    public void setCtype(String ctype) {
+        this.ctype = ctype == null ? null : ctype.trim();
     }
 
     public String getStatus() {

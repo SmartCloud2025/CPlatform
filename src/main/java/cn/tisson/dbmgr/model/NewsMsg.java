@@ -33,5 +33,13 @@ public class NewsMsg {
     public void setDescription(String description) {
         this.description = description;
     }
+    private String servicewebchatid;
 
+    public String getServicewebchatid() {
+        return servicewebchatid;
+    }
+
+    public void setServicewebchatid(String servicewebchatid) {
+        this.servicewebchatid = servicewebchatid;
+    }
 }

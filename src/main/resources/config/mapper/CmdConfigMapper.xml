@@ -1,117 +1,145 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="cn.tisson.dbmgr.mapper.CmdConfigMapper" >
-  <resultMap id="BaseResultMap" type="cn.tisson.dbmgr.model.CmdConfig" >
-    <id column="ID" property="id" jdbcType="INTEGER" />
-    <result column="ServiceWebChatID" property="servicewebchatid" jdbcType="VARCHAR" />
-    <result column="FansGroupId" property="fansgroupid" jdbcType="INTEGER" />
-    <result column="Cmd" property="cmd" jdbcType="VARCHAR" />
-    <result column="CmdContend" property="cmdcontend" jdbcType="VARCHAR" />
-    <result column="Type" property="type" jdbcType="VARCHAR" />
-    <result column="Status" property="status" jdbcType="VARCHAR" />
-  </resultMap>
-  <sql id="Base_Column_List" >
-    ID, ServiceWebChatID, FansGroupId, Cmd, CmdContend, Type, Status
+<mapper namespace="cn.tisson.dbmgr.mapper.CmdConfigMapper">
+    <resultMap id="BaseResultMap" type="cn.tisson.dbmgr.model.CmdConfig">
+        <id column="ID" property="id" jdbcType="INTEGER"/>
+        <result column="ServiceWebChatID" property="servicewebchatid" jdbcType="VARCHAR"/>
+        <result column="FansGroupId" property="fansgroupid" jdbcType="INTEGER"/>
+        <result column="Cmd" property="cmd" jdbcType="VARCHAR"/>
+        <result column="Type" property="type" jdbcType="VARCHAR"/>
+        <result column="MsgID" property="msgid" jdbcType="INTEGER"/>
+        <result column="CType" property="ctype" jdbcType="VARCHAR"/>
+        <result column="Status" property="status" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    ID, ServiceWebChatID, FansGroupId, Cmd, Type, MsgID, CType, Status
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    from CmdConfig
-    where ID = #{id,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from CmdConfig
+        where ID = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from CmdConfig
     where ID = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="cn.tisson.dbmgr.model.CmdConfig" >
+    <insert id="insert" parameterType="cn.tisson.dbmgr.model.CmdConfig">
     insert into CmdConfig (ID, ServiceWebChatID, FansGroupId, 
-      Cmd, CmdContend, Type, 
+      Cmd, Type, MsgID, CType, 
       Status)
     values (#{id,jdbcType=INTEGER}, #{servicewebchatid,jdbcType=VARCHAR}, #{fansgroupid,jdbcType=INTEGER}, 
-      #{cmd,jdbcType=VARCHAR}, #{cmdcontend,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
+      #{cmd,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{msgid,jdbcType=INTEGER}, #{ctype,jdbcType=VARCHAR}, 
       #{status,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="cn.tisson.dbmgr.model.CmdConfig" >
-    insert into CmdConfig
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        ID,
-      </if>
-      <if test="servicewebchatid != null" >
-        ServiceWebChatID,
-      </if>
-      <if test="fansgroupid != null" >
-        FansGroupId,
-      </if>
-      <if test="cmd != null" >
-        Cmd,
-      </if>
-      <if test="cmdcontend != null" >
-        CmdContend,
-      </if>
-      <if test="type != null" >
-        Type,
-      </if>
-      <if test="status != null" >
-        Status,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="servicewebchatid != null" >
-        #{servicewebchatid,jdbcType=VARCHAR},
-      </if>
-      <if test="fansgroupid != null" >
-        #{fansgroupid,jdbcType=INTEGER},
-      </if>
-      <if test="cmd != null" >
-        #{cmd,jdbcType=VARCHAR},
-      </if>
-      <if test="cmdcontend != null" >
-        #{cmdcontend,jdbcType=VARCHAR},
-      </if>
-      <if test="type != null" >
-        #{type,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null" >
-        #{status,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="cn.tisson.dbmgr.model.CmdConfig" >
-    update CmdConfig
-    <set >
-      <if test="servicewebchatid != null" >
-        ServiceWebChatID = #{servicewebchatid,jdbcType=VARCHAR},
-      </if>
-      <if test="fansgroupid != null" >
-        FansGroupId = #{fansgroupid,jdbcType=INTEGER},
-      </if>
-      <if test="cmd != null" >
-        Cmd = #{cmd,jdbcType=VARCHAR},
-      </if>
-      <if test="cmdcontend != null" >
-        CmdContend = #{cmdcontend,jdbcType=VARCHAR},
-      </if>
-      <if test="type != null" >
-        Type = #{type,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null" >
-        Status = #{status,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where ID = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="cn.tisson.dbmgr.model.CmdConfig" >
+    <insert id="insertSelective" parameterType="cn.tisson.dbmgr.model.CmdConfig">
+        insert into CmdConfig
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                ID,
+            </if>
+            <if test="servicewebchatid != null">
+                ServiceWebChatID,
+            </if>
+            <if test="fansgroupid != null">
+                FansGroupId,
+            </if>
+            <if test="cmd != null">
+                Cmd,
+            </if>
+            <if test="type != null">
+                Type,
+            </if>
+            <if test="msgid != null">
+                MsgID,
+            </if>
+            <if test="ctype != null">
+                CType,
+            </if>
+            <if test="status != null">
+                Status,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="servicewebchatid != null">
+                #{servicewebchatid,jdbcType=VARCHAR},
+            </if>
+            <if test="fansgroupid != null">
+                #{fansgroupid,jdbcType=INTEGER},
+            </if>
+            <if test="cmd != null">
+                #{cmd,jdbcType=VARCHAR},
+            </if>
+            <if test="type != null">
+                #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="msgid != null">
+                #{msgid,jdbcType=INTEGER},
+            </if>
+            <if test="ctype != null">
+                #{ctype,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="cn.tisson.dbmgr.model.CmdConfig">
+        update CmdConfig
+        <set>
+            <if test="servicewebchatid != null">
+                ServiceWebChatID = #{servicewebchatid,jdbcType=VARCHAR},
+            </if>
+            <if test="fansgroupid != null">
+                FansGroupId = #{fansgroupid,jdbcType=INTEGER},
+            </if>
+            <if test="cmd != null">
+                Cmd = #{cmd,jdbcType=VARCHAR},
+            </if>
+            <if test="type != null">
+                Type = #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="msgid != null">
+                MsgID = #{msgid,jdbcType=INTEGER},
+            </if>
+            <if test="ctype != null">
+                CType = #{ctype,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                Status = #{status,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where ID = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="cn.tisson.dbmgr.model.CmdConfig">
     update CmdConfig
     set ServiceWebChatID = #{servicewebchatid,jdbcType=VARCHAR},
       FansGroupId = #{fansgroupid,jdbcType=INTEGER},
       Cmd = #{cmd,jdbcType=VARCHAR},
-      CmdContend = #{cmdcontend,jdbcType=VARCHAR},
       Type = #{type,jdbcType=VARCHAR},
+      MsgID = #{msgid,jdbcType=INTEGER},
+      CType = #{ctype,jdbcType=VARCHAR},
       Status = #{status,jdbcType=VARCHAR}
     where ID = #{id,jdbcType=INTEGER}
   </update>
+
+    <select id="getAll" resultMap="BaseResultMap">
+      <![CDATA[
+
+          SELECT * FROM CmdConfig
+
+        ]]>
+
+    </select>
+    <select id="getAllEffect" resultMap="BaseResultMap">
+      <![CDATA[
+
+          SELECT * FROM CmdConfig where Status='A001'
+
+        ]]>
+
+    </select>
 </mapper>

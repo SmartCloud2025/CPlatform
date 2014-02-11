@@ -14,6 +14,9 @@ import java.util.Map;
  */
 public class GlobalVariables {
 
+    // 刷新access_token的时间间隔
+    public static final int ACCESS_TOKEN_INTERVAL_TIME = 10;
+
     public static RefreshHelper REFRESH_HELPER;
 
     //--------------------------------------- 路径设置 --------------------------------------
@@ -48,5 +51,14 @@ public class GlobalVariables {
     // 排重延迟时间
     public static long WEB_CHAT_EXCLUDE_DUPLICATE_DELAY = 1;
 
+
+    // 获取Access_Token的通用url
+    public static String GET_ACCESS_TOOKEN_URL = "https://api.yixin.im/cgi-bin/token?grant_type=client_credential&appid={AppID}&secret={AppSecret}";
+
+    // access_token有效时间（单位s）
+    public static int ACCESS_TOKEN_EXPIRE_TIME = 7200;
+
+    // 发送客户消息的通用URL
+    public static String SEND_ACTIVE_BASE_URL = "https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token={ACCESS_TOKEN}";
 }
 

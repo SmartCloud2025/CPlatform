@@ -1,6 +1,7 @@
 package cn.tisson.common;
 
 import cn.tisson.dbmgr.model.*;
+import cn.tisson.platform.protocol.active.TokenRespond;
 
 import java.util.HashMap;
 import java.util.List;
@@ -26,5 +27,12 @@ public class GlobalCaches {
     // 图文消息表(NewsMsg)(PID/BEAN)
     public static Map<Integer, Text> DB_CACHE_TEXT_MSG = new HashMap<Integer, Text>();
 
+    // 命令(CmdConfig)(PID/BEAN)
+    public static Map<Integer, CmdConfig> DB_CACHE_CMD_CONFIG = new HashMap<Integer, CmdConfig>();
 
+   // 命令(CmdConfig)(WebChatID/BEAN)
+    public static Map<String, List<MassPushMsg>> DB_CACHE_MASS_PUSH_MSG = new HashMap<String, List<MassPushMsg>>();
+
+    // WE
+    public static Map<String,TokenRespond> ACCESS_TOKEN_CACHE  = new HashMap<String, TokenRespond>();
 }

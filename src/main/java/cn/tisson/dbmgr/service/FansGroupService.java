@@ -17,8 +17,8 @@ public class FansGroupService extends BaseService<FansGroup> {
     @Resource
     private FansGroupMapper mapper;
 
-    public FansGroup selectByWebchaNamePriority(FansGroup fansGroupPara){
-        return mapper.selectByWebchaNamePriority(fansGroupPara);
+    public FansGroup selectByWebchatNamePriority(FansGroup fansGroupPara){
+        return mapper.selectByWebchatNamePriority(fansGroupPara);
     }
 
     @Override

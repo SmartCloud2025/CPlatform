@@ -3,10 +3,11 @@
 <mapper namespace="cn.tisson.dbmgr.mapper.NewsMsgMapper" >
   <resultMap id="BaseResultMap" type="cn.tisson.dbmgr.model.NewsMsg" >
     <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="ServiceWebChatID" property="servicewebchatid" jdbcType="VARCHAR" />
     <result column="Description" property="description" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    ID, Description
+    ID, ServiceWebChatID, Description
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -19,14 +20,19 @@
     where ID = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="cn.tisson.dbmgr.model.NewsMsg" >
-    insert into NewsMsg (ID, Description)
-    values (#{id,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR})
+    insert into NewsMsg (ID, ServiceWebChatID, Description
+      )
+    values (#{id,jdbcType=INTEGER}, #{servicewebchatid,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="cn.tisson.dbmgr.model.NewsMsg" >
     insert into NewsMsg
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         ID,
+      </if>
+      <if test="servicewebchatid != null" >
+        ServiceWebChatID,
       </if>
       <if test="description != null" >
         Description,
@@ -36,6 +42,9 @@
       <if test="id != null" >
         #{id,jdbcType=INTEGER},
       </if>
+      <if test="servicewebchatid != null" >
+        #{servicewebchatid,jdbcType=VARCHAR},
+      </if>
       <if test="description != null" >
         #{description,jdbcType=VARCHAR},
       </if>
@@ -44,6 +53,9 @@
   <update id="updateByPrimaryKeySelective" parameterType="cn.tisson.dbmgr.model.NewsMsg" >
     update NewsMsg
     <set >
+      <if test="servicewebchatid != null" >
+        ServiceWebChatID = #{servicewebchatid,jdbcType=VARCHAR},
+      </if>
       <if test="description != null" >
         Description = #{description,jdbcType=VARCHAR},
       </if>
@@ -52,22 +64,10 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="cn.tisson.dbmgr.model.NewsMsg" >
     update NewsMsg
-    set Description = #{description,jdbcType=VARCHAR}
+    set ServiceWebChatID = #{servicewebchatid,jdbcType=VARCHAR},
+      Description = #{description,jdbcType=VARCHAR}
     where ID = #{id,jdbcType=INTEGER}
   </update>
-
-    <resultMap id="NewsMsgResultMap" type="cn.tisson.dbmgr.model.NewsMsg" extends="BaseResultMap">
-        <collection property="articles" javaType="list" ofType="cn.tisson.dbmgr.model.Article">
-            <id column="AID" property="id" jdbcType="INTEGER"/>
-            <result column="ANewsMsgID" property="newsmsgid" jdbcType="INTEGER"/>
-            <result column="ATitle" property="title" jdbcType="VARCHAR"/>
-            <result column="ADescription" property="description" jdbcType="VARCHAR"/>
-            <result column="APicUrl" property="picurl" jdbcType="VARCHAR"/>
-            <result column="AUrl" property="url" jdbcType="VARCHAR"/>
-        </collection>
-
-    </resultMap>
-
     <select id="getAll" resultMap="NewsMsgResultMap">
         <![CDATA[
 
