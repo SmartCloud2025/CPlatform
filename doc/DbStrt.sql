@@ -231,7 +231,6 @@ CREATE TABLE ActiveVideo (
   , CreateDate       DATETIME DEFAULT GETDATE()
 );
 
-
 -- 17.	主动推送图文消息表（ActiveNewsMsg）
 IF EXISTS(SELECT
             *
@@ -244,10 +243,6 @@ CREATE TABLE ActiveNewsMsg (
   , Description      VARCHAR(255)
   , CreateDate       DATETIME DEFAULT GETDATE()
 );
-
-INSERT INTO ActiveNewsMsg(ServiceWebChatID,Description) values('gh_b817172873c4','gh_b817172873c4的主动推送消息')
-INSERT INTO ActiveNewsMsg(ServiceWebChatID,Description) values('gh_be3554dd14b6','gh_be3554dd14b6的主动推送消息')
-
 
 -- 18.	主动推送文章描述表（ActiveArticle）
 IF EXISTS(SELECT
@@ -266,7 +261,18 @@ CREATE TABLE ActiveArticle (
 );
 
 INSERT INTO ActiveArticle(NewsMsgID,Title,Description,PicUrl,Url)
-VALUES (1,'测试主动推送图文','测试主动推送图文的描述喔','https://mp.weixin.qq.com/cgi-bin/getheadimg?token=666207743&fakeid=3072175315&r=53695','http://wenku.baidu.com/view/2c581b02b52acfc789ebc9a7.html')
+VALUES (1,'测试主动推送图文','测试主动推送图文的描述喔1','http://nuomi.xnimg.cn/upload/deal/2013/7/V_L/310542-1373616839438.jpg','http://wenku.baidu.com/view/2c581b02b52acfc789ebc9a7.html')
+INSERT INTO ActiveArticle(NewsMsgID,Title,Description,PicUrl,Url)
+VALUES (1,'测试主动推送图文','测试主动推送图文的描述喔2','http://nuomi.xnimg.cn/upload/deal/2013/7/V_L/310542-1373616839438.jpg','http://wenku.baidu.com/view/2c581b02b52acfc789ebc9a7.html')
+INSERT INTO ActiveArticle(NewsMsgID,Title,Description,PicUrl,Url)
+VALUES (1,'测试主动推送图文','测试主动推送图文的描述喔3','http://nuomi.xnimg.cn/upload/deal/2013/7/V_L/310542-1373616839438.jpg','http://wenku.baidu.com/view/2c581b02b52acfc789ebc9a7.html')
+INSERT INTO ActiveArticle(NewsMsgID,Title,Description,PicUrl,Url)
+VALUES (3,'测试主动推送图文','测试主动推送图文的描述喔4','http://nuomi.xnimg.cn/upload/deal/2013/7/V_L/310542-1373616839438.jpg','http://wenku.baidu.com/view/2c581b02b52acfc789ebc9a7.html')
+INSERT INTO ActiveArticle(NewsMsgID,Title,Description,PicUrl,Url)
+VALUES (2,'测试主动推送图文','测试主动推送图文的描述喔5','http://nuomi.xnimg.cn/upload/deal/2013/7/V_L/310542-1373616839438.jpg','http://wenku.baidu.com/view/2c581b02b52acfc789ebc9a7.html')
+
+INSERT INTO ActiveNewsMsg(ServiceWebChatID,Description) values('gh_b817172873c4','gh_b817172873c4的主动推送消息')
+INSERT INTO ActiveNewsMsg(ServiceWebChatID,Description) values('gh_be3554dd14b6','gh_be3554dd14b6的主动推送消息')
 
 INSERT INTO ServiceInfo (WebChatID, URL, TOKEN)
 VALUES ('gh_b817172873c4', 'http://bassice.vicp.net/webchat/token/gh_b817172873c4', 'gh_b817172873c4')
@@ -296,6 +302,8 @@ INSERT INTO FansBlackList (FansWebChatID, ServiceWebChatID, Desription)
 VALUES ('FanJasic', 'gh_b817172873c4', '必须加入黑名单，因为不喜欢这fans')
 
 INSERT INTO MassPushMsg (ServiceWebChatID, MsgID) VALUES ('gh_b817172873c4', 1);
+INSERT INTO MassPushMsg (ServiceWebChatID, MsgID) VALUES ('gh_be3554dd14b6', 1);
+INSERT INTO MassPushMsg (ServiceWebChatID, Type,MsgID) VALUES ('gh_be3554dd14b6', 'news',1);
 
 INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, MsgID) VALUES ('gh_b817172873c4', 'a', 'text', 1);
 INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, MsgID) VALUES ('gh_b817172873c4', 'b', 'text', 3);
@@ -325,3 +333,8 @@ INSERT INTO Article (NewsMsgID, Title, Description, PicUrl, Url) VALUES
 INSERT INTO Text (Content, Description) VALUES ('非常欢迎关注此餐厅，更多服务请看http://www.baidu.com', '关注回复文字描述');
 INSERT INTO Text (Content, Description) VALUES ('非常欢迎关注此餐厅，更多服务请看http://google.com.cn', '关注回复文字描述');
 INSERT INTO Text (Content, Description) VALUES ('非常欢迎关注此餐厅，更多服务请看http://hao123.com', '关注回复文字描述');
+
+INSERT INTO ActiveText (ServiceWebChatID,Content, Description) VALUES ('gh_be3554dd14b6','这个是主动推送消息1，更多服务请看http://bassice.vicp.net', '主动推送消息描述');
+INSERT INTO ActiveText (ServiceWebChatID,Content, Description) VALUES ('gh_be3554dd14b6','这个是主动推送消息2，更多服务请看http://bassice.vicp.net', '主动推送消息描述');
+INSERT INTO ActiveText (ServiceWebChatID,Content, Description) VALUES ('gh_be3554dd14b6','这个是主动推送消息3，更多服务请看http://bassice.vicp.net', '主动推送消息描述');
+INSERT INTO ActiveText (ServiceWebChatID,Content, Description) VALUES ('gh_be3554dd14b6','这个是主动推送消息4，更多服务请看http://bassice.vicp.net', '主动推送消息描述');
