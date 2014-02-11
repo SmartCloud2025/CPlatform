@@ -2,17 +2,18 @@ package cn.tisson.common;
 
 import cn.tisson.dbmgr.model.*;
 import cn.tisson.dbmgr.service.FansGroupService;
+import cn.tisson.platform.protocol.active.ErrorRespond;
 import cn.tisson.platform.protocol.active.servReq.BaseServReq;
 import cn.tisson.platform.protocol.resp.BaseRespMsg;
 import cn.tisson.platform.protocol.resp.NewsRespMsg;
 import cn.tisson.platform.protocol.resp.TextRespMsg;
+import cn.tisson.util.JsonUtils;
 import cn.tisson.util.MessageUtil;
 import cn.tisson.util.SpringContextUtil;
 import com.alibaba.fastjson.JSON;
 import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
-import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
@@ -24,7 +25,6 @@ import org.jasic.util.ExceptionUtil;
 import org.slf4j.Logger;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -298,6 +298,7 @@ public class LogicHelper {
         HttpGet get = new HttpGet(url);
         HttpResponse response = client.execute(get);
 
+        System.out.println(url);
         int statusCode = response.getStatusLine().getStatusCode();
 
         /*4 判断访问的状态码*/
@@ -316,7 +317,7 @@ public class LogicHelper {
      * @param req
      * @return
      */
-    public static String sendActiveMsg(Logger logger, String access_token, BaseServReq req) throws IOException {
+    public static ErrorRespond sendActiveMsg(Logger logger, String access_token, BaseServReq req) throws IOException {
 
         String url = new String(GlobalVariables.SEND_ACTIVE_BASE_URL).replace("{ACCESS_TOKEN}", access_token);
 
@@ -357,10 +358,10 @@ public class LogicHelper {
         /* 4、判断访问的状态码*/
         if (statusCode != HttpStatus.SC_OK) {
             logger.info("Method failed: ");
-            return "Method failed: ";
+            return new ErrorRespond("-1","Method failed");
         }
 
         String contend = EntityUtils.toString(response.getEntity());
-        return contend;
+        return JsonUtils.parseToObject(contend, ErrorRespond.class);
     }
 }

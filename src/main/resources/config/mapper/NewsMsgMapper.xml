@@ -68,6 +68,19 @@
       Description = #{description,jdbcType=VARCHAR}
     where ID = #{id,jdbcType=INTEGER}
   </update>
+
+    <resultMap id="NewsMsgResultMap" type="cn.tisson.dbmgr.model.NewsMsg" extends="BaseResultMap">
+        <collection property="articles" javaType="list" ofType="cn.tisson.dbmgr.model.Article">
+            <id column="AID" property="id" jdbcType="INTEGER"/>
+            <result column="ANewsMsgID" property="newsmsgid" jdbcType="INTEGER"/>
+            <result column="ATitle" property="title" jdbcType="VARCHAR"/>
+            <result column="ADescription" property="description" jdbcType="VARCHAR"/>
+            <result column="APicUrl" property="picurl" jdbcType="VARCHAR"/>
+            <result column="AUrl" property="url" jdbcType="VARCHAR"/>
+        </collection>
+
+    </resultMap>
+
     <select id="getAll" resultMap="NewsMsgResultMap">
         <![CDATA[
 

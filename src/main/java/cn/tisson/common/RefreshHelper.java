@@ -162,6 +162,6 @@ public class RefreshHelper {
             }
         }
 
-        logger.info("--有效的群发消息数量:" + list.size());
+        logger.info("--有效的主动消息推送数量:" + list.size());
     }
 }

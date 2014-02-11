@@ -4,6 +4,7 @@ import cn.tisson.dbmgr.mapper.CmdConfigMapper;
 import cn.tisson.dbmgr.mapper.SuperMapper;
 import cn.tisson.dbmgr.model.CmdConfig;
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -12,7 +13,8 @@ import java.util.List;
  * Author Jasic
  * Date 14-1-30.
  */
-@Repository
+@Service
+
 public class CmdConfigService extends BaseService<CmdConfig> {
 
     @Resource

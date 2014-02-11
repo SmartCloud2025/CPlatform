@@ -29,7 +29,7 @@ public class NewsServReq extends BaseServReq {
         this.news = news;
     }
 
-    private class News {
+    public static class News {
         private List<Article> articles;
 
         public List<Article> getArticles() {

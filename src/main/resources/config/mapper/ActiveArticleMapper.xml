@@ -114,4 +114,14 @@
       Priority = #{priority,jdbcType=INTEGER}
     where ID = #{id,jdbcType=INTEGER}
   </update>
+
+
+
+    <select id="getListByNewsMsgID" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+        select
+        <include refid="Base_Column_List" />
+        from ActiveArticle
+        where NewsMsgID = #{newsmsgid,jdbcType=INTEGER}
+    </select>
+
 </mapper>

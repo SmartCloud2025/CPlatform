@@ -14,9 +14,6 @@ import java.util.Map;
  */
 public class GlobalVariables {
 
-    // 刷新access_token的时间间隔
-    public static final int ACCESS_TOKEN_INTERVAL_TIME = 10;
-
     public static RefreshHelper REFRESH_HELPER;
 
     //--------------------------------------- 路径设置 --------------------------------------
@@ -31,7 +28,7 @@ public class GlobalVariables {
 
     public static TokenRespond GLOBAL_TOKEN_RESPOND;
 
-    // 数据库刷新基础数据的时间间隔
+    // 数据库刷新基础数据的时间间隔(单位秒）
     public static int DB_REFRESH_INTERVAL = 30;
 
 
@@ -53,12 +50,17 @@ public class GlobalVariables {
 
 
     // 获取Access_Token的通用url
-    public static String GET_ACCESS_TOOKEN_URL = "https://api.yixin.im/cgi-bin/token?grant_type=client_credential&appid={AppID}&secret={AppSecret}";
+    public static String GET_ACCESS_TOOKEN_URL = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid={AppID}&secret={AppSecret}";
 
     // access_token有效时间（单位s）
     public static int ACCESS_TOKEN_EXPIRE_TIME = 7200;
 
     // 发送客户消息的通用URL
     public static String SEND_ACTIVE_BASE_URL = "https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token={ACCESS_TOKEN}";
+
+    // 推送消息的时间间隔（单位秒）（需要大于数据库的缓存刷新时间）>=DB_REFRESH_INTERVAL
+    public static int ACTIVE_PUSH_MSG_INTERVAL = 10;
+    // 刷新access_token的时间间隔 （单位秒）（需要大于数据库的缓存刷新时间）>=DB_REFRESH_INTERVAL
+    public static final int ACCESS_TOKEN_INTERVAL_TIME = 10;
 }
 

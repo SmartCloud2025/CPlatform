@@ -6,7 +6,8 @@ import cn.tisson.common.RefreshHelper;
 import cn.tisson.common.SystemInit;
 import cn.tisson.framework.config.ConfigHandler;
 import cn.tisson.framework.global.AppVariables;
-
+import cn.tisson.main.ActivePushThread;
+import cn.tisson.main.GetAccessTokenThread;
 import cn.tisson.main.SystemRefresher;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -63,8 +64,14 @@ public class MainListener extends org.springframework.web.context.ContextLoaderL
             SystemRefresher systemRefresher = new SystemRefresher();
             systemRefresher.start();
 
-            // 接入微信服务
-//            new LoginThread().start();
+
+            // 消息推送服务接入
+            GetAccessTokenThread getAccessTokenThread = new GetAccessTokenThread();
+            getAccessTokenThread.start();
+
+            ActivePushThread activePushThread = new ActivePushThread();
+            activePushThread.start();
+
 
             AppVariables.APP_SQL_LOG = false;
             AppVariables.APP_SOCKET_CLIENT_LOG = false;

@@ -19,9 +19,9 @@ import java.util.*;
 /**
  * 获取AccessToken
  */
-public class GetAccessToken extends BaseThread {
+public class GetAccessTokenThread extends BaseThread {
 
-    private static final Logger logger = LoggerFactory.getLogger(GetAccessToken.class);
+    private static final Logger logger = LoggerFactory.getLogger(GetAccessTokenThread.class);
 
     @Override
     public void run() {
@@ -37,7 +37,6 @@ public class GetAccessToken extends BaseThread {
                     String appsecret = info.getAppsecret();
 
                     if (StringUtils.hasEmpty(new String[]{appid, appsecret})) {
-                        serviceInfos.remove(info);
                         continue;
                     }
 
