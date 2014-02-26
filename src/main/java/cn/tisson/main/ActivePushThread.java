@@ -68,7 +68,6 @@ public class ActivePushThread extends BaseThread {
             Collection<List<MassPushMsg>> collection = GlobalCaches.DB_CACHE_MASS_PUSH_MSG.values();
             ErrorRespond respond = null;
 
-
             try {
                 for (List<MassPushMsg> msgList : collection) {
 

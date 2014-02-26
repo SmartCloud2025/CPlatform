@@ -168,8 +168,6 @@ public class EventReqProcessor extends AProcessor<EventReqMsg> {
              */
             // TODO 更好的方式处理
             SubcEventRespMsg subcEventPushMsg = list.get(new Random().nextInt(list.size()));
-
-
             String type = subcEventPushMsg.getType().toLowerCase().trim();
             Integer msgId = subcEventPushMsg.getMsgid();
 

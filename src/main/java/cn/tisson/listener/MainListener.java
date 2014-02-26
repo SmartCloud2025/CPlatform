@@ -39,9 +39,7 @@ public class MainListener extends org.springframework.web.context.ContextLoaderL
             if (!ConfigHandler.loadConfigWithoutDB(GlobalVariables.class)) {
                 System.exit(-1);
             }
-//            if (!ConfigHandler.loadConfigWithoutDB(GlobalVariables.class) && SystemInit.init()) {
-//                return;
-//            }
+
             logger.info("[配置管理]: 读取所有配置文件完成");
 
             if (!SystemInit.init()) {

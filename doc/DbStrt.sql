@@ -260,6 +260,26 @@ CREATE TABLE ActiveArticle (
   , Priority    INT DEFAULT 0
 );
 
+--19.	会话信息记录表（RecvSessionRecord）
+IF EXISTS(SELECT
+            *
+          FROM INFORMATION_SCHEMA.TABLES
+          WHERE TABLE_NAME = 'RecvSessionRecord')
+  DROP TABLE [RecvSessionRecord];
+CREATE TABLE RecvSessionRecord (
+    ID          INT IDENTITY (1, 1) PRIMARY KEY
+  , FromUser    VARCHAR(255)
+  , ToUser       VARCHAR(255)
+  , MsgType VARCHAR(255)
+  , Description      VARCHAR(255)
+  , Date  DATETIME DEFAULT GETDATE()
+  , Year    INT
+  , Month    INT
+  , Day    INT
+  , Hour    INT
+);
+
+
 INSERT INTO ActiveArticle(NewsMsgID,Title,Description,PicUrl,Url)
 VALUES (1,'测试主动推送图文','测试主动推送图文的描述喔1','http://nuomi.xnimg.cn/upload/deal/2013/7/V_L/310542-1373616839438.jpg','http://wenku.baidu.com/view/2c581b02b52acfc789ebc9a7.html')
 INSERT INTO ActiveArticle(NewsMsgID,Title,Description,PicUrl,Url)
@@ -308,6 +328,8 @@ INSERT INTO MassPushMsg (ServiceWebChatID, Type,MsgID) VALUES ('gh_be3554dd14b6'
 INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, MsgID) VALUES ('gh_b817172873c4', 'a', 'text', 1);
 INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, MsgID) VALUES ('gh_b817172873c4', 'b', 'text', 3);
 INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, MsgID) VALUES ('gh_b817172873c4', 'c', 'news', 1);
+INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, MsgID) VALUES ('gh_be3554dd14b6', 'a', 'text', 1);
+INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, MsgID) VALUES ('gh_be3554dd14b6', 'b', 'text', 3);
 INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, MsgID) VALUES ('gh_be3554dd14b6', 'c', 'news', 1);
 
 INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, MsgID, CType) VALUES ('gh_b817172873c4', 'd', 'text', 1, 'CT02');
@@ -315,7 +337,8 @@ INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, MsgID, CType) VALUES ('gh_be
 
 INSERT INTO SubcEventRespMsg (ServiceWebChatID, Type, MsgID) VALUES ('gh_b817172873c4', 'text', 3);
 INSERT INTO SubcEventRespMsg (ServiceWebChatID, Type, MsgID) VALUES ('gh_b817172873c4', 'news', 1);
-INSERT INTO SubcEventRespMsg (ServiceWebChatID, Type, MsgID) VALUES ('gh_be3554dd14b6', 'text', 1);
+INSERT INTO SubcEventRespMsg (ServiceWebChatID, Type, MsgID) VALUES ('gh_be3554dd14b6', 'news', 1);
+
 
 INSERT INTO NewsMsg (Description) VALUES ('图文描述');
 INSERT INTO Article (NewsMsgID, Title, Description, PicUrl, Url)

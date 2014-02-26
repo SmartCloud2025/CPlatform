@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <!-- 引入数据库驱动包路径 -->
+    <classPathEntry location="sqljdbc4.jar"/>
+
+
+    <context id="Tables" targetRuntime="MyBatis3">
+        <!-- 去除自动生成的注释 -->
+        <commentGenerator>
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+
+        <jdbcConnection driverClass="com.microsoft.sqlserver.jdbc.SQLServerDriver"
+                        connectionURL="jdbc:sqlserver://192.168.1.118:1433;databaseName=CPlatform"
+                        userId="sa"
+                        password="sa123">
+        </jdbcConnection>
+
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+        <!-- 实体类位置 -->
+        <javaModelGenerator targetPackage="cn.tisson.dbmgr.model" targetProject="./">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <!-- Daoxml位置 -->
+        <sqlMapGenerator targetPackage="config/mapper" targetProject="./">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+
+        <!-- Dao位置 -->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="cn.tisson.dbmgr.mapper" targetProject="./">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+        <!--<table schema="DB2ADMIN" tableName="ALLTYPES" domainObjectName="Customer" >-->
+        <!--<property name="useActualColumnNames" value="true"/>-->
+        <!--<generatedKey column="ID" sqlStatement="DB2" identity="true" />-->
+        <!--<columnOverride column="DATE_FIELD" property="startDate" />-->
+        <!--<ignoreColumn column="FRED" />-->
+        <!--<columnOverride column="LONG_VARCHAR_FIELD" jdbcType="VARCHAR" />-->
+        <!--</table>-->
+
+        <!-- 新增表 -->
+        <table tableName="ServiceInfo" domainObjectName="ServiceInfo" enableCountByExample="false"
+               enableSelectByExample="false" enableDeleteByExample="false" enableUpdateByExample="false"
+               selectByExampleQueryId="false"/>
+        <table tableName="FansGroup" domainObjectName="FansGroup" enableCountByExample="false"
+               enableSelectByExample="false" enableDeleteByExample="false" enableUpdateByExample="false"
+               selectByExampleQueryId="false"/>
+        <table tableName="FansInfo" domainObjectName="FansInfo" enableCountByExample="false"
+               enableSelectByExample="false"
+               enableDeleteByExample="false" enableUpdateByExample="false" selectByExampleQueryId="false"/>
+        <table tableName="FansBlackList" domainObjectName="FansBlackList" enableCountByExample="false"
+               enableSelectByExample="false" enableDeleteByExample="false" enableUpdateByExample="false"
+               selectByExampleQueryId="false"/>
+        <table tableName="CmdConfig" domainObjectName="CmdConfig" enableCountByExample="false"
+               enableSelectByExample="false" enableDeleteByExample="false" enableUpdateByExample="false"
+               selectByExampleQueryId="false"/>
+        <table tableName="SubcEventRespMsg" domainObjectName="SubcEventRespMsg" enableCountByExample="false"
+               enableSelectByExample="false"
+               enableDeleteByExample="false" enableUpdateByExample="false" selectByExampleQueryId="false"/>
+        <table tableName="NewsMsg" domainObjectName="NewsMsg" enableCountByExample="false"
+               enableSelectByExample="false" enableDeleteByExample="false" enableUpdateByExample="false"
+               selectByExampleQueryId="false"/>
+        <table tableName="Article" domainObjectName="Article" enableCountByExample="false"
+               enableSelectByExample="false" enableDeleteByExample="false" enableUpdateByExample="false"
+               selectByExampleQueryId="false"/>
+        <table tableName="Text" domainObjectName="Text" enableCountByExample="false"
+               enableSelectByExample="false" enableDeleteByExample="false" enableUpdateByExample="false"
+               selectByExampleQueryId="false"/>
+        <table tableName="MassPushMsg" domainObjectName="MassPushMsg" enableCountByExample="false"
+               enableSelectByExample="false" enableDeleteByExample="false" enableUpdateByExample="false"
+               selectByExampleQueryId="false"/>
+
+        <table tableName="ActiveText" domainObjectName="ActiveText" enableCountByExample="false"
+               enableSelectByExample="false" enableDeleteByExample="false" enableUpdateByExample="false"
+               selectByExampleQueryId="false"/>
+        <table tableName="ActiveImage" domainObjectName="ActiveImage" enableCountByExample="false"
+               enableSelectByExample="false" enableDeleteByExample="false" enableUpdateByExample="false"
+               selectByExampleQueryId="false"/>
+        <table tableName="ActiveVoice" domainObjectName="ActiveVoice" enableCountByExample="false"
+               enableSelectByExample="false" enableDeleteByExample="false" enableUpdateByExample="false"
+               selectByExampleQueryId="false"/>
+        <table tableName="ActiveMusic" domainObjectName="ActiveMusic" enableCountByExample="false"
+               enableSelectByExample="false" enableDeleteByExample="false" enableUpdateByExample="false"
+               selectByExampleQueryId="false"/>
+        <table tableName="ActiveVideo" domainObjectName="ActiveVideo" enableCountByExample="false"
+               enableSelectByExample="false" enableDeleteByExample="false" enableUpdateByExample="false"
+               selectByExampleQueryId="false"/>
+        <table tableName="ActiveNewsMsg" domainObjectName="ActiveNewsMsg" enableCountByExample="false"
+               enableSelectByExample="false" enableDeleteByExample="false" enableUpdateByExample="false"
+               selectByExampleQueryId="false"/>
+        <table tableName="ActiveArticle" domainObjectName="ActiveArticle" enableCountByExample="false"
+               enableSelectByExample="false" enableDeleteByExample="false" enableUpdateByExample="false"
+               selectByExampleQueryId="false"/>
+
+
+    </context>
+</generatorConfiguration>
