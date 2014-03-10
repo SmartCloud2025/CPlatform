@@ -3,18 +3,18 @@ package cn.tisson.platform.process;
 
 import cn.tisson.common.GlobalCaches;
 import cn.tisson.common.LogicHelper;
-import cn.tisson.dbmgr.model.*;
+import cn.tisson.dbmgr.model.FansGroup;
+import cn.tisson.dbmgr.model.FansInfo;
+import cn.tisson.dbmgr.model.ServiceInfo;
+import cn.tisson.dbmgr.model.SubcEventRespMsg;
 import cn.tisson.dbmgr.service.FansInfoService;
-import cn.tisson.platform.protocol.bean.Article;
 import cn.tisson.platform.protocol.bean.Event;
 import cn.tisson.platform.protocol.req.event.EventReqMsg;
 import cn.tisson.platform.protocol.req.event.ScanNotSubEventReqMsg;
 import cn.tisson.platform.protocol.req.event.SubEventReqMsg;
 import cn.tisson.platform.protocol.req.event.UnsubEventReqMsg;
 import cn.tisson.platform.protocol.resp.BaseRespMsg;
-import cn.tisson.platform.protocol.resp.NewsRespMsg;
 import cn.tisson.platform.protocol.resp.TextRespMsg;
-import cn.tisson.util.MessageUtil;
 import cn.tisson.util.SpringContextUtil;
 import org.jasic.util.ExceptionUtil;
 import org.slf4j.Logger;
@@ -117,11 +117,13 @@ public class EventReqProcessor extends AProcessor<EventReqMsg> {
         ServiceInfo serviceInfo = serviceInfoMap.get(toUserName);
 
         if (serviceInfo == null) {
+            logger.error("数据库不存在服务号[" + toUserName + "],请先添加服务号码信息!");
             return null;
         }
 
         FansGroup group = LogicHelper.addIfNotExistFansGroup(serviceInfo);
         if (group == null) {
+            logger.error("为服务号[" + toUserName + "]创建Fans默认分组失败!");
             return null;
         }
 
@@ -137,17 +139,15 @@ public class EventReqProcessor extends AProcessor<EventReqMsg> {
                     fansInfoService.insertSelective(fan);
                     logger.info("保存新的关注用户[" + fan.getWebchatid() + "]成功");
                 }
-                return serviceInfo;
             } catch (Exception e) {
                 logger.error("Save a focus fan fail! " + ExceptionUtil.getStackTrace(e));
 
-                return null;
                 // TODO 记录在失败文件中
             }
-        } else {
-            // TODO 服务号已不存在或者分店用户服务到期则不提供服务
-            return null;
+
         }
+        return serviceInfo;
+
     }
 
 
@@ -171,7 +171,7 @@ public class EventReqProcessor extends AProcessor<EventReqMsg> {
             String type = subcEventPushMsg.getType().toLowerCase().trim();
             Integer msgId = subcEventPushMsg.getMsgid();
 
-           resp = LogicHelper.getConfigResp(msg.getFromUserName(),msg.getToUserName(),type,msgId);
+            resp = LogicHelper.getConfigResp(msg.getFromUserName(), msg.getToUserName(), type, msgId);
         }
         if (resp == null) {
             TextRespMsg respMsg = new TextRespMsg();

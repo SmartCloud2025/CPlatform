@@ -3,6 +3,7 @@ package cn.tisson.platform.process;
 
 import cn.tisson.common.GlobalCaches;
 import cn.tisson.dbmgr.model.ServiceInfo;
+import cn.tisson.exception.DuplicateMessageException;
 import cn.tisson.platform.protocol.req.BaseReqMsg;
 import cn.tisson.platform.protocol.req.event.EventReqMsg;
 import cn.tisson.platform.protocol.resp.BaseRespMsg;
@@ -109,7 +110,7 @@ public abstract class AProcessor<E extends BaseReqMsg> {
         if (beforeProcess(msg)) {
             respMsg = doProcess(msg);
         } else {
-            logger.warn("此信息被过滤:" + JSON.toJSONString(msg));
+            throw new DuplicateMessageException("重复的消息[" + JSON.toJSONString(msg) +"]");
         }
 
         afterProcess(msg);

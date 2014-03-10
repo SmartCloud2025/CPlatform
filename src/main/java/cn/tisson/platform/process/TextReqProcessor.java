@@ -2,14 +2,19 @@ package cn.tisson.platform.process;
 
 import cn.tisson.common.GlobalConstants;
 import cn.tisson.common.LogicHelper;
+import cn.tisson.dbmgr.mapper.FansInfoMapper;
 import cn.tisson.dbmgr.model.CmdConfig;
 import cn.tisson.dbmgr.model.FansGroup;
+import cn.tisson.dbmgr.model.FansInfo;
 import cn.tisson.dbmgr.model.ServiceInfo;
+import cn.tisson.dbmgr.service.FansInfoService;
 import cn.tisson.platform.protocol.req.TextReqMsg;
 import cn.tisson.platform.protocol.resp.BaseRespMsg;
 import cn.tisson.platform.protocol.resp.TextRespMsg;
+import cn.tisson.util.SpringContextUtil;
 import org.slf4j.Logger;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,10 +42,23 @@ public class TextReqProcessor extends AProcessor<TextReqMsg> {
         BaseRespMsg resp = null;
 
         ServiceInfo serviceInfo = super.SERVICE_INFO_MAP.get();
+
+        if (serviceInfo == null) {
+            logger.error("数据库不存在服务号[" + msg.getToUserName() + "],请先添加服务号码信息!");
+            return null;
+        }
+
         FansGroup fansGroup = LogicHelper.findFansGroup(serviceInfo, msg.getFromUserName());
 
+        // 如果粉丝找不到分组则将其加入到默认分组
         if (fansGroup == null) {
-            return null;
+            FansInfoService fansInfoService = SpringContextUtil.getBean(FansInfoService.class);
+            fansGroup = LogicHelper.addIfNotExistFansGroup(serviceInfo);
+            // 找到默认插入粉丝信息
+            FansInfo fansInfo = new FansInfo();
+            fansInfo.setWebchatid(serviceInfo.getWebchatid());
+            fansInfo.setFansgroupid(fansGroup.getId());
+            fansInfoService.insertSelective(fansInfo);
         }
 
         String cmdStr = msg.getContent();
@@ -101,4 +119,6 @@ public class TextReqProcessor extends AProcessor<TextReqMsg> {
         return resp;
 
     }
+
+
 }

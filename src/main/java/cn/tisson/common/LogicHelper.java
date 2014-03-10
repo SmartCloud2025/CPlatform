@@ -186,7 +186,6 @@ public class LogicHelper {
     public static CmdConfig findCmdConfig(Integer id, String toUserName, String cmdStr) {
         Collection<CmdConfig> c = GlobalCaches.DB_CACHE_CMD_CONFIG.values();
 
-
         for (CmdConfig cmd : c) {
 
             String cmdStrTemp = cmd.getCmd();
@@ -364,4 +363,5 @@ public class LogicHelper {
         String contend = EntityUtils.toString(response.getEntity());
         return JsonUtils.parseToObject(contend, ErrorRespond.class);
     }
+
 }
