@@ -150,7 +150,7 @@
 
     <select id="getAllEffect" resultMap="BaseResultMap">
         <![CDATA[
-            select * from MassPushMsg where Status = 'A001' and CreateDate < getDate();
+            select * from MassPushMsg where Status = 'A001' and CreateDate < Now();
         ]]>
     </select>
 </mapper>

@@ -28,7 +28,7 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="J2EE" level="project" />
-    <orderEntry type="library" name="webchat" level="project" />
+    <orderEntry type="library" name="webphone" level="project" />
   </component>
 </module>
 
