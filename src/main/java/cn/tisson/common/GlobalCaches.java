@@ -27,6 +27,9 @@ public class GlobalCaches {
     // 命令(CmdConfig)(PID/BEAN)
     public static Map<Integer, CmdConfig> DB_CACHE_CMD_CONFIG = new HashMap<Integer, CmdConfig>();
 
+      // 命令(ServiceConfig)(PID/BEAN)
+    public static Map<Integer, ServiceConfig> DB_CACHE_SERVICE_CONFIG = new HashMap<Integer, ServiceConfig>();
+
    // 命令(CmdConfig)(WebChatID/BEAN)
     public static Map<String, List<MassPushMsg>> DB_CACHE_MASS_PUSH_MSG = new HashMap<String, List<MassPushMsg>>();
 

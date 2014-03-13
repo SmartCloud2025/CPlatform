@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * User: Jasic
@@ -37,12 +38,11 @@ public class EventReqProcessor extends AProcessor<EventReqMsg> {
     /**
      * 每个处理器，有且只有全局的一个排重的容器
      */
-    private static final List<Object> EXCLUDE_DUPLICATE_LIST = new ArrayList<Object>();
-
+    private static final Map<String,Object> EXCLUDE_DUPLICATE_MAP = new ConcurrentHashMap<String, Object>();
 
     @Override
-    protected List<Object> getExcludeDuplicate() {
-        return EXCLUDE_DUPLICATE_LIST;
+    protected Map<String, Object> getExcludeDuplicate() {
+        return EXCLUDE_DUPLICATE_MAP;
     }
 
     @Override

@@ -23,7 +23,6 @@ import java.util.List;
 public class RefreshHelper {
     private static Logger logger = LoggerFactory.getLogger(RefreshHelper.class);
 
-
     @Resource
     ServiceInfoService serviceInfoServI;
 
@@ -42,6 +41,9 @@ public class RefreshHelper {
     @Resource
     MassPushMsgService massPushMsgService;
 
+    @Resource
+    ServiceConfigService serviceConfigService;
+
     public void refresh() throws Exception {
 
         refreshServiceInfo();
@@ -50,6 +52,7 @@ public class RefreshHelper {
         refreshTextMsg();
         refreshCmd();
         refreshMassPush();
+        refreshCmdConfig();
     }
 
 
@@ -127,6 +130,23 @@ public class RefreshHelper {
     }
 
     /**
+     * 命令服务
+     */
+    public void refreshCmdConfig() throws Exception {
+
+        List<ServiceConfig> list = serviceConfigService.getAll();
+        synchronized (GlobalCaches.DB_CACHE_CMD_CONFIG) {
+            GlobalCaches.DB_CACHE_SERVICE_CONFIG = new HashMap<Integer, ServiceConfig>();
+
+            for (ServiceConfig info : list) {
+                GlobalCaches.DB_CACHE_SERVICE_CONFIG.put(info.getId(), info);
+            }
+        }
+        logger.info("--命令服务表数量:" + list.size());
+    }
+
+
+    /**
      * 命令
      */
     public void refreshCmd() throws Exception {
@@ -134,7 +154,6 @@ public class RefreshHelper {
         List<CmdConfig> list = cmdConfigService.getAllEffect();
         synchronized (GlobalCaches.DB_CACHE_CMD_CONFIG) {
             GlobalCaches.DB_CACHE_CMD_CONFIG = new HashMap<Integer, CmdConfig>();
-
             for (CmdConfig info : list) {
                 GlobalCaches.DB_CACHE_CMD_CONFIG.put(info.getId(), info);
             }

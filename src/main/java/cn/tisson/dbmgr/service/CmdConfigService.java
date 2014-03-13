@@ -14,7 +14,6 @@ import java.util.List;
  * Date 14-1-30.
  */
 @Service
-
 public class CmdConfigService extends BaseService<CmdConfig> {
 
     @Resource

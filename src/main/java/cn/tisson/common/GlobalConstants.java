@@ -54,6 +54,6 @@ public class GlobalConstants {
     public static final String CMD_CONFIG_CTYPE_CT02 = "CT02";
 
 
-
-
+    // 默认命令名称
+    public static final String CMD_CONFIG_DEFAULT = "DEFAULT";
 }

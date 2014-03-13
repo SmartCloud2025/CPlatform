@@ -4,6 +4,8 @@ import cn.tisson.dbmgr.model.*;
 import cn.tisson.dbmgr.service.FansGroupService;
 import cn.tisson.platform.protocol.active.ErrorRespond;
 import cn.tisson.platform.protocol.active.servReq.BaseServReq;
+import cn.tisson.platform.protocol.req.BaseReqMsg;
+import cn.tisson.platform.protocol.req.event.EventReqMsg;
 import cn.tisson.platform.protocol.resp.BaseRespMsg;
 import cn.tisson.platform.protocol.resp.NewsRespMsg;
 import cn.tisson.platform.protocol.resp.TextRespMsg;
@@ -166,11 +168,12 @@ public class LogicHelper {
         List<FansGroup> fansGroupList = serviceInfo.getFansGroups();
         for (FansGroup group : fansGroupList) {
             List<FansInfo> fansInfos = group.getFansInfoList();
-            for (FansInfo fan : fansInfos) {
-                if (fan.getWebchatid().equalsIgnoreCase(fromUserName)) {
-                    return group;
+            if (fansInfos != null)
+                for (FansInfo fan : fansInfos) {
+                    if (fan.getWebchatid().equalsIgnoreCase(fromUserName)) {
+                        return group;
+                    }
                 }
-            }
         }
 
         return null;
@@ -187,20 +190,28 @@ public class LogicHelper {
         Collection<CmdConfig> c = GlobalCaches.DB_CACHE_CMD_CONFIG.values();
 
         for (CmdConfig cmd : c) {
-
+            String seperator = cmd.getSeperator();
             String cmdStrTemp = cmd.getCmd();
+
+            // 根据分命令自带的分隔符分隔命令
+            if (seperator != null) {
+                cmdStr = cmdStr.split(seperator)[0];
+            } else {
+                cmdStr = cmdStr.split(GlobalVariables.DEFAULT_CMD_SEPERATOR)[0];
+            }
+
             // 全局默认的配置(对所有的服务号、订阅号有效）
-            if (cmdStr.equals(cmdStrTemp) && cmd.getServicewebchatid() == null) {
+            if (cmdStr.equalsIgnoreCase(cmdStrTemp) && cmd.getServicewebchatid() == null) {
                 return cmd;
             }
 
             // 对一个服务号的所有粉丝组配置
-            else if (cmdStr.equals(cmdStrTemp) && cmd.getServicewebchatid().equalsIgnoreCase(toUserName) && cmd.getFansgroupid() == null) {
+            else if (cmdStr.equalsIgnoreCase(cmdStrTemp) && cmd.getServicewebchatid().equals(toUserName) && cmd.getFansgroupid() == null) {
                 return cmd;
             }
 
             // 对一个服务指定的粉丝组
-            else if (cmdStr.equals(cmdStrTemp) && cmd.getServicewebchatid().equalsIgnoreCase(toUserName) &&
+            else if (cmdStr.equalsIgnoreCase(cmdStrTemp) && cmd.getServicewebchatid().equals(toUserName) &&
                     cmd.getFansgroupid().equals(id)) {
                 return cmd;
             }
@@ -316,7 +327,7 @@ public class LogicHelper {
      * @param req
      * @return
      */
-    public static ErrorRespond sendActiveMsg(Logger logger, String access_token, BaseServReq req) throws IOException {
+    public static <E extends BaseReqMsg> ErrorRespond sendActiveMsg(Logger logger, String access_token, BaseServReq req) throws IOException {
 
         String url = new String(GlobalVariables.SEND_ACTIVE_BASE_URL).replace("{ACCESS_TOKEN}", access_token);
 
@@ -357,11 +368,72 @@ public class LogicHelper {
         /* 4、判断访问的状态码*/
         if (statusCode != HttpStatus.SC_OK) {
             logger.info("Method failed: ");
-            return new ErrorRespond("-1","Method failed");
+            return new ErrorRespond("-1", "Method failed");
         }
 
         String contend = EntityUtils.toString(response.getEntity());
         return JsonUtils.parseToObject(contend, ErrorRespond.class);
     }
 
+    /**
+     * 根据请求获取key
+     *
+     * @param msg
+     * @param <E>
+     * @return
+     */
+    public static <E extends BaseReqMsg> String getKey(E msg) {
+
+        // 微信服务器在五秒内收不到响应会断掉连接，并且重新发起请求，总共重试三次，
+        // 关于重试的消息排重，有msgid的消息推荐使用msgid排重。事件类型消息推荐使用FromUserName + CreateTime 排重。
+
+        String key = null;
+        if (msg instanceof EventReqMsg) {
+            key = msg.getFromUserName() + "_" + msg.getToUserName() + "_" + msg.getMsgType() + "_" + ((EventReqMsg) msg).getEvent();
+        } else {
+            key = msg.getMsgId() + "_" + msg.getMsgType();
+        }
+
+        return key;
+    }
+
+    /**
+     * 根据消息及其命令进行响应
+     *
+     * @param cmd
+     * @param msg
+     * @return
+     */
+    public static BaseRespMsg getCmdResp(CmdConfig cmd, BaseReqMsg msg) {
+        BaseRespMsg resp = null;
+        String cType = cmd.getCtype();
+
+        // 需要与后台交互得出结果
+        if (cType.equalsIgnoreCase(GlobalConstants.CMD_CONFIG_CTYPE_CT02)) {
+
+            ServiceConfig serviceConfig = GlobalCaches.DB_CACHE_SERVICE_CONFIG.get(cmd.getServiceconfigid());
+            String respText = "";
+            if (serviceConfig == null) {
+                respText = "没找到相应后台交互服务";
+            } else {
+                respText = "命令[" + cmd.getCmd() + "],服务[" + serviceConfig.getName() + "]暂时未开通,敬请期待!";
+            }
+
+            TextRespMsg respMsg = new TextRespMsg();
+            respMsg.setToUserName(msg.getFromUserName());
+            respMsg.setFromUserName(msg.getToUserName());
+
+
+            respMsg.setContent(respText);
+            respMsg.setCreateTime(System.currentTimeMillis() / 1000);
+
+            resp = respMsg;
+        } else if (cType.equalsIgnoreCase(GlobalConstants.CMD_CONFIG_CTYPE_CT01)) {
+            String type = cmd.getType();
+            Integer msgId = cmd.getMsgid();
+            resp = LogicHelper.getConfigResp(msg.getFromUserName(), msg.getToUserName(), type, msgId);
+        }
+
+        return resp;
+    }
 }

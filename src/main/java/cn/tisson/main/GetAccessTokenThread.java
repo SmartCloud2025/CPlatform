@@ -42,7 +42,7 @@ public class GetAccessTokenThread extends BaseThread {
 
                     if (map.containsKey(info.getWebchatid())) {
                         TokenRespond respond = map.get(info.getWebchatid());
-                        if ((respond.getDate().getTime() - System.currentTimeMillis()) <= GlobalVariables.ACCESS_TOKEN_EXPIRE_TIME) {
+                        if (respond != null && (respond.getDate().getTime() - System.currentTimeMillis()) <= GlobalVariables.ACCESS_TOKEN_EXPIRE_TIME) {
                             continue;
                         }
                     }

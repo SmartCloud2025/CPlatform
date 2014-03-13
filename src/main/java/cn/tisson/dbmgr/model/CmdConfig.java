@@ -9,11 +9,15 @@ public class CmdConfig {
 
     private String cmd;
 
+    private String seperator;
+
     private String type;
 
     private Integer msgid;
 
     private String ctype;
+
+    private Integer serviceconfigid;
 
     private String status;
 
@@ -49,6 +53,14 @@ public class CmdConfig {
         this.cmd = cmd == null ? null : cmd.trim();
     }
 
+    public String getSeperator() {
+        return seperator;
+    }
+
+    public void setSeperator(String seperator) {
+        this.seperator = seperator == null ? null : seperator.trim();
+    }
+
     public String getType() {
         return type;
     }
@@ -71,6 +83,14 @@ public class CmdConfig {
 
     public void setCtype(String ctype) {
         this.ctype = ctype == null ? null : ctype.trim();
+    }
+
+    public Integer getServiceconfigid() {
+        return serviceconfigid;
+    }
+
+    public void setServiceconfigid(Integer serviceconfigid) {
+        this.serviceconfigid = serviceconfigid;
     }
 
     public String getStatus() {

@@ -4,9 +4,8 @@ import cn.tisson.common.GlobalVariables;
 import cn.tisson.framework.utils.StringUtils;
 import cn.tisson.manager.ReqFromWebChatService;
 import cn.tisson.platform.protocol.active.Signature;
-import org.apache.http.HttpRequest;
-import org.apache.http.HttpResponse;
 import org.jasic.util.ExceptionUtil;
+import org.jasic.util.TimeUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  * User: Jasic
@@ -78,20 +76,16 @@ public class ReqFromWebChat {
      * @param body
      * @return
      */
-    @RequestMapping(value = "/token/{webchatId:[\\S]{1,30}}", method = {RequestMethod.POST})
+    @RequestMapping(value = "/token/{webchatId:[\\S]{1,30}}", method = {RequestMethod.POST, RequestMethod.GET})
     public
     @ResponseBody
-    String _handleMessage(@RequestBody String body,HttpRequest request,HttpResponse response,HttpSession session) {
+    String _handleMessage(@RequestBody String body, HttpServletResponse response, HttpServletRequest request) {
 
         String resp = null;
         try {
             resp = service.handle(body);
         } catch (Exception e) {
             logger.error(ExceptionUtil.getStackTrace(e));
-        }finally {
-            if (resp == null){
-               response.setEntity(null);
-            }
         }
 
         return resp;

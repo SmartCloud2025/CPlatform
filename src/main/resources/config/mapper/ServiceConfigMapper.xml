@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.tisson.dbmgr.mapper.ServiceConfigMapper" >
+  <resultMap id="BaseResultMap" type="cn.tisson.dbmgr.model.ServiceConfig" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="Name" property="name" jdbcType="VARCHAR" />
+    <result column="ServiceUrl" property="serviceurl" jdbcType="VARCHAR" />
+    <result column="Demo" property="demo" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, Name, ServiceUrl, Demo
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from serviceconfig
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from serviceconfig
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.tisson.dbmgr.model.ServiceConfig" >
+    insert into serviceconfig (ID, Name, ServiceUrl, 
+      Demo)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{serviceurl,jdbcType=VARCHAR}, 
+      #{demo,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.tisson.dbmgr.model.ServiceConfig" >
+    insert into serviceconfig
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="name != null" >
+        Name,
+      </if>
+      <if test="serviceurl != null" >
+        ServiceUrl,
+      </if>
+      <if test="demo != null" >
+        Demo,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceurl != null" >
+        #{serviceurl,jdbcType=VARCHAR},
+      </if>
+      <if test="demo != null" >
+        #{demo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.tisson.dbmgr.model.ServiceConfig" >
+    update serviceconfig
+    <set >
+      <if test="name != null" >
+        Name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceurl != null" >
+        ServiceUrl = #{serviceurl,jdbcType=VARCHAR},
+      </if>
+      <if test="demo != null" >
+        Demo = #{demo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.tisson.dbmgr.model.ServiceConfig" >
+    update serviceconfig
+    set Name = #{name,jdbcType=VARCHAR},
+      ServiceUrl = #{serviceurl,jdbcType=VARCHAR},
+      Demo = #{demo,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+
+    <select id="getAll" resultMap="BaseResultMap">
+      <![CDATA[
+
+        SELECT * FROM ServiceConfig
+
+        ]]>
+
+    </select>
+</mapper>

@@ -62,5 +62,10 @@ public class GlobalVariables {
     public static int ACTIVE_PUSH_MSG_INTERVAL = 10;
     // 刷新access_token的时间间隔 （单位秒）（需要大于数据库的缓存刷新时间）>=DB_REFRESH_INTERVAL
     public static final int ACCESS_TOKEN_INTERVAL_TIME = 10;
+
+    // 微信超时时间
+    public static long WEB_CHAT_POST_TIME_OUT = 5000;
+
+    public static String DEFAULT_CMD_SEPERATOR = " ";
 }
 
