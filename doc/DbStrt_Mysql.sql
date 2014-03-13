@@ -57,10 +57,11 @@ CREATE TABLE CmdConfig (
   , ServiceWebChatID VARCHAR(64) NOT NULL
   , FansGroupId      INT DEFAULT NULL
   , Cmd              VARCHAR(32)
+  , Seperator        VARCHAR(32)
   , Type             VARCHAR(32) NOT NULL DEFAULT 'text'
-  , MsgID            INT         NOT NULL
+  , MsgID            INT
   , CType            VARCHAR(12) NOT NULL DEFAULT 'CT01'
-  , ServerCode       VARCHAR(64)
+  , ServiceConfigID  INT
   , Status           VARCHAR(12) NOT NULL DEFAULT 'A001'
 );
 ALTER TABLE CmdConfig
@@ -72,10 +73,11 @@ DROP TABLE IF EXISTS ServiceConfig;
 CREATE TABLE ServiceConfig (
     ID   INT AUTO_INCREMENT COMMENT '标识符id' PRIMARY KEY
   , Name VARCHAR(64)
-  , Code VARCHAR(64) NOT NULL DEFAULT 'text'
+  , ServiceUrl VARCHAR(256)
   , Demo VARCHAR(32)
 );
--- 6.	关注事件推送消息表（SubcEventRespMsg）
+
+-- 7.	关注事件推送消息表（SubcEventRespMsg）
 DROP TABLE IF EXISTS SubcEventRespMsg;
 CREATE TABLE SubcEventRespMsg (
     ID               INT AUTO_INCREMENT COMMENT '标识符id' PRIMARY KEY
@@ -84,7 +86,7 @@ CREATE TABLE SubcEventRespMsg (
   , MsgID            INT         NOT NULL
 );
 
--- 7.	图文消息表（NewsMsg）
+-- 8.	图文消息表（NewsMsg）
 DROP TABLE IF EXISTS NewsMsg;
 CREATE TABLE NewsMsg (
     ID               INT AUTO_INCREMENT COMMENT '标识符id' PRIMARY KEY
@@ -93,7 +95,7 @@ CREATE TABLE NewsMsg (
   , CreateDate       DATETIME
 );
 
--- 8.	文章描述表（Article）
+-- 9.	文章描述表（Article）
 DROP TABLE IF EXISTS Article;
 CREATE TABLE Article (
     ID          INT AUTO_INCREMENT COMMENT '标识符id' PRIMARY KEY
@@ -103,15 +105,6 @@ CREATE TABLE Article (
   , PicUrl      VARCHAR(255)
   , Url         VARCHAR(255)
   , Priority    INT
-);
-
--- 9.回复文字表（Text）
-DROP TABLE IF EXISTS Text;
-CREATE TABLE Text (
-    ID               INT AUTO_INCREMENT COMMENT '标识符id' PRIMARY KEY
-  , ServiceWebChatID VARCHAR(64)
-  , Content          VARCHAR(255)
-  , Description      VARCHAR(255)
 );
 
 -- 11.	主动推送消息（MassPushMsg）
@@ -217,6 +210,35 @@ CREATE TABLE RecvSessionRecord (
   , Day         INT
   , Hour        INT
 );
+-- 20.回复文字表（Text）
+DROP TABLE IF EXISTS Text;
+CREATE TABLE Text (
+    ID               INT AUTO_INCREMENT COMMENT '标识符id' PRIMARY KEY
+  , ServiceWebChatID VARCHAR(64)
+  , Content          VARCHAR(512)
+  , Description      VARCHAR(255)
+);
+
+-- 21.	菜单按扭（MenuButton）
+DROP TABLE IF EXISTS MenuButton;
+CREATE TABLE MenuButton (
+    ID        INT AUTO_INCREMENT COMMENT '标识符id' PRIMARY KEY
+  , PID       INT
+  , ServiceWebChatID VARCHAR(64) NOT NULL
+  , Name      VARCHAR(32)
+  , Type      VARCHAR(12)
+  , KeyVaule   VARCHAR(128)
+  , ViewUrl   VARCHAR(256)
+  , Status    VARCHAR(12)
+  , Demo      VARCHAR(512)
+);
+
+INSERT INTO MenuButton(PID,ServiceWebChatID,Name,TYPE,KeyVaule,ViewUrl,Status) VALUES (NULL,'gh_b817172873c4','业界动态', NULL,NULL,NULL,'A001');
+
+
+
+
+
 
 INSERT INTO ActiveArticle (NewsMsgID, Title, Description, PicUrl, Url)
 VALUES (1, '测试主动推送图文', '测试主动推送图文的描述喔1', 'http://nuomi.xnimg.cn/upload/deal/2013/7/V_L/310542-1373616839438.jpg',
@@ -269,14 +291,19 @@ INSERT INTO MassPushMsg (ServiceWebChatID, MsgID) VALUES ('gh_be3554dd14b6', 1);
 INSERT INTO MassPushMsg (ServiceWebChatID, Type, MsgID) VALUES ('gh_be3554dd14b6', 'news', 1);
 
 INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, MsgID) VALUES ('gh_b817172873c4', 'a', 'text', 1);
+INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, MsgID) VALUES ('gh_b817172873c4', 'DEFAULT', 'text', 4);
 INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, MsgID) VALUES ('gh_b817172873c4', 'b', 'text', 3);
 INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, MsgID) VALUES ('gh_b817172873c4', 'c', 'news', 1);
 INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, MsgID) VALUES ('gh_be3554dd14b6', 'a', 'text', 1);
 INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, MsgID) VALUES ('gh_be3554dd14b6', 'b', 'text', 3);
 INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, MsgID) VALUES ('gh_be3554dd14b6', 'c', 'news', 1);
+INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, CType, ServiceConfigID) VALUES ('gh_b817172873c4', 'CXJL', 'text', 'CT02',1);
+INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, CType, ServiceConfigID) VALUES ('gh_b817172873c4', 'SZZJ', 'text', 'CT02',2);
+INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, CType, ServiceConfigID) VALUES ('gh_b817172873c4', 'CJHY', 'text', 'CT02',3);
 
-INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, MsgID, CType) VALUES ('gh_b817172873c4', 'd', 'text', 1, 'CT02');
-INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, MsgID, CType) VALUES ('gh_be3554dd14b6', 'd', 'text', 1, 'CT02');
+INSERT INTO ServiceConfig (Name,ServiceUrl,Demo) VALUES ('查询会议记录', 'querymeet', '创建查询会议记录服务');
+INSERT INTO ServiceConfig (Name,ServiceUrl,Demo) VALUES ('设置主叫号码', 'setcaller', '设置主叫服务');
+INSERT INTO ServiceConfig (Name,ServiceUrl,Demo) VALUES ('创建会议', 'createmeet', '创建会议服务');
 
 INSERT INTO SubcEventRespMsg (ServiceWebChatID, Type, MsgID) VALUES ('gh_b817172873c4', 'text', 3);
 INSERT INTO SubcEventRespMsg (ServiceWebChatID, Type, MsgID) VALUES ('gh_b817172873c4', 'news', 1);
@@ -299,7 +326,18 @@ INSERT INTO Article (NewsMsgID, Title, Description, PicUrl, Url) VALUES
 INSERT INTO Text (Content, Description) VALUES ('非常欢迎关注此餐厅，更多服务请看http://www.baidu.com', '关注回复文字描述');
 INSERT INTO Text (Content, Description) VALUES ('非常欢迎关注此餐厅，更多服务请看http://google.com.cn', '关注回复文字描述');
 INSERT INTO Text (Content, Description) VALUES ('非常欢迎关注此餐厅，更多服务请看http://hao123.com', '关注回复文字描述');
-
+INSERT INTO Text (Description,Content) VALUES ('服务自动回复文字描述','不可识别指令
+1.设置主叫:
+  SZZJ主叫号码;
+2.创建会议:
+  CJHY,被叫1,被叫2;
+3.通话记录:
+  CXJL,yyyymmdd,yyyymmdd;
+4.最近记录:
+  CXZJ,D,最近D天记录;
+5.重拨会议:
+  CBHY,重呼上次会议;'
+);
 INSERT INTO ActiveText (ServiceWebChatID, Content, Description)
 VALUES ('gh_be3554dd14b6', '这个是主动推送消息1，更多服务请看http://bassice.vicp.net', '主动推送消息描述');
 INSERT INTO ActiveText (ServiceWebChatID, Content, Description)
