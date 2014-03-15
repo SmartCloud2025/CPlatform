@@ -39,6 +39,9 @@ public class WebChatMsgEncoder<M extends BaseRespMsg> {
     public String encode(M msg) {
         String msgType = msg.getMsgType();
 
+        String fanId = msg.getToUserName();
+        String serviceId = msg.getFromUserName();
+
         String resp = "";
 
         /**
@@ -81,6 +84,6 @@ public class WebChatMsgEncoder<M extends BaseRespMsg> {
         else if (msgType.equals(MessageUtil.RESP_MESSAGE_TYPE_NEWS)) {
             resp = MessageUtil.newsMessageToXml((NewsRespMsg) msg);
         }
-        return resp;
+        return resp.replaceAll("\\{fanId\\}", fanId).replaceAll("\\{serviceId\\}", serviceId);
     }
 }

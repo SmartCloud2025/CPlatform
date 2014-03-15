@@ -160,7 +160,6 @@ public class ReqFromWebChatService {
         try {
             logger.info("请求body转换的实体:" + JSON.toJSONString(reqMessage));
             BaseRespMsg respMsg = handler.handle(reqMessage);
-            logger.info("处理请求后响应的实体为:" + JSON.toJSONString(respMsg));
             /**
              * 如果忽略用户的请求信息则返回null
              */
@@ -168,6 +167,8 @@ public class ReqFromWebChatService {
                 return "";
             }
             resp = encoder.encode(respMsg);
+            logger.info("处理请求后响应的实体为:" + resp);
+
         } catch (DuplicateMessageException e) {
             logger.info("此信息被过滤:" + e.getMessage());
         }

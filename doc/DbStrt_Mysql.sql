@@ -235,100 +235,71 @@ CREATE TABLE MenuButton (
 
 INSERT INTO MenuButton(PID,ServiceWebChatID,Name,TYPE,KeyVaule,ViewUrl,Status) VALUES (NULL,'gh_b817172873c4','业界动态', NULL,NULL,NULL,'A001');
 
-
-
-
-
-
-INSERT INTO ActiveArticle (NewsMsgID, Title, Description, PicUrl, Url)
-VALUES (1, '测试主动推送图文', '测试主动推送图文的描述喔1', 'http://nuomi.xnimg.cn/upload/deal/2013/7/V_L/310542-1373616839438.jpg',
-        'http://wenku.baidu.com/view/2c581b02b52acfc789ebc9a7.html');
-INSERT INTO ActiveArticle (NewsMsgID, Title, Description, PicUrl, Url)
-VALUES (1, '测试主动推送图文', '测试主动推送图文的描述喔2', 'http://nuomi.xnimg.cn/upload/deal/2013/7/V_L/310542-1373616839438.jpg',
-        'http://wenku.baidu.com/view/2c581b02b52acfc789ebc9a7.html');
-INSERT INTO ActiveArticle (NewsMsgID, Title, Description, PicUrl, Url)
-VALUES (1, '测试主动推送图文', '测试主动推送图文的描述喔3', 'http://nuomi.xnimg.cn/upload/deal/2013/7/V_L/310542-1373616839438.jpg',
-        'http://wenku.baidu.com/view/2c581b02b52acfc789ebc9a7.html');
-INSERT INTO ActiveArticle (NewsMsgID, Title, Description, PicUrl, Url)
-VALUES (3, '测试主动推送图文', '测试主动推送图文的描述喔4', 'http://nuomi.xnimg.cn/upload/deal/2013/7/V_L/310542-1373616839438.jpg',
-        'http://wenku.baidu.com/view/2c581b02b52acfc789ebc9a7.html');
-INSERT INTO ActiveArticle (NewsMsgID, Title, Description, PicUrl, Url)
-VALUES (2, '测试主动推送图文', '测试主动推送图文的描述喔5', 'http://nuomi.xnimg.cn/upload/deal/2013/7/V_L/310542-1373616839438.jpg',
-        'http://wenku.baidu.com/view/2c581b02b52acfc789ebc9a7.html');
+# INSERT INTO ActiveArticle (ewsMsgID, Title, Description, PicUrl, Url)VALUES (1, '测试主动推送图文', '测试主动推送图文的描述喔1', 'http://nuomi.xnimg.cn/upload/deal/2013/7/V_L/310542-1373616839438.jpg',        'http://wenku.baidu.com/view/2c581b02b52acfc789ebc9a7.html');
+# INSERT INTO ActiveArticle (NewsMsgID, Title, Description, PicUrl, Url)VALUES (1, '测试主动推送图文', '测试主动推送图文的描述喔2', 'http://nuomi.xnimg.cn/upload/deal/2013/7/V_L/310542-1373616839438.jpg',        'http://wenku.baidu.com/view/2c581b02b52acfc789ebc9a7.html');
+# INSERT INTO ActiveArticle (NewsMsgID, Title, Description, PicUrl, Url)VALUES (1, '测试主动推送图文', '测试主动推送图文的描述喔3', 'http://nuomi.xnimg.cn/upload/deal/2013/7/V_L/310542-1373616839438.jpg',        'http://wenku.baidu.com/view/2c581b02b52acfc789ebc9a7.html');
+# INSERT INTO ActiveArticle (NewsMsgID, Title, Description, PicUrl, Url)VALUES (3, '测试主动推送图文', '测试主动推送图文的描述喔4', 'http://nuomi.xnimg.cn/upload/deal/2013/7/V_L/310542-1373616839438.jpg',        'http://wenku.baidu.com/view/2c581b02b52acfc789ebc9a7.html');
+# INSERT INTO ActiveArticle (NewsMsgID, Title, Description, PicUrl, Url)VALUES (2, '测试主动推送图文', '测试主动推送图文的描述喔5', 'http://nuomi.xnimg.cn/upload/deal/2013/7/V_L/310542-1373616839438.jpg',        'http://wenku.baidu.com/view/2c581b02b52acfc789ebc9a7.html');
 
 INSERT INTO ActiveNewsMsg (ServiceWebChatID, Description) VALUES ('gh_b817172873c4', 'gh_b817172873c4的主动推送消息');
 INSERT INTO ActiveNewsMsg (ServiceWebChatID, Description) VALUES ('gh_be3554dd14b6', 'gh_be3554dd14b6的主动推送消息');
 
-INSERT INTO ServiceInfo (WebChatID, URL, TOKEN)
-VALUES ('gh_b817172873c4', 'http://bassice.vicp.net/webchat/token/gh_b817172873c4', 'gh_b817172873c4');
-INSERT INTO ServiceInfo (WebChatID, URL, TOKEN, AppID, AppSecret) VALUES
-  ('gh_be3554dd14b6', 'http://bassice.vicp.net/webchat/token/gh_be3554dd14b6', 'gh_be3554dd14b6', 'wx39b31e79637b8e77',
-   'f4b1fab0c5653b2bd89b299f0446f79e');
+INSERT INTO ServiceInfo (WebChatID, URL, TOKEN) VALUES ('gh_b817172873c4', 'http://bassice.vicp.net/webchat/token/gh_b817172873c4', 'gh_b817172873c4');
+INSERT INTO ServiceInfo (WebChatID, URL, TOKEN, AppID, AppSecret) VALUES  ('gh_be3554dd14b6', 'http://bassice.vicp.net/webchat/token/gh_be3554dd14b6', 'gh_be3554dd14b6', 'wx39b31e79637b8e77',   'f4b1fab0c5653b2bd89b299f0446f79e');
 
-INSERT INTO FansGroup (ServiceWebChatID, GroupName, GroupType) VALUES ('gh_b817172873c4', '默认分组', 'Default');
-INSERT INTO FansGroup (ServiceWebChatID, GroupName, GroupType) VALUES ('gh_b817172873c4', '高级分组', 'Higher');
-INSERT INTO FansGroup (ServiceWebChatID, GroupName, GroupType) VALUES ('gh_b817172873c4', '低组分组', 'Lower');
-INSERT INTO FansGroup (ServiceWebChatID, GroupName, GroupType, status)
-VALUES ('gh_b817172873c4', '失效分组', 'Loser', 'A010');
+# INSERT INTO FansGroup (ServiceWebChatID, GroupName, GroupType) VALUES ('gh_b817172873c4', '默认分组', 'Default');
+# INSERT INTO FansGroup (ServiceWebChatID, GroupName, GroupType) VALUES ('gh_b817172873c4', '高级分组', 'Higher');
+# INSERT INTO FansGroup (ServiceWebChatID, GroupName, GroupType) VALUES ('gh_b817172873c4', '低组分组', 'Lower');
+# INSERT INTO FansGroup (ServiceWebChatID, GroupName, GroupType, status)
+# VALUES ('gh_b817172873c4', '失效分组', 'Loser', 'A010');
 
-INSERT INTO FansInfo (WebChatID, FansGroupID, FanName, Address, FocusType)
-VALUES ('FanJasic', '1', 'Jasic', '广东广州1', 'F002');
-INSERT INTO FansInfo (WebChatID, FansGroupID, FanName, Address, FocusType)
-VALUES ('FanBassice', '1', 'bassice', '广东广州1', 'F002');
-INSERT INTO FansInfo (WebChatID, FansGroupID, FanName, Address, FocusType)
-VALUES ('FanJBL', '2', 'JBL', '广东广州1', 'F002');
-INSERT INTO FansInfo (WebChatID, FansGroupID, FanName, Address, FocusType) VALUES ('FANck', '1', 'ck', '广东广州1', 'F002');
-INSERT INTO FansInfo (WebChatID, FansGroupID, FanName, Address, FocusType)
-VALUES ('FansBas', '4', 'bas', '广东广州1', 'F002');
-INSERT INTO FansInfo (WebChatID, FansGroupID, FanName, Address, FocusType)
-VALUES ('FanJasic', '4', 'Jasic', '广东广州1', 'F001');
+# INSERT INTO FansInfo (WebChatID, FansGroupID, FanName, Address, FocusType) VALUES ('FanJasic', '1', 'Jasic', '广东广州1', 'F002');
 
-INSERT INTO FansBlackList (FansWebChatID, ServiceWebChatID, Desription)
-VALUES ('FanJasic', 'gh_b817172873c4', '必须加入黑名单，因为不喜欢这fans');
+# INSERT INTO FansBlackList (FansWebChatID, ServiceWebChatID, Desription) VALUES ('FanJasic', 'gh_b817172873c4', '必须加入黑名单，因为不喜欢这fans');
 
-INSERT INTO MassPushMsg (ServiceWebChatID, MsgID) VALUES ('gh_b817172873c4', 1);
-INSERT INTO MassPushMsg (ServiceWebChatID, MsgID) VALUES ('gh_be3554dd14b6', 1);
-INSERT INTO MassPushMsg (ServiceWebChatID, Type, MsgID) VALUES ('gh_be3554dd14b6', 'news', 1);
+# INSERT INTO MassPushMsg (ServiceWebChatID, MsgID) VALUES ('gh_b817172873c4', 1);
+# INSERT INTO MassPushMsg (ServiceWebChatID, MsgID) VALUES ('gh_be3554dd14b6', 1);
+# INSERT INTO MassPushMsg (ServiceWebChatID, Type, MsgID) VALUES ('gh_be3554dd14b6', 'news', 1);
 
-INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, MsgID) VALUES ('gh_b817172873c4', 'a', 'text', 1);
-INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, MsgID) VALUES ('gh_b817172873c4', 'DEFAULT', 'text', 4);
-INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, MsgID) VALUES ('gh_b817172873c4', 'b', 'text', 3);
-INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, MsgID) VALUES ('gh_b817172873c4', 'c', 'news', 1);
-INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, MsgID) VALUES ('gh_be3554dd14b6', 'a', 'text', 1);
-INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, MsgID) VALUES ('gh_be3554dd14b6', 'b', 'text', 3);
-INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, MsgID) VALUES ('gh_be3554dd14b6', 'c', 'news', 1);
-INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, CType, ServiceConfigID) VALUES ('gh_b817172873c4', 'CXJL', 'text', 'CT02',1);
-INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, CType, ServiceConfigID) VALUES ('gh_b817172873c4', 'SZZJ', 'text', 'CT02',2);
-INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, CType, ServiceConfigID) VALUES ('gh_b817172873c4', 'CJHY', 'text', 'CT02',3);
+# INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, MsgID) VALUES ('gh_b817172873c4', 'a', 'text', 1);
+# INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, MsgID) VALUES ('gh_b817172873c4', 'b', 'text', 3);
+# INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, MsgID) VALUES ('gh_b817172873c4', 'c', 'news', 1);
+# INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, MsgID) VALUES ('gh_be3554dd14b6', 'a', 'text', 1);
+# INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, MsgID) VALUES ('gh_be3554dd14b6', 'b', 'text', 3);
+# INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, MsgID) VALUES ('gh_be3554dd14b6', 'c', 'news', 1);
 
-INSERT INTO ServiceConfig (Name,ServiceUrl,Demo) VALUES ('查询会议记录', 'querymeet', '创建查询会议记录服务');
-INSERT INTO ServiceConfig (Name,ServiceUrl,Demo) VALUES ('设置主叫号码', 'setcaller', '设置主叫服务');
-INSERT INTO ServiceConfig (Name,ServiceUrl,Demo) VALUES ('创建会议', 'createmeet', '创建会议服务');
+INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, MsgID) VALUES ('gh_b817172873c4', 'DEFAULT', 'text', 2);
+INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, CType, ServiceConfigID) VALUES ('gh_b817172873c4', 'SZZJ', 'text', 'CT02',1);
+INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, CType, ServiceConfigID) VALUES ('gh_b817172873c4', 'CJHY', 'text', 'CT02',2);
+INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, CType, ServiceConfigID) VALUES ('gh_b817172873c4', 'CXJL', 'text', 'CT02',3);
+INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, CType, ServiceConfigID) VALUES ('gh_b817172873c4', 'CXZJ', 'text', 'CT02',4);
+INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, CType, ServiceConfigID) VALUES ('gh_b817172873c4', 'CBHY', 'text', 'CT02',5);
 
-INSERT INTO SubcEventRespMsg (ServiceWebChatID, Type, MsgID) VALUES ('gh_b817172873c4', 'text', 3);
-INSERT INTO SubcEventRespMsg (ServiceWebChatID, Type, MsgID) VALUES ('gh_b817172873c4', 'news', 1);
-INSERT INTO SubcEventRespMsg (ServiceWebChatID, Type, MsgID) VALUES ('gh_be3554dd14b6', 'news', 1);
+INSERT INTO ServiceConfig (Name,ServiceUrl,Demo) VALUES ('设置主叫', 'setCaller', '设置主叫服务');
+INSERT INTO ServiceConfig (Name,ServiceUrl,Demo) VALUES ('创建会议', 'createMeet', '创建会议服务');
+INSERT INTO ServiceConfig (Name,ServiceUrl,Demo) VALUES ('查询会议记录', 'queryRecord', '查询会议记录服务');
+INSERT INTO ServiceConfig (Name,ServiceUrl,Demo) VALUES ('查询最近记录', 'recentRecord', '查询最近记录服务');
+INSERT INTO ServiceConfig (Name,ServiceUrl,Demo) VALUES ('重拨会议', 'redial', '重拨会议服务');
+
+INSERT INTO SubcEventRespMsg (ServiceWebChatID, Type, MsgID) VALUES ('gh_b817172873c4', 'text', 1);
+# INSERT INTO SubcEventRespMsg (ServiceWebChatID, Type, MsgID) VALUES ('gh_b817172873c4', 'news', 1);
+# INSERT INTO SubcEventRespMsg (ServiceWebChatID, Type, MsgID) VALUES ('gh_be3554dd14b6', 'news', 1);
 
 
-INSERT INTO NewsMsg (Description) VALUES ('图文描述');
-INSERT INTO Article (NewsMsgID, Title, Description, PicUrl, Url)
-VALUES (1, '测试图文消息标题1', '测试图文消息的描述1', 'http://www.hackhome.com/newimg/20139/2013091252128393.png', 'http://baidu.com');
-INSERT INTO Article (NewsMsgID, Title, Description, PicUrl, Url) VALUES
-  (1, '测试图文消息标题2', '测试图文消息的描述2', 'http://nuomi.xnimg.cn/upload/deal/2013/7/V_L/310542-1373616839438.jpg',
-   'http://baidu.com');
-INSERT INTO Article (NewsMsgID, Title, Description, PicUrl, Url) VALUES
-  (1, '测试图文消息标题2', '测试图文消息的描述3', 'http://nuomi.xnimg.cn/upload/deal/2013/7/V_L/310542-1373616839438.jpg',
-   'http://baidu.com');
-INSERT INTO Article (NewsMsgID, Title, Description, PicUrl, Url) VALUES
-  (2, '测试图文消息标题2', '测试图文消息的描述3', 'http://nuomi.xnimg.cn/upload/deal/2013/7/V_L/310542-1373616839438.jpg',
-   'http://baidu.com');
+# INSERT INTO NewsMsg (Description) VALUES ('图文描述');
+# INSERT INTO Article (NewsMsgID, Title, Description, PicUrl, Url) VALUES (1, '测试图文消息标题1', '测试图文消息的描述1', 'http://www.hackhome.com/newimg/20139/2013091252128393.png', 'http://baidu.com');
+# INSERT INTO Article (NewsMsgID, Title, Description, PicUrl, Url) VALUES  (1, '测试图文消息标题2', '测试图文消息的描述2', 'http://nuomi.xnimg.cn/upload/deal/2013/7/V_L/310542-1373616839438.jpg',   'http://baidu.com');
+# INSERT INTO Article (NewsMsgID, Title, Description, PicUrl, Url) VALUES  (1, '测试图文消息标题2', '测试图文消息的描述3', 'http://nuomi.xnimg.cn/upload/deal/2013/7/V_L/310542-1373616839438.jpg',   'http://baidu.com');
+# INSERT INTO Article (NewsMsgID, Title, Description, PicUrl, Url) VALUES  (2, '测试图文消息标题2', '测试图文消息的描述3', 'http://nuomi.xnimg.cn/upload/deal/2013/7/V_L/310542-1373616839438.jpg',   'http://baidu.com');
 
-INSERT INTO Text (Content, Description) VALUES ('非常欢迎关注此餐厅，更多服务请看http://www.baidu.com', '关注回复文字描述');
-INSERT INTO Text (Content, Description) VALUES ('非常欢迎关注此餐厅，更多服务请看http://google.com.cn', '关注回复文字描述');
-INSERT INTO Text (Content, Description) VALUES ('非常欢迎关注此餐厅，更多服务请看http://hao123.com', '关注回复文字描述');
+# INSERT INTO Text (Content, Description) VALUES ('非常欢迎关注此餐厅，更多服务请看http://www.baidu.com', '关注回复文字描述');
+# INSERT INTO Text (Content, Description) VALUES ('非常欢迎关注此餐厅，更多服务请看http://google.com.cn', '关注回复文字描述');
+# INSERT INTO Text (Content, Description) VALUES ('非常欢迎关注此餐厅，更多服务请看http://hao123.com', '关注回复文字描述');
+INSERT INTO Text (Content, Description) VALUES ('多方通话业务是针对个人用户推出的带有电话会议功能的电信增值业务，可以同时接入1～7个被叫，实现2～8方同时通话无需密码、使用方便；
+应用在亲友叙情、家庭议事、同学聚会、同事交流方面上,<a href="http://jasic.vicp.net/webPhone/begin?fanId={fanId}&serviceId={serviceId}">立即发起</a>通话', '关注回复文字描述');
 INSERT INTO Text (Description,Content) VALUES ('服务自动回复文字描述','不可识别指令
 1.设置主叫:
-  SZZJ主叫号码;
+  SZZJ,主叫号码;
 2.创建会议:
   CJHY,被叫1,被叫2;
 3.通话记录:
@@ -338,11 +309,7 @@ INSERT INTO Text (Description,Content) VALUES ('服务自动回复文字描述',
 5.重拨会议:
   CBHY,重呼上次会议;'
 );
-INSERT INTO ActiveText (ServiceWebChatID, Content, Description)
-VALUES ('gh_be3554dd14b6', '这个是主动推送消息1，更多服务请看http://bassice.vicp.net', '主动推送消息描述');
-INSERT INTO ActiveText (ServiceWebChatID, Content, Description)
-VALUES ('gh_be3554dd14b6', '这个是主动推送消息2，更多服务请看http://bassice.vicp.net', '主动推送消息描述');
-INSERT INTO ActiveText (ServiceWebChatID, Content, Description)
-VALUES ('gh_be3554dd14b6', '这个是主动推送消息3，更多服务请看http://bassice.vicp.net', '主动推送消息描述');
-INSERT INTO ActiveText (ServiceWebChatID, Content, Description)
-VALUES ('gh_be3554dd14b6', '这个是主动推送消息4，更多服务请看http://bassice.vicp.net', '主动推送消息描述');
+# INSERT INTO ActiveText (ServiceWebChatID, Content, Description)VALUES ('gh_be3554dd14b6', '这个是主动推送消息1，更多服务请看http://bassice.vicp.net', '主动推送消息描述');
+# INSERT INTO ActiveText (ServiceWebChatID, Content, Description)VALUES ('gh_be3554dd14b6', '这个是主动推送消息2，更多服务请看http://bassice.vicp.net', '主动推送消息描述');
+# INSERT INTO ActiveText (ServiceWebChatID, Content, Description)VALUES ('gh_be3554dd14b6', '这个是主动推送消息3，更多服务请看http://bassice.vicp.net', '主动推送消息描述');
+# INSERT INTO ActiveText (ServiceWebChatID, Content, Description)VALUES ('gh_be3554dd14b6', '这个是主动推送消息4，更多服务请看http://bassice.vicp.net', '主动推送消息描述');

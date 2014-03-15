@@ -105,6 +105,7 @@ public abstract class AProcessor<E extends BaseReqMsg> {
             respMsg = doProcess(msg);
 
             if (respMsg != null) {
+
                 getExcludeDuplicate().put(LogicHelper.getKey(msg), respMsg);
             }
 
