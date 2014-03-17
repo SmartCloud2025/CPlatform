@@ -37,7 +37,7 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="webphone" level="project" />
-    <orderEntry type="library" name="Java EE 6" level="project" />
+    <orderEntry type="library" name="J2EE" level="project" />
   </component>
 </module>
 
