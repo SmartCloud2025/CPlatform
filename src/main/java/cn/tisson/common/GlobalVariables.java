@@ -66,6 +66,11 @@ public class GlobalVariables {
     // 微信超时时间
     public static long WEB_CHAT_POST_TIME_OUT = 5000;
 
-    public static String DEFAULT_CMD_SEPERATOR = " ";
+
+    //--------------------------------------- 指令配置设置 --------------------------------------
+    // 微信指令配置的默认分隔符号
+    public static String CMD_DEFAULT_SEPERATOR = " ";
+    // 指令配置服务调用的基本路径
+    public static String CMD_SERVICE_BASE_URL = "http://192.168.1.111:8080/webPhone/cmd";
 }
 

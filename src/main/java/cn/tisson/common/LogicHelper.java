@@ -5,10 +5,12 @@ import cn.tisson.dbmgr.service.FansGroupService;
 import cn.tisson.platform.protocol.active.ErrorRespond;
 import cn.tisson.platform.protocol.active.servReq.BaseServReq;
 import cn.tisson.platform.protocol.req.BaseReqMsg;
+import cn.tisson.platform.protocol.req.TextReqMsg;
 import cn.tisson.platform.protocol.req.event.EventReqMsg;
 import cn.tisson.platform.protocol.resp.BaseRespMsg;
 import cn.tisson.platform.protocol.resp.NewsRespMsg;
 import cn.tisson.platform.protocol.resp.TextRespMsg;
+import cn.tisson.util.HttpClientUtil;
 import cn.tisson.util.JsonUtils;
 import cn.tisson.util.MessageUtil;
 import cn.tisson.util.SpringContextUtil;
@@ -27,9 +29,7 @@ import org.jasic.util.ExceptionUtil;
 import org.slf4j.Logger;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 /**
  * User: Jasic
@@ -197,7 +197,7 @@ public class LogicHelper {
             if (seperator != null) {
                 cmdStr = cmdStr.split(seperator)[0];
             } else {
-                cmdStr = cmdStr.split(GlobalVariables.DEFAULT_CMD_SEPERATOR)[0];
+                cmdStr = cmdStr.split(GlobalVariables.CMD_DEFAULT_SEPERATOR)[0];
             }
 
             // 全局默认的配置(对所有的服务号、订阅号有效）
@@ -404,7 +404,7 @@ public class LogicHelper {
      * @param msg
      * @return
      */
-    public static BaseRespMsg getCmdResp(CmdConfig cmd, BaseReqMsg msg) {
+    public static BaseRespMsg getCmdResp(CmdConfig cmd, TextReqMsg msg) {
         BaseRespMsg resp = null;
         String cType = cmd.getCtype();
 
@@ -416,14 +416,24 @@ public class LogicHelper {
             if (serviceConfig == null) {
                 respText = "没找到相应后台交互服务";
             } else {
-                respText = "命令[" + cmd.getCmd() + "],服务[" + serviceConfig.getName() + "]暂时未开通,敬请期待!";
+                String url = GlobalVariables.CMD_SERVICE_BASE_URL + "/" + serviceConfig.getServiceurl();
+                String paraStr = msg.getContent().toLowerCase().replaceFirst(cmd.getCmd().toLowerCase(), "").replaceFirst(cmd.getSeperator() == null ? GlobalVariables.CMD_DEFAULT_SEPERATOR.toLowerCase() : cmd.getSeperator().toLowerCase(), "");
+                Map<String, String> map = new HashMap<String, String>();
+                map.put("cmd", cmd.getCmd());
+                map.put("paras", paraStr);
+                map.put("fanId", msg.getFromUserName());
+                map.put("serviceId", msg.getToUserName());
+                String cmdRespStr = HttpClientUtil.sendGetRequest(url, map, "UTF-8");
+                if (cmdRespStr.equalsIgnoreCase("false")) {
+                    respText = "命令[" + cmd.getCmd() + "],服务[" + serviceConfig.getName() + "]暂时未开通,敬请期待!";
+                } else {
+                    respText = cmdRespStr;
+                }
             }
 
             TextRespMsg respMsg = new TextRespMsg();
             respMsg.setToUserName(msg.getFromUserName());
             respMsg.setFromUserName(msg.getToUserName());
-
-
             respMsg.setContent(respText);
             respMsg.setCreateTime(System.currentTimeMillis() / 1000);
 
