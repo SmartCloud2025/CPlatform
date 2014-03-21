@@ -29,6 +29,7 @@ import org.jasic.util.ExceptionUtil;
 import org.slf4j.Logger;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.*;
 
 /**
@@ -417,7 +418,10 @@ public class LogicHelper {
                 respText = "没找到相应后台交互服务";
             } else {
                 String url = GlobalVariables.CMD_SERVICE_BASE_URL + "/" + serviceConfig.getServiceurl();
-                String paraStr = msg.getContent().toLowerCase().replaceFirst(cmd.getCmd().toLowerCase(), "").replaceFirst(cmd.getSeperator() == null ? GlobalVariables.CMD_DEFAULT_SEPERATOR.toLowerCase() : cmd.getSeperator().toLowerCase(), "");
+
+                String actualSeper =cmd.getSeperator() == null ? GlobalVariables.CMD_DEFAULT_SEPERATOR.toLowerCase() : cmd.getSeperator().toLowerCase();
+                String paraStr = msg.getContent().toLowerCase().replaceFirst(cmd.getCmd().toLowerCase(), "").replaceFirst(actualSeper, "");
+                paraStr = URLEncoder.encode(paraStr);
                 Map<String, String> map = new HashMap<String, String>();
                 map.put("cmd", cmd.getCmd());
                 map.put("paras", paraStr);

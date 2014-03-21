@@ -259,7 +259,7 @@ INSERT INTO SubcEventRespMsg (ServiceWebChatID, Type, MsgID) VALUES ('gh_b817172
 INSERT INTO SubcEventRespMsg (ServiceWebChatID, Type, MsgID) VALUES ('gh_be3554dd14b6', 'text', 1);
 
 INSERT INTO Text (Content, Description) VALUES ('多方通话业务是针对个人用户推出的带有电话会议功能的电信增值业务，可以同时接入1～7个被叫，实现2～8方同时通话无需密码、使用方便；
-应用在亲友叙情、家庭议事、同学聚会、同事交流方面上,<a href="http://192.168.1.102:8080/webPhone/begin?fanId={fanId}&serviceId={serviceId}">立即发起</a>通话', '关注回复文字描述');
+应用在亲友叙情、家庭议事、同学聚会、同事交流方面上,<a href="http://jasic.vicp.net/webPhone/begin?fanId={fanId}&serviceId={serviceId}">立即发起</a>通话', '关注回复文字描述');
 INSERT INTO Text (Description,Content) VALUES ('服务自动回复文字描述','不可识别指令
 1.设置主叫:
   SZZJ,主叫号码;
@@ -271,6 +271,6 @@ INSERT INTO Text (Description,Content) VALUES ('服务自动回复文字描述',
   CXZJ,D,最近D天记录;
 5.重拨会议:
   CBHY,重呼上次会议;
-  <a href="http://192.168.1.102:8080/webPhone/begin?fanId={fanId}&serviceId={serviceId}">进入微会议系统</a>'
+  <a href="http://jasic.vicp.net/webPhone/begin?fanId={fanId}&serviceId={serviceId}">进入微会议系统</a>'
 
 );
