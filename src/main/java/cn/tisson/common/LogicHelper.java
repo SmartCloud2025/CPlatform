@@ -420,7 +420,7 @@ public class LogicHelper {
                 String url = GlobalVariables.CMD_SERVICE_BASE_URL + "/" + serviceConfig.getServiceurl();
 
                 String actualSeper =cmd.getSeperator() == null ? GlobalVariables.CMD_DEFAULT_SEPERATOR.toLowerCase() : cmd.getSeperator().toLowerCase();
-                String paraStr = msg.getContent().toLowerCase().replaceFirst(cmd.getCmd().toLowerCase(), "").replaceFirst(actualSeper, "");
+                String paraStr = msg.getContent().replaceAll(GlobalVariables.REPLACE_SPACE," ").toLowerCase().replaceFirst(cmd.getCmd().toLowerCase(), "").replaceFirst(actualSeper, "");
                 paraStr = URLEncoder.encode(paraStr);
                 Map<String, String> map = new HashMap<String, String>();
                 map.put("cmd", cmd.getCmd());
