@@ -114,7 +114,7 @@ public class RefreshHelper {
 
 
     /**
-     * 图文推送消息表(NewsMsg)
+     * 文字推送消息表(NewsMsg)
      */
     public void refreshTextMsg() throws Exception {
 
