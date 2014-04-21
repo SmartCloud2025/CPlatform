@@ -72,6 +72,8 @@ public class GlobalVariables {
     public static String CMD_DEFAULT_SEPERATOR = " ";
     // 指令配置服务调用的基本路径
     public static String CMD_SERVICE_BASE_URL = "http://192.168.1.111:8080/webPhone/cmd";
+    // WebPhone基本路径
+    public static String WEBPHONE_BASE_URL = "http://192.168.1.111:8080/webPhone";
 
     // 多个空格转成一个空格
     public static String REPLACE_SPACE = "[ ]{2,}";

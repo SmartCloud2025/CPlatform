@@ -405,7 +405,7 @@ public class LogicHelper {
      * @param msg
      * @return
      */
-    public static BaseRespMsg getCmdResp(CmdConfig cmd, TextReqMsg msg) {
+    public static BaseRespMsg getCmdResp(CmdConfig cmd, String fromUser,String toUser,String content) {
         BaseRespMsg resp = null;
         String cType = cmd.getCtype();
 
@@ -420,13 +420,13 @@ public class LogicHelper {
                 String url = GlobalVariables.CMD_SERVICE_BASE_URL + "/" + serviceConfig.getServiceurl();
 
                 String actualSeper =cmd.getSeperator() == null ? GlobalVariables.CMD_DEFAULT_SEPERATOR.toLowerCase() : cmd.getSeperator().toLowerCase();
-                String paraStr = msg.getContent().replaceAll(GlobalVariables.REPLACE_SPACE," ").toLowerCase().replaceFirst(cmd.getCmd().toLowerCase(), "").replaceFirst(actualSeper, "");
+                String paraStr = content.replaceAll(GlobalVariables.REPLACE_SPACE," ").toLowerCase().replaceFirst(cmd.getCmd().toLowerCase(), "").replaceFirst(actualSeper, "");
                 paraStr = URLEncoder.encode(paraStr);
                 Map<String, String> map = new HashMap<String, String>();
                 map.put("cmd", cmd.getCmd());
                 map.put("paras", paraStr);
-                map.put("fanId", msg.getFromUserName());
-                map.put("serviceId", msg.getToUserName());
+                map.put("fanId", fromUser);
+                map.put("serviceId", toUser);
                 String cmdRespStr = HttpClientUtil.sendGetRequest(url, map, "UTF-8");
                 if (cmdRespStr.equalsIgnoreCase("false")) {
                     respText = "命令[" + cmd.getCmd() + "],服务[" + serviceConfig.getName() + "]暂时未开通,敬请期待!";
@@ -436,8 +436,8 @@ public class LogicHelper {
             }
 
             TextRespMsg respMsg = new TextRespMsg();
-            respMsg.setToUserName(msg.getFromUserName());
-            respMsg.setFromUserName(msg.getToUserName());
+            respMsg.setToUserName(fromUser);
+            respMsg.setFromUserName(toUser);
             respMsg.setContent(respText);
             respMsg.setCreateTime(System.currentTimeMillis() / 1000);
 
@@ -445,7 +445,7 @@ public class LogicHelper {
         } else if (cType.equalsIgnoreCase(GlobalConstants.CMD_CONFIG_CTYPE_CT01)) {
             String type = cmd.getType();
             Integer msgId = cmd.getMsgid();
-            resp = LogicHelper.getConfigResp(msg.getFromUserName(), msg.getToUserName(), type, msgId);
+            resp = LogicHelper.getConfigResp(fromUser, toUser, type, msgId);
         }
 
         return resp;

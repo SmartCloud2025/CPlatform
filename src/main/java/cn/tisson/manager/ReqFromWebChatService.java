@@ -175,29 +175,4 @@ public class ReqFromWebChatService {
         logger.info("处理请求后响应的XML为:" + (resp));
         return resp;
     }
-
-//    /**
-//     * 处理消息
-//     *
-//     * @param request
-//     * @return
-//     */
-//    public String handle(HttpServletRequest request) throws HandleException {
-//
-//        try {
-//            String body = MessageUtil.getRequestBody(request);
-//
-//            logger.info("接收到来自[" + request.getRemoteHost() + "]的post请求内容为[" + body + "]");
-//            if (StringUtils.isEmpty(body)) {
-//                return null;
-//            }
-//
-//
-//            return handle(body);
-//        } catch (Exception e) {
-//            throw new HandleException("接收到来自[" + request.getRemoteHost() + "]的post请求内容不能被正确解析\n" + ExceptionUtil.getStackTrace(e));
-//        }
-//    }
-
-
 }

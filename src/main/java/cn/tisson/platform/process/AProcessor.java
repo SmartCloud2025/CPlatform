@@ -4,9 +4,13 @@ package cn.tisson.platform.process;
 import cn.tisson.common.GlobalCaches;
 import cn.tisson.common.GlobalVariables;
 import cn.tisson.common.LogicHelper;
+import cn.tisson.dbmgr.model.FansGroup;
+import cn.tisson.dbmgr.model.FansInfo;
 import cn.tisson.dbmgr.model.ServiceInfo;
+import cn.tisson.dbmgr.service.FansInfoService;
 import cn.tisson.platform.protocol.req.BaseReqMsg;
 import cn.tisson.platform.protocol.resp.BaseRespMsg;
+import cn.tisson.util.SpringContextUtil;
 import org.jasic.util.TimeUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -150,4 +154,45 @@ public abstract class AProcessor<E extends BaseReqMsg> {
         }
     }
 
+    // ----------------------------------- 业务处理逻辑 ---------------------------------
+    /**
+     * 根据toUser与fromUser进行匹配
+     *
+     * @param toUser
+     * @param fromUser
+     * @return
+     */
+    public FansGroup matched(String fromUser, String toUser) {
+        // -------------------匹配粉丝与服务号---------------------
+        ServiceInfo serviceInfo = SERVICE_INFO_MAP.get();
+
+        if (serviceInfo == null) {
+            logger.error("数据库不存在服务号[" + toUser + "],请先添加服务号码信息!");
+            return null;
+        }
+
+        FansGroup fansGroup = LogicHelper.findFansGroup(serviceInfo, fromUser);
+
+        // 如果粉丝找不到分组则将其加入到默认分组
+        if (fansGroup == null) {
+            FansInfoService fansInfoService = SpringContextUtil.getBean(FansInfoService.class);
+            fansGroup = LogicHelper.addIfNotExistFansGroup(serviceInfo);
+
+            // 找到默认插入粉丝信息
+            FansInfo fansInfo = fansInfoService.selectByWebChatID(fromUser);
+            if (fansInfo == null) {
+                fansInfo = new FansInfo();
+                fansInfo.setWebchatid(fromUser);
+            }
+            fansInfo.setFansgroupid(fansGroup.getId());
+
+            // 没有则插数,有则更新
+            if (fansInfo.getId() == null) {
+                fansInfoService.insertSelective(fansInfo);
+            } else
+                fansInfoService.updateByPrimaryKeySelective(fansInfo);
+        }
+        // -------------------匹配粉丝与服务号---------------------
+        return fansGroup;
+    }
 }

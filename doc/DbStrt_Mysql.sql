@@ -239,7 +239,7 @@ INSERT INTO ActiveNewsMsg (ServiceWebChatID, Description) VALUES ('gh_b817172873
 INSERT INTO ActiveNewsMsg (ServiceWebChatID, Description) VALUES ('gh_be3554dd14b6', 'gh_be3554dd14b6的主动推送消息');
 
 INSERT INTO ServiceInfo (WebChatID, URL, TOKEN) VALUES ('gh_b817172873c4', 'http://61.144.17.150/webchat/token/gh_b817172873c4', 'gh_b817172873c4');
-INSERT INTO ServiceInfo (WebChatID, URL, TOKEN, AppID, AppSecret) VALUES  ('gh_05a4e161ab63', 'http://61.144.17.150/CPlatform_war/webchat/token/gh_be3554dd14b6', 'gh_05a4e161ab63', 'wx1e04e1085856a726',   'b4ee739059e5ac613d1f0a426faf069e');
+INSERT INTO ServiceInfo (WebChatID, URL, TOKEN, AppID, AppSecret) VALUES  ('gh_05a4e161ab63', 'http://61.144.17.150/CPlatform/webchat/token/gh_be3554dd14b6', 'gh_05a4e161ab63', 'wx1e04e1085856a726',   'b4ee739059e5ac613d1f0a426faf069e');
 
 INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, MsgID) VALUES ('gh_b817172873c4', 'DEFAULT', 'text', 2);
 INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, MsgID) VALUES ('gh_05a4e161ab63', 'DEFAULT', 'text', 2);
@@ -256,7 +256,6 @@ INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, CType, ServiceConfigID) VALU
 INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, CType, ServiceConfigID) VALUES ('gh_05a4e161ab63', 'CXZJ', 'text', 'CT02',4);
 INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, CType, ServiceConfigID) VALUES ('gh_05a4e161ab63', 'CBHY', 'text', 'CT02',5);
 
-
 INSERT INTO ServiceConfig (Name,ServiceUrl,Demo) VALUES ('设置主叫', 'setCaller', '设置主叫服务');
 INSERT INTO ServiceConfig (Name,ServiceUrl,Demo) VALUES ('创建会议', 'createMeet', '创建会议服务');
 INSERT INTO ServiceConfig (Name,ServiceUrl,Demo) VALUES ('查询会议记录', 'queryRecord', '查询会议记录服务');
@@ -264,9 +263,9 @@ INSERT INTO ServiceConfig (Name,ServiceUrl,Demo) VALUES ('查询最近记录', '
 INSERT INTO ServiceConfig (Name,ServiceUrl,Demo) VALUES ('重拨会议', 'redial', '重拨会议服务');
 
 INSERT INTO SubcEventRespMsg (ServiceWebChatID, Type, MsgID) VALUES ('gh_b817172873c4', 'text', 1);
-INSERT INTO SubcEventRespMsg (ServiceWebChatID, Type, MsgID) VALUES ('gh_be3554dd14b6', 'text', 1);
+INSERT INTO SubcEventRespMsg (ServiceWebChatID, Type, MsgID) VALUES ('gh_05a4e161ab63', 'text', 1);
 
-INSERT INTO Text (Content, Description) VALUES ('多方通话业务是针对个人用户推出的带有电话会议功能的电信增值业务，可以同时接入1～7个被叫，实现2～8方同时通话无需密码、使用方便；应用在亲友叙情、家庭议事、同学聚会、同事交流方面上,<a href="http://61.144.17.150/webPhone/begin?fanId={fanId}&serviceId={serviceId}">立即发起</a>通话', '关注回复文字描述');
+INSERT INTO Text (Content, Description) VALUES ('多方通话业务是针对个人用户推出的带有电话会议功能的电信增值业务，可以同时接入1～7个被叫，实现2～8方同时通话无需密码、使用方便；应用在亲友叙情、家庭议事、同学聚会、同事交流方面上,<a href="http://61.144.17.150/WebPhone/begin?fanId={fanId}&serviceId={serviceId}">立即发起</a>通话', '关注回复文字描述');
 INSERT INTO Text (Description,Content) VALUES ('服务自动回复文字描述','不可识别指令
 1.设置主叫:SZZJ,主叫号码;
 2.创建会议:CJHY,被叫1,被叫2;
@@ -274,3 +273,23 @@ INSERT INTO Text (Description,Content) VALUES ('服务自动回复文字描述',
 4.最近记录:CXZJ,D,最近D天记录;
 5.重拨会议:CBHY,重呼上次会议;
 <a href="http://61.144.17.150/WebPhone/begin?fanId={fanId}&serviceId={serviceId}">进入微会议系统</a>');
+
+
+-- 插入测试号
+INSERT INTO ServiceInfo (WebChatID, URL, TOKEN, AppID, AppSecret) VALUES  ('gh_be3554dd14b6', 'http://61.144.17.150/CPlatform/webchat/token/gh_be3554dd14b6', 'gh_be3554dd14b6', 'wx39b31e79637b8e77',   'f4b1fab0c5653b2bd89b299f0446f79e');
+INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, MsgID) VALUES ('gh_be3554dd14b6', 'DEFAULT', 'text', 2);
+INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, CType, ServiceConfigID) VALUES ('gh_be3554dd14b6', 'SZZJ', 'text', 'CT02',1);
+INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, CType, ServiceConfigID) VALUES ('gh_be3554dd14b6', 'CJHY', 'text', 'CT02',2);
+INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, CType, ServiceConfigID) VALUES ('gh_be3554dd14b6', 'CXJL', 'text', 'CT02',3);
+INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, CType, ServiceConfigID) VALUES ('gh_be3554dd14b6', 'CXZJ', 'text', 'CT02',4);
+INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, CType, ServiceConfigID) VALUES ('gh_be3554dd14b6', 'CBHY', 'text', 'CT02',5);
+INSERT INTO SubcEventRespMsg (ServiceWebChatID, Type, MsgID) VALUES ('gh_be3554dd14b6', 'text', 1);
+
+INSERT INTO ServiceInfo (WebChatID, URL, TOKEN) VALUES  ('f3ff871df717c9c1', 'http://61.144.17.150/CPlatform/webchat/token/f3ff871df717c9c1', 'f3ff871df717c9c1');
+INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, MsgID) VALUES ('f3ff871df717c9c1', 'DEFAULT', 'text', 2);
+INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, CType, ServiceConfigID) VALUES ('f3ff871df717c9c1', 'SZZJ', 'text', 'CT02',1);
+INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, CType, ServiceConfigID) VALUES ('f3ff871df717c9c1', 'CJHY', 'text', 'CT02',2);
+INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, CType, ServiceConfigID) VALUES ('f3ff871df717c9c1', 'CXJL', 'text', 'CT02',3);
+INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, CType, ServiceConfigID) VALUES ('f3ff871df717c9c1', 'CXZJ', 'text', 'CT02',4);
+INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, CType, ServiceConfigID) VALUES ('f3ff871df717c9c1', 'CBHY', 'text', 'CT02',5);
+INSERT INTO SubcEventRespMsg (ServiceWebChatID, Type, MsgID) VALUES ('f3ff871df717c9c1', 'text', 1);
