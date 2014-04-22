@@ -36,7 +36,7 @@ public class ReqFromWebChat {
      * @param id
      * @return
      */
-    @RequestMapping(value = "/token/{webchatId:[\\S]{1,30}}", params = {"signature", "timestamp", "nonce", "echostr"}, method = {RequestMethod.GET})
+    @RequestMapping(value = "/token/{webchatId:[\\S]{1,256}}", params = {"signature", "timestamp", "nonce", "echostr"}, method = {RequestMethod.GET})
     public
     @ResponseBody
     String _validateToken(HttpServletRequest request, HttpServletResponse response, @PathVariable("webchatId") final String id) {
@@ -76,7 +76,7 @@ public class ReqFromWebChat {
      * @param body
      * @return
      */
-    @RequestMapping(value = "/token/{webchatId:[\\S]{1,30}}", method = {RequestMethod.POST, RequestMethod.GET})
+    @RequestMapping(value = "/token/{webchatId:[\\S]{1,256}}",produces = "text/plain;charset=UTF-8", method = {RequestMethod.POST, RequestMethod.GET})
     public
     @ResponseBody
     String _handleMessage(@RequestBody String body, HttpServletResponse response, HttpServletRequest request) {

@@ -89,16 +89,16 @@ public class EventReqProcessor extends AProcessor<EventReqMsg> {
                 MenuEventReqMsg menuEventReqMsg = (MenuEventReqMsg) msg;
 
                 String eventKey = menuEventReqMsg.getEventKey();
-                String fromUser = menuEventReqMsg.getFromUserName();
-                String toUser = menuEventReqMsg.getToUserName();
+                String fanId = menuEventReqMsg.getFromUserName();
+                String serviceId = menuEventReqMsg.getToUserName();
 
-                FansGroup fansGroup = super.matched(fromUser, toUser);
+                FansGroup fansGroup = super.matched(fanId, serviceId);
 
                 String cmdStr = eventKey;
-                CmdConfig cmd = LogicHelper.findCmdConfig(fansGroup.getId(), msg.getToUserName(), cmdStr);
+                CmdConfig cmd = LogicHelper.findCmdConfig(fansGroup.getId(), serviceId, cmdStr);
 
                 if (cmd != null && cmd.getCtype() != null) {
-                    respMsg = LogicHelper.getCmdResp(cmd, msg.getFromUserName(), msg.getToUserName(), cmdStr);
+                    respMsg = LogicHelper.getCmdResp(cmd, serviceId, fanId, cmdStr);
                 }
                 break;
             }

@@ -34,26 +34,29 @@ public class TextReqProcessor extends AProcessor<TextReqMsg> {
 
         BaseRespMsg resp = null;
 
+        String serviceId = msg.getToUserName();
+        String fanId = msg.getFromUserName();
+
         // -------------------匹配粉丝与服务号---------------------
         FansGroup fansGroup = matched(msg.getFromUserName(), msg.getToUserName());
         // -------------------匹配粉丝与服务号---------------------
 
         String cmdStr = msg.getContent();
-        CmdConfig cmd = LogicHelper.findCmdConfig(fansGroup.getId(), msg.getToUserName(), cmdStr);
+        CmdConfig cmd = LogicHelper.findCmdConfig(fansGroup.getId(), serviceId, cmdStr);
 
         if (cmd != null && cmd.getCtype() != null) {
-            resp = LogicHelper.getCmdResp(cmd, msg.getFromUserName(), msg.getToUserName(), msg.getContent());
+            resp = LogicHelper.getCmdResp(cmd, serviceId, fanId, msg.getContent());
         }
 
         // TODO 根据关键字回复
         if (resp == null)
-            resp = LogicHelper.replyViaKeyWord(msg.getFromUserName(), msg.getToUserName(), cmdStr);
+            resp = LogicHelper.replyViaKeyWord(serviceId, fanId, cmdStr);
 
         // 返回默认消息
         if (resp == null) {
-            cmd = LogicHelper.findCmdConfig(fansGroup.getId(), msg.getToUserName(), GlobalConstants.CMD_CONFIG_DEFAULT);
+            cmd = LogicHelper.findCmdConfig(fansGroup.getId(), serviceId, GlobalConstants.CMD_CONFIG_DEFAULT);
             Asserter.notNull(cmd, "数据库找不到相关命令配置记录");
-            resp = LogicHelper.getCmdResp(cmd, msg.getFromUserName(), msg.getToUserName(), msg.getContent());
+            resp = LogicHelper.getCmdResp(cmd, serviceId, fanId, msg.getContent());
         }
 
         return resp;

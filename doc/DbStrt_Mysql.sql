@@ -285,11 +285,20 @@ INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, CType, ServiceConfigID) VALU
 INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, CType, ServiceConfigID) VALUES ('gh_be3554dd14b6', 'CBHY', 'text', 'CT02',5);
 INSERT INTO SubcEventRespMsg (ServiceWebChatID, Type, MsgID) VALUES ('gh_be3554dd14b6', 'text', 1);
 
-INSERT INTO ServiceInfo (WebChatID, URL, TOKEN) VALUES  ('f3ff871df717c9c1', 'http://61.144.17.150/CPlatform/webchat/token/f3ff871df717c9c1', 'f3ff871df717c9c1');
-INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, MsgID) VALUES ('f3ff871df717c9c1', 'DEFAULT', 'text', 2);
-INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, CType, ServiceConfigID) VALUES ('f3ff871df717c9c1', 'SZZJ', 'text', 'CT02',1);
-INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, CType, ServiceConfigID) VALUES ('f3ff871df717c9c1', 'CJHY', 'text', 'CT02',2);
-INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, CType, ServiceConfigID) VALUES ('f3ff871df717c9c1', 'CXJL', 'text', 'CT02',3);
-INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, CType, ServiceConfigID) VALUES ('f3ff871df717c9c1', 'CXZJ', 'text', 'CT02',4);
-INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, CType, ServiceConfigID) VALUES ('f3ff871df717c9c1', 'CBHY', 'text', 'CT02',5);
-INSERT INTO SubcEventRespMsg (ServiceWebChatID, Type, MsgID) VALUES ('f3ff871df717c9c1', 'text', 1);
+INSERT INTO ServiceInfo (WebChatID, URL, TOKEN) VALUES  ('99ce0457219a1b39c3061cd18d77b7a0', 'http://61.144.17.150/CPlatform/webchat/token/99ce0457219a1b39c3061cd18d77b7a0', '99ce0457219a1b39c3061cd18d77b7a0');
+INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, MsgID) VALUES ('99ce0457219a1b39c3061cd18d77b7a0', 'DEFAULT', 'text', 2);
+INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, CType, ServiceConfigID) VALUES ('99ce0457219a1b39c3061cd18d77b7a0', 'SZZJ', 'text', 'CT02',1);
+INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, CType, ServiceConfigID) VALUES ('99ce0457219a1b39c3061cd18d77b7a0', 'CJHY', 'text', 'CT02',2);
+INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, CType, ServiceConfigID) VALUES ('99ce0457219a1b39c3061cd18d77b7a0', 'CXJL', 'text', 'CT02',3);
+INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, CType, ServiceConfigID) VALUES ('99ce0457219a1b39c3061cd18d77b7a0', 'CXZJ', 'text', 'CT02',4);
+INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, CType, ServiceConfigID) VALUES ('99ce0457219a1b39c3061cd18d77b7a0', 'CBHY', 'text', 'CT02',5);
+INSERT INTO SubcEventRespMsg (ServiceWebChatID, Type, MsgID) VALUES ('99ce0457219a1b39c3061cd18d77b7a0', 'text', 1);
+
+INSERT INTO ServiceInfo (WebChatID, URL, TOKEN) VALUES  ('4bad9b5591ec44c0c3061cd18d77b7a0', 'http://61.144.17.150/CPlatform/webchat/token/4bad9b5591ec44c0c3061cd18d77b7a0', '4bad9b5591ec44c0c3061cd18d77b7a0');
+INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, MsgID) VALUES ('4bad9b5591ec44c0c3061cd18d77b7a0', 'DEFAULT', 'text', 2);
+INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, CType, ServiceConfigID) VALUES ('4bad9b5591ec44c0c3061cd18d77b7a0', 'SZZJ', 'text', 'CT02',1);
+INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, CType, ServiceConfigID) VALUES ('4bad9b5591ec44c0c3061cd18d77b7a0', 'CJHY', 'text', 'CT02',2);
+INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, CType, ServiceConfigID) VALUES ('4bad9b5591ec44c0c3061cd18d77b7a0', 'CXJL', 'text', 'CT02',3);
+INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, CType, ServiceConfigID) VALUES ('4bad9b5591ec44c0c3061cd18d77b7a0', 'CXZJ', 'text', 'CT02',4);
+INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, CType, ServiceConfigID) VALUES ('4bad9b5591ec44c0c3061cd18d77b7a0', 'CBHY', 'text', 'CT02',5);
+INSERT INTO SubcEventRespMsg (ServiceWebChatID, Type, MsgID) VALUES ('4bad9b5591ec44c0c3061cd18d77b7a0', 'text', 1);

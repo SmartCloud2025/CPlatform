@@ -162,7 +162,7 @@ public abstract class AProcessor<E extends BaseReqMsg> {
      * @param fromUser
      * @return
      */
-    public FansGroup matched(String fromUser, String toUser) {
+    protected FansGroup matched(String fromUser, String toUser) {
         // -------------------匹配粉丝与服务号---------------------
         ServiceInfo serviceInfo = SERVICE_INFO_MAP.get();
 
