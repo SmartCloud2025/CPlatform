@@ -115,13 +115,12 @@ public class EventReqProcessor extends AProcessor<EventReqMsg> {
      */
     private ServiceInfo saveSubscribeUser(SubEventReqMsg subMsg) {
         FansInfoService fansInfoService = SpringContextUtil.getBean(FansInfoService.class);
-        Map<String, ServiceInfo> serviceInfoMap = GlobalCaches.DB_CACHE_SERVICE_INFO;
         String fromUserName = subMsg.getFromUserName().trim();
         String toUserName = subMsg.getToUserName().trim();
         Long createTime = subMsg.getCreateTime();
         String ev = subMsg.getEvent().name().trim();
 
-        ServiceInfo serviceInfo = serviceInfoMap.get(toUserName);
+        ServiceInfo serviceInfo = super.SERVICE_INFO_MAP.get();
 
         if (serviceInfo == null) {
             logger.error("数据库不存在服务号[" + toUserName + "],请先添加服务号码信息!");

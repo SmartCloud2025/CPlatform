@@ -34,6 +34,8 @@ public class ActivePushThread extends BaseThread {
      */
     private static final Map<Integer, Integer> RE_ACTIVE_PUSH_MAP = new ConcurrentHashMap<Integer, Integer>();
 
+    private ServiceInfoService serviceInfoService;
+
     private ActiveTextService textService;
 
     private ActiveImageService imageService;
@@ -59,6 +61,7 @@ public class ActivePushThread extends BaseThread {
         this.voiceService = SpringContextUtil.getBean(ActiveVoiceService.class);
         this.articleService = SpringContextUtil.getBean(ActiveArticleService.class);
         this.massPushMsgService = SpringContextUtil.getBean(MassPushMsgService.class);
+        this.serviceInfoService = SpringContextUtil.getBean(ServiceInfoService.class);
     }
 
     @Override
@@ -89,7 +92,7 @@ public class ActivePushThread extends BaseThread {
                          */
                         if (toUser == null) {
 
-                            ServiceInfo serviceInfo = GlobalCaches.DB_CACHE_SERVICE_INFO.get(fromUser);
+                            ServiceInfo serviceInfo = serviceInfoService.getByWebChatId(fromUser);
                             List<FansGroup> groups = serviceInfo.getFansGroups();
                             if (groups == null || groups.size() == 0) continue;
 

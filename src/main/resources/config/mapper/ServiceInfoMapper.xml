@@ -211,4 +211,10 @@
         ]]>
 
     </select>
+
+    <select id="getByWebChatId" resultMap="BaseResultMap" parameterType="java.lang.String">
+        <![CDATA[
+        SELECT * FROM ServiceInfo where webchatid = #{webchatid,jdbcType=VARCHAR}
+        ]]>
+    </select>
 </mapper>

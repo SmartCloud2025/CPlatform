@@ -44,7 +44,7 @@ public class ReqFromWebChatService {
     private static Logger logger = LoggerFactory.getLogger(ReqFromWebChatService.class);
 
     @Resource
-    private ServiceInfoService serviceInfoServI;
+    private ServiceInfoService serviceInfoService;
 
     /**
      * 消息解码器
@@ -102,6 +102,39 @@ public class ReqFromWebChatService {
     }
 
     /**
+     * 验证url是否存在
+     *
+     * @param url
+     * @return
+     */
+    public boolean validateUrl(String url) {
+        return getServiceInfoByUrl(url) != null;
+    }
+
+    /**
+     * 返回url对应的服务号
+     *
+     * @param url
+     * @return
+     */
+    public ServiceInfo getServiceInfoByUrl(String url) {
+        if (StringUtils.isNotEmpty(url)) {
+            List<ServiceInfo> infos = new ArrayList<ServiceInfo>(GlobalCaches.DB_CACHE_SERVICE_INFO.values());
+            for (ServiceInfo info : infos) {
+                String tmpUrl = info.getUrl();
+
+                if (!StringUtils.isEmpty(tmpUrl)) {
+
+                    // TODO 暂把URL匹配去掉
+                    if (url.toLowerCase().equals(tmpUrl.toLowerCase()))
+                        return info;
+                }
+            }
+        }
+        return null;
+    }
+
+    /**
      * 微信验证消息真实性
      *
      * @param logger
@@ -149,7 +182,7 @@ public class ReqFromWebChatService {
      * @param body
      * @return
      */
-    public String handle(String body) throws UnsupportedEncodingException {
+    public String handle(String body, String url) throws UnsupportedEncodingException {
 
         body = MessageUtil.cutXml(URLDecoder.decode(body, decoder.getCharset().displayName()));
 
@@ -157,9 +190,21 @@ public class ReqFromWebChatService {
         BaseReqMsg reqMessage = decoder.decode(body);
         String resp = null;
 
+        String serviceId = reqMessage.getToUserName();
         try {
             logger.info("请求body转换的实体:" + JSON.toJSONString(reqMessage));
+
+            /**
+             * 更新服务号Id
+             */
+            ServiceInfo serverInfo = getServiceInfoByUrl(url);
+            if(!serviceId.equalsIgnoreCase(serverInfo.getWebchatid())){
+                serverInfo.setWebchatid(serviceId);
+                serviceInfoService.updateByPrimaryKeySelective(serverInfo);
+            }
+
             BaseRespMsg respMsg = handler.handle(reqMessage);
+
             /**
              * 如果忽略用户的请求信息则返回null
              */

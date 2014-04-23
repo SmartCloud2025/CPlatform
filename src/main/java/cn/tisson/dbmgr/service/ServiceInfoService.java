@@ -26,6 +26,11 @@ public class ServiceInfoService extends BaseService<ServiceInfo> {
         return serviceInfoMapper.getAll();
     }
 
+    public ServiceInfo getByWebChatId(String webChatId) {
+        return serviceInfoMapper.getByWebChatId(webChatId);
+    }
+
+
     @Override
     public SuperMapper<ServiceInfo> getMapper() {
         return serviceInfoMapper;

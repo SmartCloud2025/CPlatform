@@ -8,6 +8,7 @@ import cn.tisson.dbmgr.model.FansGroup;
 import cn.tisson.dbmgr.model.FansInfo;
 import cn.tisson.dbmgr.model.ServiceInfo;
 import cn.tisson.dbmgr.service.FansInfoService;
+import cn.tisson.dbmgr.service.ServiceInfoService;
 import cn.tisson.platform.protocol.req.BaseReqMsg;
 import cn.tisson.platform.protocol.resp.BaseRespMsg;
 import cn.tisson.util.SpringContextUtil;
@@ -15,6 +16,7 @@ import org.jasic.util.TimeUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.Resource;
 import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -40,6 +42,10 @@ public abstract class AProcessor<E extends BaseReqMsg> {
     protected ThreadLocal<ServiceInfo> SERVICE_INFO_MAP;
 
     private Timer timer;
+
+    @Resource
+    private ServiceInfoService serviceInfoService;
+
 
     public AProcessor() {
 
@@ -68,7 +74,7 @@ public abstract class AProcessor<E extends BaseReqMsg> {
          */
         boolean step2 = false;
 
-        ServiceInfo serviceInfo = GlobalCaches.DB_CACHE_SERVICE_INFO.get(msg.getToUserName());
+        ServiceInfo serviceInfo = serviceInfoService.getByWebChatId(msg.getToUserName());
         if (serviceInfo != null) {
             SERVICE_INFO_MAP.set(serviceInfo);
             step2 = true;

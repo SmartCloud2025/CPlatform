@@ -5,7 +5,6 @@ import cn.tisson.framework.utils.StringUtils;
 import cn.tisson.manager.ReqFromWebChatService;
 import cn.tisson.platform.protocol.active.Signature;
 import org.jasic.util.ExceptionUtil;
-import org.jasic.util.TimeUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,14 +40,12 @@ public class ReqFromWebChat {
     @ResponseBody
     String _validateToken(HttpServletRequest request, HttpServletResponse response, @PathVariable("webchatId") final String id) {
 
+//        System.out.println("signature" + request.getParameter("signature"));
+//        System.out.println("timestamp" + request.getParameter("timestamp"));
+//        System.out.println("nonce" + request.getParameter("nonce"));
+//        System.out.println("echostr" + request.getParameter("echostr"));
 
-        System.out.println("signature" + request.getParameter("signature"));
-        System.out.println("timestamp" + request.getParameter("timestamp"));
-        System.out.println("nonce" + request.getParameter("nonce"));
-        System.out.println("echostr" + request.getParameter("echostr"));
-        String path = request.getContextPath();
-        String baPath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path;
-
+        String baPath = getReqUrl(request);
         boolean validateSuccess = service.validateToken(baPath, id);
 
         if (GlobalVariables.WEB_CHAT_LOG_FLAG) {
@@ -67,7 +64,6 @@ public class ReqFromWebChat {
         }
 
         return signature.getEchostr();
-//        return validateSuccess ? signature.getEchostr() : "hello";
     }
 
     /**
@@ -76,18 +72,39 @@ public class ReqFromWebChat {
      * @param body
      * @return
      */
-    @RequestMapping(value = "/token/{webchatId:[\\S]{1,256}}",produces = "text/plain;charset=UTF-8", method = {RequestMethod.POST, RequestMethod.GET})
+    @RequestMapping(value = "/token/{webchatId:[\\S]{1,256}}", produces = "application/xml;charset=UTF-8", method = {RequestMethod.POST, RequestMethod.GET})
     public
     @ResponseBody
     String _handleMessage(@RequestBody String body, HttpServletResponse response, HttpServletRequest request) {
 
         String resp = null;
+
+        String url = getReqUrl(request);
+        boolean exist = service.validateUrl(url);
+
+        if (!exist) {
+            logger.error("配置中找不到url[" + url + "]");
+            return null;
+        }
         try {
-            resp = service.handle(body);
+            resp = service.handle(body, url);
         } catch (Exception e) {
             logger.error(ExceptionUtil.getStackTrace(e));
         }
 
         return resp;
+    }
+
+    /**
+     * 获取请求的地址
+     *
+     * @param request
+     * @return
+     */
+    public String getReqUrl(HttpServletRequest request) {
+        String path = request.getContextPath();
+        String baPath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path;
+
+        return baPath;
     }
 }
