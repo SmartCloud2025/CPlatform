@@ -236,7 +236,7 @@ CREATE TABLE MenuButton (
 INSERT INTO MenuButton(PID,ServiceWebChatID,Name,TYPE,KeyVaule,ViewUrl,Status) VALUES (NULL,'gh_b817172873c4','业界动态', NULL,NULL,NULL,'A001');
 
 INSERT INTO ActiveNewsMsg (ServiceWebChatID, Description) VALUES ('gh_b817172873c4', 'gh_b817172873c4的主动推送消息');
-INSERT INTO ActiveNewsMsg (ServiceWebChatID, Description) VALUES ('gh_be3554dd14b6', 'gh_be3554dd14b6的主动推送消息');
+INSERT INTO ActiveNewsMsg (ServiceWebChatID,  ) VALUES ('gh_be3554dd14b6', 'gh_be3554dd14b6的主动推送消息');
 
 INSERT INTO ServiceInfo (WebChatID, URL, TOKEN) VALUES ('gh_b817172873c4', 'http://bassice.vicp.net/webchat/token/gh_b817172873c4', 'gh_b817172873c4');
 INSERT INTO ServiceInfo (WebChatID, URL, TOKEN, AppID, AppSecret) VALUES  ('gh_be3554dd14b6', 'http://bassice.vicp.net/webchat/token/gh_be3554dd14b6', 'gh_be3554dd14b6', 'wx39b31e79637b8e77',   'f4b1fab0c5653b2bd89b299f0446f79e');
@@ -274,3 +274,8 @@ INSERT INTO Text (Description,Content) VALUES ('服务自动回复文字描述',
   <a href="http://192.168.1.102:8080/webPhone/begin?fanId={fanId}&serviceId={serviceId}">进入微会议系统</a>'
 
 );
+
+INSERT INTO ServiceInfo (WebChatID, URL, TOKEN, AppID, AppSecret) VALUES  ('gh_05a4e161ab63', 'http://61.144.17.150/CPlatform_war/webchat/token/gh_be3554dd14b6', 'gh_05a4e161ab63', 'wx1e04e1085856a726',   'b4ee739059e5ac613d1f0a426faf069e');
+INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, MsgID) VALUES ('gh_05a4e161ab63', 'DEFAULT', 'text', 2);
+INSERT INTO SubcEventRespMsg (ServiceWebChatID, Type, MsgID) VALUES ('gh_05a4e161ab63', 'text', 1);
+
