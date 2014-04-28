@@ -79,7 +79,7 @@ public class ReqFromWebChat {
 
         String resp = null;
 
-        String url = getReqUrl(request);
+        String url = request.getRequestURL().toString();
         boolean exist = service.validateUrl(url);
 
         if (!exist) {
@@ -103,7 +103,8 @@ public class ReqFromWebChat {
      */
     public String getReqUrl(HttpServletRequest request) {
         String path = request.getContextPath();
-        String baPath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path;
+        int port = request.getServerPort();
+        String baPath = request.getScheme() + "://" + request.getServerName() + (port == 80 ? "" : ":" + port) + path;
 
         return baPath;
     }

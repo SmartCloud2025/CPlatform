@@ -43,10 +43,6 @@ public abstract class AProcessor<E extends BaseReqMsg> {
 
     private Timer timer;
 
-    @Resource
-    private ServiceInfoService serviceInfoService;
-
-
     public AProcessor() {
 
         timer = new Timer("微信消息排重");
@@ -73,7 +69,7 @@ public abstract class AProcessor<E extends BaseReqMsg> {
          * 第二步
          */
         boolean step2 = false;
-
+        ServiceInfoService serviceInfoService = SpringContextUtil.getBean(ServiceInfoService.class);
         ServiceInfo serviceInfo = serviceInfoService.getByWebChatId(msg.getToUserName());
         if (serviceInfo != null) {
             SERVICE_INFO_MAP.set(serviceInfo);
