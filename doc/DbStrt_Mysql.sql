@@ -267,15 +267,15 @@ INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, CType, ServiceConfigID) VALU
 INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, CType, ServiceConfigID) VALUES ('gh_b817172873c4', 'CBHY', 'text', 'CT02',5);
 
 
-# -- 插入测试号
-# INSERT INTO ServiceInfo (WebChatID, URL, TOKEN, AppID, AppSecret) VALUES  ('gh_be3554dd14b6', 'http://61.144.17.150/CPlatform/webchat/token/gh_be3554dd14b6', 'gh_be3554dd14b6', 'wx39b31e79637b8e77',   'f4b1fab0c5653b2bd89b299f0446f79e');
-# INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, MsgID) VALUES ('gh_be3554dd14b6', 'DEFAULT', 'text', 2);
-# INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, CType, ServiceConfigID) VALUES ('gh_be3554dd14b6', 'SZZJ', 'text', 'CT02',1);
-# INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, CType, ServiceConfigID) VALUES ('gh_be3554dd14b6', 'CJHY', 'text', 'CT02',2);
-# INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, CType, ServiceConfigID) VALUES ('gh_be3554dd14b6', 'CXJL', 'text', 'CT02',3);
-# INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, CType, ServiceConfigID) VALUES ('gh_be3554dd14b6', 'CXZJ', 'text', 'CT02',4);
-# INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, CType, ServiceConfigID) VALUES ('gh_be3554dd14b6', 'CBHY', 'text', 'CT02',5);
-# INSERT INTO SubcEventRespMsg (ServiceWebChatID, Type, MsgID) VALUES ('gh_be3554dd14b6', 'text', 1);
+# 插入《J创摄影--扫描的》服务号配置
+INSERT INTO ServiceInfo (WebChatID, URL, TOKEN, AppID, AppSecret) VALUES  ('', 'http://jasic.vicp.net/webchat/token/gh_6d57b35a4c30', 'token', 'wx39b31e79637b8e77',   'f4b1fab0c5653b2bd89b299f0446f79e');
+INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, MsgID) VALUES ('gh_6d57b35a4c30', 'DEFAULT', 'text', 2);
+INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, CType, ServiceConfigID) VALUES ('gh_6d57b35a4c30', 'SZZJ', 'text', 'CT02',1);
+INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, CType, ServiceConfigID) VALUES ('gh_6d57b35a4c30', 'CJHY', 'text', 'CT02',2);
+INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, CType, ServiceConfigID) VALUES ('gh_6d57b35a4c30', 'CXJL', 'text', 'CT02',3);
+INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, CType, ServiceConfigID) VALUES ('gh_6d57b35a4c30', 'CXZJ', 'text', 'CT02',4);
+INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, CType, ServiceConfigID) VALUES ('gh_6d57b35a4c30', 'CBHY', 'text', 'CT02',5);
+INSERT INTO SubcEventRespMsg (ServiceWebChatID, Type, MsgID) VALUES ('gh_be3554dd14b6', 'text', 1);
 #
 # INSERT INTO ServiceInfo (WebChatID, URL, TOKEN) VALUES  ('99ce0457219a1b39c3061cd18d77b7a0', 'http://61.144.17.150/CPlatform/webchat/token/99ce0457219a1b39c3061cd18d77b7a0', '99ce0457219a1b39c3061cd18d77b7a0');
 # INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, MsgID) VALUES ('99ce0457219a1b39c3061cd18d77b7a0', 'DEFAULT', 'text', 2);

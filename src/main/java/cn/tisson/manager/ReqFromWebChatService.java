@@ -75,33 +75,6 @@ public class ReqFromWebChatService {
     }
 
     /**
-     * 验证token是否存在
-     *
-     * @param url
-     * @param token
-     * @return
-     */
-    public boolean validateToken(String url, String token) {
-        if (StringUtils.isNotEmpty(token)) {
-            List<ServiceInfo> infos = new ArrayList<ServiceInfo>(GlobalCaches.DB_CACHE_SERVICE_INFO.values());
-            for (ServiceInfo info : infos) {
-                String tmpToken = info.getToken();
-                String tmpUrl = info.getUrl();
-
-                if (!StringUtils.isEmpty(tmpToken) && !StringUtils.isEmpty(tmpUrl)) {
-                    // 查找到符合的token及url
-                    if (token.toLowerCase().equals(tmpToken.toLowerCase())) {
-                        // TODO 暂把URL匹配去掉
-//                        if (url.toLowerCase().equals(tmpUrl.toLowerCase()))
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
-    }
-
-    /**
      * 验证url是否存在
      *
      * @param url
@@ -198,7 +171,7 @@ public class ReqFromWebChatService {
              * 更新服务号Id
              */
             ServiceInfo serverInfo = getServiceInfoByUrl(url);
-            if(!serviceId.equalsIgnoreCase(serverInfo.getWebchatid())){
+            if (!serviceId.equalsIgnoreCase(serverInfo.getWebchatid())) {
                 serverInfo.setWebchatid(serviceId);
                 serviceInfoService.updateByPrimaryKeySelective(serverInfo);
             }

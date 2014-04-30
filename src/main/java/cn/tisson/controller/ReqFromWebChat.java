@@ -1,6 +1,7 @@
 package cn.tisson.controller;
 
 import cn.tisson.common.GlobalVariables;
+import cn.tisson.dbmgr.model.ServiceInfo;
 import cn.tisson.framework.utils.StringUtils;
 import cn.tisson.manager.ReqFromWebChatService;
 import cn.tisson.platform.protocol.active.Signature;
@@ -45,14 +46,15 @@ public class ReqFromWebChat {
 //        System.out.println("nonce" + request.getParameter("nonce"));
 //        System.out.println("echostr" + request.getParameter("echostr"));
 
-        String baPath = getReqUrl(request);
-        boolean validateSuccess = service.validateToken(baPath, id);
+        String baPath = request.getRequestURL().toString();
+        ServiceInfo serviceInfo = service.getServiceInfoByUrl(baPath);
+        boolean validateSuccess = (serviceInfo != null);
 
         if (GlobalVariables.WEB_CHAT_LOG_FLAG) {
-            logger.info("Url:[" + baPath + "],Token:[" + id + "]的Token在数据库中" + (validateSuccess ? "能" : "不能") + "找到记录");
+            logger.info("Url:[" + baPath + "]的服务号在数据库中" + (validateSuccess ? "能" : "不能") + "找到记录");
         }
 
-        Signature signature = service.validatePara(logger, request, response, id);
+        Signature signature = service.validatePara(logger, request, response, serviceInfo.getToken());
         if (validateSuccess && signature != null && signature.isSuccess() && !StringUtils.isEmpty(signature.getEchostr())) {
             validateSuccess = true;
         } else {
@@ -60,10 +62,12 @@ public class ReqFromWebChat {
         }
 
         if (GlobalVariables.WEB_CHAT_LOG_FLAG) {
-            logger.info("Url:[" + baPath + "],Token:[" + id + "]的Token验证" + (validateSuccess ? "成功" : "失败"));
+            logger.info("Url:[" + baPath + "],Token:[" + serviceInfo.getToken() + "]的Token验证" + (validateSuccess ? "成功" : "失败"));
         }
 
-        return signature.getEchostr();
+        if (validateSuccess)
+            return signature.getEchostr();
+        else return "";
     }
 
     /**
