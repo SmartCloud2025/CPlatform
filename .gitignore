@@ -1,3 +1,4 @@
 target/
 .idea/
 .CPlatform.iml
+src\main\resources\config\dbconfig.properties
