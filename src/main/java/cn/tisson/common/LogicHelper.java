@@ -390,7 +390,7 @@ public class LogicHelper {
 
         String key = null;
         if (msg instanceof EventReqMsg) {
-            key = msg.getFromUserName() + "_" + msg.getToUserName() + "_" + msg.getMsgType() + "_" + ((EventReqMsg) msg).getEvent();
+            key = msg.getFromUserName() + "_" + msg.getToUserName() + "_" + msg.getMsgType() + "_" + ((EventReqMsg) msg).getEvent() +"_"+msg.getCreateTime();
         } else {
             key = msg.getMsgId() + "_" + msg.getMsgType();
         }

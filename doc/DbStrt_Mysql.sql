@@ -233,11 +233,6 @@ CREATE TABLE MenuButton (
   , Demo      VARCHAR(512)
 );
 
--- INSERT INTO MenuButton(PID,ServiceWebChatID,Name,TYPE,KeyVaule,ViewUrl,Status) VALUES (NULL,'gh_b817172873c4','业界动态', NULL,NULL,NULL,'A001');
-
--- INSERT INTO ActiveNewsMsg (ServiceWebChatID, Description) VALUES ('gh_b817172873c4', 'gh_b817172873c4的主动推送消息');
--- INSERT INTO ActiveNewsMsg (ServiceWebChatID, Description) VALUES ('gh_be3554dd14b6', 'gh_be3554dd14b6的主动推送消息');
-
 -- 插入基础数据
 INSERT INTO ServiceConfig (Name,ServiceUrl,Demo) VALUES ('设置主叫', 'setCaller', '设置主叫服务');
 INSERT INTO ServiceConfig (Name,ServiceUrl,Demo) VALUES ('创建会议', 'createMeet', '创建会议服务');
@@ -254,6 +249,10 @@ INSERT INTO Text (Description,Content) VALUES ('服务自动回复文字描述',
 5.重拨会议:CBHY,重呼上次会议;
 <a href="http://61.144.17.150/WebPhone/begin?fanId={fanId}&serviceId={serviceId}">进入微会议系统</a>');
 
+INSERT INTO Text (Content, Description) VALUES ( '<a href="http://61.144.17.150/WebPhone/begin?fanId={fanId}&serviceId={serviceId}">电信后付费用户电话会议系统</a>',
+  '菜单后付费用户事件');
+INSERT INTO Text (Content, Description) VALUES ( '<a href="http://61.144.17.150/WebPhone/begin?fanId={fanId}&serviceId={serviceId}">电信预付费用户电话会议系统</a>',
+  '菜单预付费用户事件');
 
 -- 插入《J创摄影》服务号配置
 INSERT INTO ServiceInfo (WebChatID, URL, TOKEN) VALUES ('', 'http://jasic.vicp.net/webchat/token/test', 'test');
@@ -275,7 +274,11 @@ INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, CType, ServiceConfigID) VALU
 INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, CType, ServiceConfigID) VALUES ('gh_6d57b35a4c30', 'CXJL', 'text', 'CT02',3);
 INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, CType, ServiceConfigID) VALUES ('gh_6d57b35a4c30', 'CXZJ', 'text', 'CT02',4);
 INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, CType, ServiceConfigID) VALUES ('gh_6d57b35a4c30', 'CBHY', 'text', 'CT02',5);
-INSERT INTO SubcEventRespMsg (ServiceWebChatID, Type, MsgID) VALUES ('gh_be3554dd14b6', 'text', 1);
+INSERT INTO SubcEventRespMsg (ServiceWebChatID, Type, MsgID) VALUES ('gh_6d57b35a4c30', 'text', 1);
+INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, MsgID) VALUES ('gh_6d57b35a4c30', 'postpay', 'text', 3);
+INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, MsgID) VALUES ('gh_6d57b35a4c30', 'recharge', 'text', 4);
+
+
 #
 # INSERT INTO ServiceInfo (WebChatID, URL, TOKEN) VALUES  ('99ce0457219a1b39c3061cd18d77b7a0', 'http://61.144.17.150/CPlatform/webchat/token/99ce0457219a1b39c3061cd18d77b7a0', '99ce0457219a1b39c3061cd18d77b7a0');
 # INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, MsgID) VALUES ('99ce0457219a1b39c3061cd18d77b7a0', 'DEFAULT', 'text', 2);
@@ -301,3 +304,8 @@ INSERT INTO SubcEventRespMsg (ServiceWebChatID, Type, MsgID) VALUES ('gh_be3554d
 # INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, MsgID) VALUES ('gh_05a4e161ab63', 'BookMeet', 'text', 3);
 # INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, MsgID) VALUES ('gh_05a4e161ab63', 'Contacts', 'text', 3);
 # INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, MsgID) VALUES ('gh_05a4e161ab63', 'Priority', 'text', 3);
+
+-- INSERT INTO MenuButton(PID,ServiceWebChatID,Name,TYPE,KeyVaule,ViewUrl,Status) VALUES (NULL,'gh_b817172873c4','业界动态', NULL,NULL,NULL,'A001');
+
+-- INSERT INTO ActiveNewsMsg (ServiceWebChatID, Description) VALUES ('gh_b817172873c4', 'gh_b817172873c4的主动推送消息');
+-- INSERT INTO ActiveNewsMsg (ServiceWebChatID, Description) VALUES ('gh_be3554dd14b6', 'gh_be3554dd14b6的主动推送消息');
