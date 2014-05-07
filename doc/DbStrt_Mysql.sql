@@ -278,6 +278,18 @@ INSERT INTO SubcEventRespMsg (ServiceWebChatID, Type, MsgID) VALUES ('gh_6d57b35
 INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, MsgID) VALUES ('gh_6d57b35a4c30', 'postpay', 'text', 3);
 INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, MsgID) VALUES ('gh_6d57b35a4c30', 'recharge', 'text', 4);
 
+# 插入《Bassice@qq.com易信》服务号配置
+INSERT INTO ServiceInfo (WebChatID, URL, TOKEN) VALUES  ('', 'http://jasic.vicp.net/webchat/token/bassiceyixun', 'bassiceyixun');
+INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, MsgID) VALUES ('4bad9b5591ec44c0c3061cd18d77b7a0', 'DEFAULT', 'text', 2);
+INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, CType, ServiceConfigID) VALUES ('4bad9b5591ec44c0c3061cd18d77b7a0', 'SZZJ', 'text', 'CT02',1);
+INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, CType, ServiceConfigID) VALUES ('4bad9b5591ec44c0c3061cd18d77b7a0', 'CJHY', 'text', 'CT02',2);
+INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, CType, ServiceConfigID) VALUES ('4bad9b5591ec44c0c3061cd18d77b7a0', 'CXJL', 'text', 'CT02',3);
+INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, CType, ServiceConfigID) VALUES ('4bad9b5591ec44c0c3061cd18d77b7a0', 'CXZJ', 'text', 'CT02',4);
+INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, CType, ServiceConfigID) VALUES ('4bad9b5591ec44c0c3061cd18d77b7a0', 'CBHY', 'text', 'CT02',5);
+INSERT INTO SubcEventRespMsg (ServiceWebChatID, Type, MsgID) VALUES ('4bad9b5591ec44c0c3061cd18d77b7a0', 'text', 1);
+INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, MsgID) VALUES ('4bad9b5591ec44c0c3061cd18d77b7a0', 'postpay', 'text', 3);
+INSERT INTO CmdConfig (ServiceWebChatID, Cmd, Type, MsgID) VALUES ('4bad9b5591ec44c0c3061cd18d77b7a0', 'recharge', 'text', 4);
+
 
 #
 # INSERT INTO ServiceInfo (WebChatID, URL, TOKEN) VALUES  ('99ce0457219a1b39c3061cd18d77b7a0', 'http://61.144.17.150/CPlatform/webchat/token/99ce0457219a1b39c3061cd18d77b7a0', '99ce0457219a1b39c3061cd18d77b7a0');
