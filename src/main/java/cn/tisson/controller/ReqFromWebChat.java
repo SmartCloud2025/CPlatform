@@ -67,7 +67,7 @@ public class ReqFromWebChat {
 
         if (validateSuccess)
             return signature.getEchostr();
-        else return "";
+        else return " ";
     }
 
     /**
