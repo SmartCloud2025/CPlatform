@@ -64,9 +64,9 @@ public class RefreshHelper {
     public void refreshServiceInfo() throws Exception {
         List<ServiceInfo> list = serviceInfoServI.getAll();
         synchronized (GlobalCaches.DB_CACHE_SERVICE_INFO) {
-            GlobalCaches.DB_CACHE_SERVICE_INFO = new HashMap<String, ServiceInfo>();
+            GlobalCaches.DB_CACHE_SERVICE_INFO = new HashMap<Integer, ServiceInfo>();
             for (ServiceInfo info : list) {
-                GlobalCaches.DB_CACHE_SERVICE_INFO.put(info.getWebchatid(), info);
+                GlobalCaches.DB_CACHE_SERVICE_INFO.put(info.getId(), info);
             }
         }
         logger.info("--刷新服务号数量:" + list.size());
@@ -114,7 +114,7 @@ public class RefreshHelper {
 
 
     /**
-     * 图文推送消息表(NewsMsg)
+     * 文字推送消息表(NewsMsg)
      */
     public void refreshTextMsg() throws Exception {
 

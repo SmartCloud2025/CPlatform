@@ -176,7 +176,7 @@ public class WebChatMsgDecoder {
                     message = msg;
                 }
                 // 菜单点击类型
-                else if (eventType.equals(MessageUtil.EVENT_TYPE_UNSUBSCRIBE)) {
+                else if (eventType.equals(MessageUtil.EVENT_TYPE_CLICK)) {
                     MenuEventReqMsg msg = new MenuEventReqMsg();
                     msg.setEvent(Event.CLICK);
                     msg.setEventKey(requestMap.get(MenuEventReqMsg._EventKey));

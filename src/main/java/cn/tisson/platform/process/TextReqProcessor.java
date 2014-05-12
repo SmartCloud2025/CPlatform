@@ -4,12 +4,8 @@ import cn.tisson.common.GlobalConstants;
 import cn.tisson.common.LogicHelper;
 import cn.tisson.dbmgr.model.CmdConfig;
 import cn.tisson.dbmgr.model.FansGroup;
-import cn.tisson.dbmgr.model.FansInfo;
-import cn.tisson.dbmgr.model.ServiceInfo;
-import cn.tisson.dbmgr.service.FansInfoService;
 import cn.tisson.platform.protocol.req.TextReqMsg;
 import cn.tisson.platform.protocol.resp.BaseRespMsg;
-import cn.tisson.util.SpringContextUtil;
 import org.jasic.util.Asserter;
 import org.slf4j.Logger;
 
@@ -38,56 +34,32 @@ public class TextReqProcessor extends AProcessor<TextReqMsg> {
 
         BaseRespMsg resp = null;
 
-        ServiceInfo serviceInfo = super.SERVICE_INFO_MAP.get();
+        String serviceId = msg.getToUserName();
+        String fanId = msg.getFromUserName();
 
-        if (serviceInfo == null) {
-            logger.error("数据库不存在服务号[" + msg.getToUserName() + "],请先添加服务号码信息!");
-            return null;
-        }
-
-        FansGroup fansGroup = LogicHelper.findFansGroup(serviceInfo, msg.getFromUserName());
-
-        // 如果粉丝找不到分组则将其加入到默认分组
-        if (fansGroup == null) {
-            FansInfoService fansInfoService = SpringContextUtil.getBean(FansInfoService.class);
-            fansGroup = LogicHelper.addIfNotExistFansGroup(serviceInfo);
-
-            // 找到默认插入粉丝信息
-            FansInfo fansInfo = fansInfoService.selectByWebChatID(msg.getFromUserName());
-            if (fansInfo == null) {
-                fansInfo = new FansInfo();
-                fansInfo.setWebchatid(msg.getFromUserName());
-            }
-            fansInfo.setFansgroupid(fansGroup.getId());
-
-            // 没有则插数,有则更新
-            if (fansInfo.getId() == null) {
-                fansInfoService.insertSelective(fansInfo);
-            } else
-                fansInfoService.updateByPrimaryKeySelective(fansInfo);
-        }
+        // -------------------匹配粉丝与服务号---------------------
+        FansGroup fansGroup = matched(msg.getFromUserName(), msg.getToUserName());
+        // -------------------匹配粉丝与服务号---------------------
 
         String cmdStr = msg.getContent();
-        CmdConfig cmd = LogicHelper.findCmdConfig(fansGroup.getId(), msg.getToUserName(), cmdStr);
+        CmdConfig cmd = LogicHelper.findCmdConfig(fansGroup.getId(), serviceId, cmdStr);
 
         if (cmd != null && cmd.getCtype() != null) {
-            resp = LogicHelper.getCmdResp(cmd, msg);
+            resp = LogicHelper.getCmdResp(cmd, serviceId, fanId, msg.getContent());
         }
 
         // TODO 根据关键字回复
         if (resp == null)
-            resp = LogicHelper.replyViaKeyWord(msg.getFromUserName(), msg.getToUserName(), cmdStr);
+            resp = LogicHelper.replyViaKeyWord(serviceId, fanId, cmdStr);
 
         // 返回默认消息
         if (resp == null) {
-            cmd = LogicHelper.findCmdConfig(fansGroup.getId(), msg.getToUserName(), GlobalConstants.CMD_CONFIG_DEFAULT);
-            Asserter.notNull(cmd,"数据库找不到相关命令配置记录");
-            resp= LogicHelper.getCmdResp(cmd, msg);
+            cmd = LogicHelper.findCmdConfig(fansGroup.getId(), serviceId, GlobalConstants.CMD_CONFIG_DEFAULT);
+            Asserter.notNull(cmd, "数据库找不到相关命令配置记录");
+            resp = LogicHelper.getCmdResp(cmd, serviceId, fanId, msg.getContent());
         }
 
         return resp;
-
     }
-
 
 }

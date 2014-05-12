@@ -29,6 +29,7 @@ import org.jasic.util.ExceptionUtil;
 import org.slf4j.Logger;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.*;
 
 /**
@@ -186,7 +187,7 @@ public class LogicHelper {
      * @param toUserName
      * @return
      */
-    public static CmdConfig findCmdConfig(Integer id, String toUserName, String cmdStr) {
+    public static CmdConfig findCmdConfig(Integer id, String serviceId, String cmdStr) {
         Collection<CmdConfig> c = GlobalCaches.DB_CACHE_CMD_CONFIG.values();
 
         for (CmdConfig cmd : c) {
@@ -206,12 +207,12 @@ public class LogicHelper {
             }
 
             // 对一个服务号的所有粉丝组配置
-            else if (cmdStr.equalsIgnoreCase(cmdStrTemp) && cmd.getServicewebchatid().equals(toUserName) && cmd.getFansgroupid() == null) {
+            else if (cmdStr.equalsIgnoreCase(cmdStrTemp) && cmd.getServicewebchatid().equals(serviceId) && cmd.getFansgroupid() == null) {
                 return cmd;
             }
 
             // 对一个服务指定的粉丝组
-            else if (cmdStr.equalsIgnoreCase(cmdStrTemp) && cmd.getServicewebchatid().equals(toUserName) &&
+            else if (cmdStr.equalsIgnoreCase(cmdStrTemp) && cmd.getServicewebchatid().equals(serviceId) &&
                     cmd.getFansgroupid().equals(id)) {
                 return cmd;
             }
@@ -282,12 +283,12 @@ public class LogicHelper {
     /**
      * 通过关键字回复
      *
-     * @param fromUserName
-     * @param toUserName
+     * @param serviceId
+     * @param fanId
      * @param cmdStr
      * @return
      */
-    public static BaseRespMsg replyViaKeyWord(String fromUserName, String toUserName, String cmdStr) {
+    public static BaseRespMsg replyViaKeyWord(String serviceId, String fanId, String cmdStr) {
         return null;
     }
 
@@ -389,7 +390,7 @@ public class LogicHelper {
 
         String key = null;
         if (msg instanceof EventReqMsg) {
-            key = msg.getFromUserName() + "_" + msg.getToUserName() + "_" + msg.getMsgType() + "_" + ((EventReqMsg) msg).getEvent();
+            key = msg.getFromUserName() + "_" + msg.getToUserName() + "_" + msg.getMsgType() + "_" + ((EventReqMsg) msg).getEvent() +"_"+msg.getCreateTime();
         } else {
             key = msg.getMsgId() + "_" + msg.getMsgType();
         }
@@ -404,7 +405,7 @@ public class LogicHelper {
      * @param msg
      * @return
      */
-    public static BaseRespMsg getCmdResp(CmdConfig cmd, TextReqMsg msg) {
+    public static BaseRespMsg getCmdResp(CmdConfig cmd, String serviceId,String fanId,String content) {
         BaseRespMsg resp = null;
         String cType = cmd.getCtype();
 
@@ -417,12 +418,15 @@ public class LogicHelper {
                 respText = "没找到相应后台交互服务";
             } else {
                 String url = GlobalVariables.CMD_SERVICE_BASE_URL + "/" + serviceConfig.getServiceurl();
-                String paraStr = msg.getContent().toLowerCase().replaceFirst(cmd.getCmd().toLowerCase(), "").replaceFirst(cmd.getSeperator() == null ? GlobalVariables.CMD_DEFAULT_SEPERATOR.toLowerCase() : cmd.getSeperator().toLowerCase(), "");
+
+                String actualSeper =cmd.getSeperator() == null ? GlobalVariables.CMD_DEFAULT_SEPERATOR.toLowerCase() : cmd.getSeperator().toLowerCase();
+                String paraStr = content.replaceAll(GlobalVariables.REPLACE_SPACE," ").toLowerCase().replaceFirst(cmd.getCmd().toLowerCase(), "").replaceFirst(actualSeper, "");
+                paraStr = URLEncoder.encode(paraStr);
                 Map<String, String> map = new HashMap<String, String>();
                 map.put("cmd", cmd.getCmd());
                 map.put("paras", paraStr);
-                map.put("fanId", msg.getFromUserName());
-                map.put("serviceId", msg.getToUserName());
+                map.put("fanId", fanId);
+                map.put("serviceId", serviceId);
                 String cmdRespStr = HttpClientUtil.sendGetRequest(url, map, "UTF-8");
                 if (cmdRespStr.equalsIgnoreCase("false")) {
                     respText = "命令[" + cmd.getCmd() + "],服务[" + serviceConfig.getName() + "]暂时未开通,敬请期待!";
@@ -432,8 +436,8 @@ public class LogicHelper {
             }
 
             TextRespMsg respMsg = new TextRespMsg();
-            respMsg.setToUserName(msg.getFromUserName());
-            respMsg.setFromUserName(msg.getToUserName());
+            respMsg.setToUserName(fanId);
+            respMsg.setFromUserName(serviceId);
             respMsg.setContent(respText);
             respMsg.setCreateTime(System.currentTimeMillis() / 1000);
 
@@ -441,7 +445,7 @@ public class LogicHelper {
         } else if (cType.equalsIgnoreCase(GlobalConstants.CMD_CONFIG_CTYPE_CT01)) {
             String type = cmd.getType();
             Integer msgId = cmd.getMsgid();
-            resp = LogicHelper.getConfigResp(msg.getFromUserName(), msg.getToUserName(), type, msgId);
+            resp = LogicHelper.getConfigResp(fanId, serviceId, type, msgId);
         }
 
         return resp;

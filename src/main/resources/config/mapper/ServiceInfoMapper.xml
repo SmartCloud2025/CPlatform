@@ -165,11 +165,8 @@
 
     </resultMap>
 
-
-    <select id="getAll" resultMap="ServiceInfoResultMap">
-        <![CDATA[
-
-          SELECT
+    <sql id="Get_All_Base">
+        SELECT
                s.ID
               ,s.WebChatID
               ,s.ServiceType
@@ -196,7 +193,6 @@
               ,fi.Sex FISex
               ,fi.FocusTime FIFocusTime
               ,fi.FocusType FIFocusType
-
         FROM
             ServiceInfo s
         left join
@@ -207,8 +203,16 @@
             FansInfo fi
         on
             f.ID = fi.FansGroupID
+    </sql>
+    <select id="getAll" resultMap="ServiceInfoResultMap">
+       <include refid="Get_All_Base"/>
+    </select>
 
-        ]]>
+    <select id="getByWebChatId" resultMap="ServiceInfoResultMap" parameterType="java.lang.String">
 
+        SELECT * FROM (
+        <include refid="Get_All_Base"/>
+        ) t
+         where t.webchatid = #{webchatid,jdbcType=VARCHAR}
     </select>
 </mapper>

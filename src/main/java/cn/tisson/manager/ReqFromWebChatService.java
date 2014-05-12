@@ -44,7 +44,7 @@ public class ReqFromWebChatService {
     private static Logger logger = LoggerFactory.getLogger(ReqFromWebChatService.class);
 
     @Resource
-    private ServiceInfoService serviceInfoServI;
+    private ServiceInfoService serviceInfoService;
 
     /**
      * 消息解码器
@@ -75,30 +75,36 @@ public class ReqFromWebChatService {
     }
 
     /**
-     * 验证token是否存在
+     * 验证url是否存在
      *
      * @param url
-     * @param token
      * @return
      */
-    public boolean validateToken(String url, String token) {
-        if (StringUtils.isNotEmpty(token)) {
+    public boolean validateUrl(String url) {
+        return getServiceInfoByUrl(url) != null;
+    }
+
+    /**
+     * 返回url对应的服务号
+     *
+     * @param url
+     * @return
+     */
+    public ServiceInfo getServiceInfoByUrl(String url) {
+        if (StringUtils.isNotEmpty(url)) {
             List<ServiceInfo> infos = new ArrayList<ServiceInfo>(GlobalCaches.DB_CACHE_SERVICE_INFO.values());
             for (ServiceInfo info : infos) {
-                String tmpToken = info.getToken();
                 String tmpUrl = info.getUrl();
 
-                if (!StringUtils.isEmpty(tmpToken) && !StringUtils.isEmpty(tmpUrl)) {
-                    // 查找到符合的token及url
-                    if (token.toLowerCase().equals(tmpToken.toLowerCase())) {
-                        // TODO 暂把URL匹配去掉
-//                        if (url.toLowerCase().equals(tmpUrl.toLowerCase()))
-                        return true;
-                    }
+                if (!StringUtils.isEmpty(tmpUrl)) {
+
+                    // TODO 暂把URL匹配去掉
+                    if (url.toLowerCase().equals(tmpUrl.toLowerCase()))
+                        return info;
                 }
             }
         }
-        return false;
+        return null;
     }
 
     /**
@@ -149,7 +155,7 @@ public class ReqFromWebChatService {
      * @param body
      * @return
      */
-    public String handle(String body) throws UnsupportedEncodingException {
+    public String handle(String body, String url) throws UnsupportedEncodingException {
 
         body = MessageUtil.cutXml(URLDecoder.decode(body, decoder.getCharset().displayName()));
 
@@ -157,9 +163,21 @@ public class ReqFromWebChatService {
         BaseReqMsg reqMessage = decoder.decode(body);
         String resp = null;
 
+        String serviceId = reqMessage.getToUserName();
         try {
             logger.info("请求body转换的实体:" + JSON.toJSONString(reqMessage));
+
+            /**
+             * 更新服务号Id
+             */
+            ServiceInfo serverInfo = getServiceInfoByUrl(url);
+            if (!serviceId.equalsIgnoreCase(serverInfo.getWebchatid())) {
+                serverInfo.setWebchatid(serviceId);
+                serviceInfoService.updateByPrimaryKeySelective(serverInfo);
+            }
+
             BaseRespMsg respMsg = handler.handle(reqMessage);
+
             /**
              * 如果忽略用户的请求信息则返回null
              */
@@ -175,29 +193,4 @@ public class ReqFromWebChatService {
         logger.info("处理请求后响应的XML为:" + (resp));
         return resp;
     }
-
-//    /**
-//     * 处理消息
-//     *
-//     * @param request
-//     * @return
-//     */
-//    public String handle(HttpServletRequest request) throws HandleException {
-//
-//        try {
-//            String body = MessageUtil.getRequestBody(request);
-//
-//            logger.info("接收到来自[" + request.getRemoteHost() + "]的post请求内容为[" + body + "]");
-//            if (StringUtils.isEmpty(body)) {
-//                return null;
-//            }
-//
-//
-//            return handle(body);
-//        } catch (Exception e) {
-//            throw new HandleException("接收到来自[" + request.getRemoteHost() + "]的post请求内容不能被正确解析\n" + ExceptionUtil.getStackTrace(e));
-//        }
-//    }
-
-
 }

@@ -65,10 +65,10 @@ public class MainListener extends org.springframework.web.context.ContextLoaderL
 
             // 消息推送服务接入
             GetAccessTokenThread getAccessTokenThread = new GetAccessTokenThread();
-            getAccessTokenThread.start();
+//            getAccessTokenThread.start();
 
             ActivePushThread activePushThread = new ActivePushThread();
-            activePushThread.start();
+//            activePushThread.start();
 
 
             AppVariables.APP_SQL_LOG = false;

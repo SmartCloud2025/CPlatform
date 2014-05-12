@@ -1,5 +1,6 @@
 package cn.tisson.platform.protocol.codec;
 
+import cn.tisson.common.GlobalVariables;
 import cn.tisson.platform.protocol.resp.*;
 import cn.tisson.util.MessageUtil;
 import org.jasic.util.Asserter;
@@ -84,6 +85,6 @@ public class WebChatMsgEncoder<M extends BaseRespMsg> {
         else if (msgType.equals(MessageUtil.RESP_MESSAGE_TYPE_NEWS)) {
             resp = MessageUtil.newsMessageToXml((NewsRespMsg) msg);
         }
-        return resp.replaceAll("\\{fanId\\}", fanId).replaceAll("\\{serviceId\\}", serviceId);
+        return resp.replaceAll("\\{fanId\\}", fanId).replaceAll("\\{serviceId\\}", serviceId).replaceAll("\\{WebPhoneURL\\}", GlobalVariables.WEBPHONE_BASE_URL);
     }
 }

@@ -3,16 +3,10 @@ package cn.tisson.platform.process;
 
 import cn.tisson.common.GlobalCaches;
 import cn.tisson.common.LogicHelper;
-import cn.tisson.dbmgr.model.FansGroup;
-import cn.tisson.dbmgr.model.FansInfo;
-import cn.tisson.dbmgr.model.ServiceInfo;
-import cn.tisson.dbmgr.model.SubcEventRespMsg;
+import cn.tisson.dbmgr.model.*;
 import cn.tisson.dbmgr.service.FansInfoService;
 import cn.tisson.platform.protocol.bean.Event;
-import cn.tisson.platform.protocol.req.event.EventReqMsg;
-import cn.tisson.platform.protocol.req.event.ScanNotSubEventReqMsg;
-import cn.tisson.platform.protocol.req.event.SubEventReqMsg;
-import cn.tisson.platform.protocol.req.event.UnsubEventReqMsg;
+import cn.tisson.platform.protocol.req.event.*;
 import cn.tisson.platform.protocol.resp.BaseRespMsg;
 import cn.tisson.platform.protocol.resp.TextRespMsg;
 import cn.tisson.util.SpringContextUtil;
@@ -20,7 +14,6 @@ import org.jasic.util.ExceptionUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -38,7 +31,7 @@ public class EventReqProcessor extends AProcessor<EventReqMsg> {
     /**
      * 每个处理器，有且只有全局的一个排重的容器
      */
-    private static final Map<String,Object> EXCLUDE_DUPLICATE_MAP = new ConcurrentHashMap<String, Object>();
+    private static final Map<String, Object> EXCLUDE_DUPLICATE_MAP = new ConcurrentHashMap<String, Object>();
 
     @Override
     protected Map<String, Object> getExcludeDuplicate() {
@@ -93,6 +86,20 @@ public class EventReqProcessor extends AProcessor<EventReqMsg> {
             // 点击菜单
             case CLICK: {
 
+                MenuEventReqMsg menuEventReqMsg = (MenuEventReqMsg) msg;
+
+                String eventKey = menuEventReqMsg.getEventKey();
+                String fanId = menuEventReqMsg.getFromUserName();
+                String serviceId = menuEventReqMsg.getToUserName();
+
+                FansGroup fansGroup = super.matched(fanId, serviceId);
+
+                String cmdStr = eventKey;
+                CmdConfig cmd = LogicHelper.findCmdConfig(fansGroup.getId(), serviceId, cmdStr);
+
+                if (cmd != null && cmd.getCtype() != null) {
+                    respMsg = LogicHelper.getCmdResp(cmd, serviceId, fanId, cmdStr);
+                }
                 break;
             }
         }
@@ -108,13 +115,12 @@ public class EventReqProcessor extends AProcessor<EventReqMsg> {
      */
     private ServiceInfo saveSubscribeUser(SubEventReqMsg subMsg) {
         FansInfoService fansInfoService = SpringContextUtil.getBean(FansInfoService.class);
-        Map<String, ServiceInfo> serviceInfoMap = GlobalCaches.DB_CACHE_SERVICE_INFO;
         String fromUserName = subMsg.getFromUserName().trim();
         String toUserName = subMsg.getToUserName().trim();
         Long createTime = subMsg.getCreateTime();
         String ev = subMsg.getEvent().name().trim();
 
-        ServiceInfo serviceInfo = serviceInfoMap.get(toUserName);
+        ServiceInfo serviceInfo = super.SERVICE_INFO_MAP.get();
 
         if (serviceInfo == null) {
             logger.error("数据库不存在服务号[" + toUserName + "],请先添加服务号码信息!");
